@@ -1,0 +1,123 @@
+#ifndef GAME_OBJECT_H
+#define GAME_OBJECT_H
+
+#include "Transform.h"
+#include "Mesh.h"
+#include "Physics.h"
+#include <memory>
+#include <string>
+
+class Shader; // Forward declaration
+
+enum class GameObjectType {
+    STATIC_WALL,
+    PENDULUM,
+    CRUMBLING_TILE,
+    STALACTITE,
+    GEYSER,
+    COLLECTIBLE,
+    DOOR,
+    PEDESTAL
+};
+
+class GameObject {
+public:
+    Transform transform;
+    std::unique_ptr<Mesh> mesh;
+    GameObjectType type;
+    
+    glm::vec3 color;
+    float transparency; 
+    int materialType; // 0=None, 1=Brick, 2=Checkered, 3=Rock
+    bool isActive;
+    bool isTrigger;
+    
+    // Collision
+    AABB boundingBox;
+    Sphere boundingSphere;
+    bool useSphereCollision;
+    
+    GameObject(GameObjectType type);
+    virtual ~GameObject() = default;
+    
+    virtual void update(float deltaTime);
+    virtual void draw(Shader* shader);
+    virtual void onTrigger() {}
+    
+    void updateBoundingBox();
+    void updateBoundingSphere(float radius);
+};
+
+
+// Swinging Pendulum
+class Pendulum : public GameObject {
+public:
+    float swingAngle;
+    float swingSpeed;
+    float maxAngle;
+    glm::vec3 pivotPoint;
+    float length;
+    
+    Pendulum(const glm::vec3& pivot, float length);
+    void update(float deltaTime) override;
+    void draw(Shader* shader) override;
+};
+
+// Crumbling Tile
+class CrumblingTile : public GameObject {
+public:
+    bool isTriggered;
+    float shakeTimer;
+    float fallTimer;
+    glm::vec3 originalPosition;
+    bool hasFallen;
+    
+    CrumblingTile(const glm::vec3& position);
+    void update(float deltaTime) override;
+    void onTrigger() override;
+};
+
+// Falling Stalactite
+class Stalactite : public GameObject {
+public:
+    bool isFalling;
+    float fallSpeed;
+    glm::vec3 originalPosition;
+    
+    Stalactite(const glm::vec3& position);
+    void update(float deltaTime) override;
+    void onTrigger() override;
+};
+
+// Geyser Vent
+class Geyser : public GameObject {
+public:
+    float eruptTimer;
+    float eruptDuration;
+    float eruptInterval;
+    bool isErupting;
+    glm::vec3 pushForce;
+    
+    Geyser(const glm::vec3& position);
+    void update(float deltaTime) override;
+    void draw(Shader* shader) override;
+};
+
+// Collectible (Crystal/Gemstone)
+class Collectible : public GameObject {
+public:
+    float rotationSpeed;
+    float floatOffset;
+    float floatSpeed;
+    bool isCollected;
+    float collectAnimation;
+    glm::vec3 initialScale;
+    float shrinkSpeed;
+    
+    Collectible(const glm::vec3& position, const glm::vec3& color);
+    void update(float deltaTime) override;
+    void draw(Shader* shader) override;
+    void collect();
+};
+
+#endif

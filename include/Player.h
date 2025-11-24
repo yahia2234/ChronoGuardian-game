@@ -1,0 +1,58 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
+#include "Transform.h"
+#include "Mesh.h"
+#include "Physics.h"
+#include "ParticleSystem.h"
+#include <vector>
+#include <memory>
+
+class Player {
+public:
+    Transform transform;
+    Sphere collisionSphere;
+    
+    float moveSpeed;
+    float hoverHeight;
+    float bobSpeed;
+    float bobAmount;
+    
+    glm::vec3 velocity;
+    bool isFlashing;
+    float flashTimer;
+    
+    // Orbiting fragments
+    struct Fragment {
+        Transform transform;
+        float orbitRadius;
+        float orbitSpeed;
+        float orbitAngle;
+        std::unique_ptr<Mesh> mesh;
+    };
+    
+    std::vector<Fragment> fragments;
+    std::unique_ptr<Mesh> coreMesh;
+    std::unique_ptr<Mesh> headMesh; // New head component
+    
+    float fragmentRotationSpeed;
+    float currentBobOffset;
+    
+    Player();
+    ~Player();
+    
+    void update(float deltaTime, const glm::vec3& moveInput);
+    void draw(class Shader* shader);
+    
+    void onWallCollision(const glm::vec3& normal, ParticleSystem* particles);
+    void onObstacleHit(const glm::vec3& knockbackDir, ParticleSystem* particles);
+    
+    glm::vec3 getPosition() const { return transform.position; }
+    void setPosition(const glm::vec3& pos) { transform.position = pos; }
+    
+private:
+    void updateFragments(float deltaTime, float movementMagnitude);
+    void updateHoverAnimation(float deltaTime);
+};
+
+#endif
