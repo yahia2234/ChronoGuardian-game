@@ -209,7 +209,7 @@ void AudioManager::stopAllSounds() {
         alSourceStop(pair.second);
     }
 }
-
+//hello
 void AudioManager::setMasterVolume(float volume) {
     masterVolume = std::max(0.0f, std::min(1.0f, volume));
     for (auto& pair : sources) {
