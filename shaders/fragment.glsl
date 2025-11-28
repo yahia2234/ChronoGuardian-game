@@ -1,3 +1,23 @@
+#version 120
+
+varying vec3 FragPos;
+varying vec3 Normal;
+varying vec2 TexCoord;
+
+uniform vec3 viewPos;
+uniform vec3 objectColor;
+uniform float shininess;
+
+struct Light {
+    vec3 position;
+    vec3 color;
+    float intensity;
+};
+
+uniform Light lights[10];
+uniform int numLights;
+uniform vec3 ambientLight;
+
 uniform float transparency;
 uniform int materialType; // 0=None, 1=Brick, 2=Checkered, 3=Rock, 4=Organic
 uniform float time; // For animations
@@ -22,8 +42,9 @@ float noise(vec2 st) {
 void main() {
     // Transparency Dithering
     if (transparency < 0.95) {
-        bool pattern = (int(gl_FragCoord.x) % 2 == int(gl_FragCoord.y) % 2);
-        if (pattern) discard;
+        float px = mod(floor(gl_FragCoord.x), 2.0);
+        float py = mod(floor(gl_FragCoord.y), 2.0);
+        if (px == py) discard;
     }
 
     // Procedural Textures
@@ -143,7 +164,7 @@ void main() {
     final = totalLight * finalObjectColor + (result - ambient); // Add specular on top
     
     final = mix(fogColor, final, fogFactor);
-    FragColor = vec4(final, 1.0);
+    gl_FragColor = vec4(final, 1.0);
 }
 
 

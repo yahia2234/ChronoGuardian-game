@@ -98,10 +98,10 @@ void Level1::createMazeWalls() {
     // Platforms/Obstacles (Wooden Crates)
     glm::vec3 crateColor(0.6f, 0.4f, 0.25f); // Brown Wood
     
-    // High platforms for coins
-    createWall(glm::vec3(-25.0f, 3.0f, 0.0f), glm::vec3(3.0f, 6.0f, 3.0f), crateColor);
-    createWall(glm::vec3(25.0f, 3.0f, 0.0f), glm::vec3(3.0f, 6.0f, 3.0f), crateColor);
-    createWall(glm::vec3(0.0f, 4.0f, -20.0f), glm::vec3(4.0f, 8.0f, 4.0f), crateColor);
+    // High platforms for coins (lowered to be reachable)
+    createWall(glm::vec3(-25.0f, 2.0f, 0.0f), glm::vec3(3.0f, 4.0f, 3.0f), crateColor);
+    createWall(glm::vec3(25.0f, 2.0f, 0.0f), glm::vec3(3.0f, 4.0f, 3.0f), crateColor);
+    createWall(glm::vec3(0.0f, 2.5f, -20.0f), glm::vec3(4.0f, 5.0f, 4.0f), crateColor);
     
     // Steps
     createWall(glm::vec3(-20.0f, 1.0f, 0.0f), glm::vec3(2.0f, 2.0f, 2.0f), crateColor);
@@ -168,12 +168,12 @@ void Level1::createCollectible() {
     objects.push_back(std::move(c2));
     
     // 3. High Platform Left (Medium)
-    auto c3 = std::make_unique<Collectible>(glm::vec3(-25.0f, 7.5f, 0.0f), coinColor);
+    auto c3 = std::make_unique<Collectible>(glm::vec3(-25.0f, 5.0f, 0.0f), coinColor);
     c3->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f); c3->rotationSpeed = 6.0f;
     objects.push_back(std::move(c3));
     
     // 4. High Platform Right (Medium)
-    auto c4 = std::make_unique<Collectible>(glm::vec3(25.0f, 7.5f, 0.0f), coinColor);
+    auto c4 = std::make_unique<Collectible>(glm::vec3(25.0f, 5.0f, 0.0f), coinColor);
     c4->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f); c4->rotationSpeed = 6.0f;
     objects.push_back(std::move(c4));
     
@@ -183,7 +183,7 @@ void Level1::createCollectible() {
     objects.push_back(std::move(c5));
     
     // 6. Top of Central Fortress (Hard)
-    auto c6 = std::make_unique<Collectible>(glm::vec3(0.0f, 9.0f, -20.0f), coinColor);
+    auto c6 = std::make_unique<Collectible>(glm::vec3(0.0f, 6.5f, -20.0f), coinColor);
     c6->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f); c6->rotationSpeed = 6.0f;
     objects.push_back(std::move(c6));
     
@@ -218,7 +218,8 @@ void Level1::createForceFieldDoor() {
     door->transform.scale = glm::vec3(2.5f, 5.0f, 0.1f); // Slightly thinner than frame
     door->mesh.reset(Mesh::createCube(1.0f));
     door->color = glm::vec3(0.2f, 0.6f, 1.0f); // Glowing blue force field
-    door->transparency = 0.6f;
+    door->transparency = 0.2f; // More transparent to show it's open
+    door->isActive = false; // ALWAYS OPEN
     door->updateBoundingBox();
     
     forceFieldDoor = door.get();
@@ -240,9 +241,7 @@ void Level1::update(float deltaTime, Player* player, ParticleSystem* particles) 
                     
                     if (collectible == mainGem) {
                         hasCollectible = true;
-                        std::cout << "MAIN GEM COLLECTED! Door opening..." << std::endl;
-                        // Play Gem Collect Sound (if available, or reuse coin sound with lower pitch)
-                        // AudioManager::getInstance().playSound(SoundType::GEM_COLLECT); 
+                        std::cout << "MAIN GEM COLLECTED!" << std::endl;
                     } else {
                         shardsCollected++;
                         std::cout << "Coin collected! " << shardsCollected << "/" << totalShards << std::endl;
@@ -255,8 +254,6 @@ void Level1::update(float deltaTime, Player* player, ParticleSystem* particles) 
                             mainGemActive = true;
                             mainGem->isActive = true;
                             std::cout << "ALL COINS COLLECTED! Main Gem appeared!" << std::endl;
-                            // Play Spawn Sound
-                            // AudioManager::getInstance().playSound(SoundType::GEM_SPAWN);
                         }
                     }
                 }
@@ -266,19 +263,10 @@ void Level1::update(float deltaTime, Player* player, ParticleSystem* particles) 
 
     Level::update(deltaTime, player, particles);
     
-    // Check if main gem collected and deactivate force field
-    if (hasCollectible && forceFieldDoor && forceFieldDoor->isActive) {
-        forceFieldDoor->isActive = false;
-        std::cout << "Force field DEACTIVATED! Door is now open." << std::endl;
-        // Play Door Open Sound
-    }
-    
-    // Check if player reached the exit
-    if (hasCollectible && forceFieldDoor && !forceFieldDoor->isActive) {
-        // Trigger just past the door (door is at 28.0 now)
-        if (player->getPosition().z > 28.5f) {
-            levelComplete = true;
-            std::cout << "Level 1 COMPLETE!" << std::endl;
-        }
+    // Check if player reached the exit (Door is always open now)
+    // Trigger just past the door (door is at 28.0 now)
+    if (player->getPosition().z > 28.5f) {
+        levelComplete = true;
+        std::cout << "Level 1 COMPLETE!" << std::endl;
     }
 }

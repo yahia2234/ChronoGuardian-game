@@ -2,7 +2,11 @@
 #define GAME_H
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
 #include <memory>
 #include "Shader.h"
 #include "Camera.h"
@@ -23,12 +27,19 @@ public:
     Game();
     ~Game();
 
-    bool init();
+    bool init(int argc, char** argv);
     void run();
     void cleanup();
 
+    // GLUT callbacks (must be static)
+    static void displayCallback();
+    static void reshapeCallback(int width, int height);
+    static void timerCallback(int value);
+    static void idleCallback();
+
+    static Game* instance; // Singleton for GLUT callbacks
+
 private:
-    GLFWwindow* window;
     int screenWidth;
     int screenHeight;
 
@@ -44,6 +55,7 @@ private:
 
     float deltaTime;
     float lastFrame;
+    bool running;
 
     void processInput();
     void update();

@@ -7,17 +7,13 @@ Mesh::Mesh(const std::vector<Vertex>& verts, const std::vector<unsigned int>& in
 }
 
 Mesh::~Mesh() {
-    glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
 }
 
 void Mesh::setupMesh() {
-    glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
-
-    glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
@@ -25,25 +21,37 @@ void Mesh::setupMesh() {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
-    // Position
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-
-    // Normal
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
-
-    // TexCoord
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoord));
-
-    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 void Mesh::draw() const {
-    glBindVertexArray(VAO);
+    // Bind buffers and set up vertex attributes each time (no VAO)
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    
+    // Position attribute (location 0)
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+    
+    // Normal attribute (location 1)
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+    
+    // TexCoord attribute (location 2)
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoord));
+    
+    // Draw
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+    
+    // Cleanup
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(2);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 Mesh* Mesh::createCube(float size) {
@@ -191,6 +199,78 @@ Mesh* Mesh::createCylinder(float radius, float height, int sectors) {
         indices.push_back(k1 + 1);
         indices.push_back(k2);
         indices.push_back(k2 + 1);
+    }
+
+    return new Mesh(vertices, indices);
+}
+
+Mesh* Mesh::createCone(float radius, float height, int sectors) {
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+
+    float sectorStep = 2 * M_PI / sectors;
+    float halfHeight = height / 2.0f;
+
+    // Apex vertex
+    Vertex apex;
+    apex.position = glm::vec3(0.0f, halfHeight, 0.0f);
+    apex.normal = glm::vec3(0.0f, 1.0f, 0.0f); // Approximate up for apex
+    apex.texCoord = glm::vec2(0.5f, 1.0f);
+    vertices.push_back(apex);
+
+    // Base vertices
+    for (int i = 0; i <= sectors; ++i) {
+        float sectorAngle = i * sectorStep;
+        float x = radius * cosf(sectorAngle);
+        float z = radius * sinf(sectorAngle);
+
+        // Calculate normal for side
+        // Normal has horizontal component (x, z) and vertical component (radius/height)
+        glm::vec3 n = glm::vec3(x, radius * (radius / height), z);
+        n = glm::normalize(n);
+
+        Vertex v;
+        v.position = glm::vec3(x, -halfHeight, z);
+        v.normal = n;
+        v.texCoord = glm::vec2((float)i / sectors, 0.0f);
+        vertices.push_back(v);
+    }
+
+    // Indices for sides
+    for (int i = 0; i < sectors; ++i) {
+        indices.push_back(0); // Apex
+        indices.push_back(i + 1);
+        indices.push_back(i + 2);
+    }
+    
+    // Base cap
+    // Center of base
+    Vertex baseCenter;
+    baseCenter.position = glm::vec3(0.0f, -halfHeight, 0.0f);
+    baseCenter.normal = glm::vec3(0.0f, -1.0f, 0.0f);
+    baseCenter.texCoord = glm::vec2(0.5f, 0.5f);
+    int baseCenterIndex = vertices.size();
+    vertices.push_back(baseCenter);
+    
+    // Duplicate base vertices for flat shading on bottom
+    int baseStartIndex = vertices.size();
+    for (int i = 0; i <= sectors; ++i) {
+        float sectorAngle = i * sectorStep;
+        float x = radius * cosf(sectorAngle);
+        float z = radius * sinf(sectorAngle);
+        
+        Vertex v;
+        v.position = glm::vec3(x, -halfHeight, z);
+        v.normal = glm::vec3(0.0f, -1.0f, 0.0f);
+        v.texCoord = glm::vec2((float)i / sectors, 0.0f);
+        vertices.push_back(v);
+    }
+    
+    // Indices for base cap
+    for (int i = 0; i < sectors; ++i) {
+        indices.push_back(baseCenterIndex);
+        indices.push_back(baseStartIndex + i + 1);
+        indices.push_back(baseStartIndex + i);
     }
 
     return new Mesh(vertices, indices);

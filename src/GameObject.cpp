@@ -10,7 +10,12 @@ GameObject::GameObject(GameObjectType t)
 void GameObject::draw(Shader* shader) {
     if (!isActive || !mesh) return;
     
-    shader->setMat4("model", transform.getModelMatrix());
+    glm::mat4 model = transform.getModelMatrix();
+    shader->setMat4("model", model);
+    
+    // Calculate normal matrix for correct lighting with non-uniform scaling
+    glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(model)));
+    shader->setMat3("normalMatrix", normalMatrix);
     shader->setVec3("objectColor", color);
     shader->setFloat("transparency", transparency);
     shader->setInt("materialType", materialType); // Pass material type
@@ -123,19 +128,21 @@ Stalactite::Stalactite(const glm::vec3& position)
     
     transform.position = position;
     originalPosition = position;
-    transform.scale = glm::vec3(0.3f, 1.5f, 0.3f);
+    transform.scale = glm::vec3(1.0f, 1.0f, 1.0f); // Scale handled by cone dimensions
+    transform.rotation = glm::vec3(glm::radians(180.0f), 0.0f, 0.0f); // Point down
     
-    mesh.reset(Mesh::createCylinder(0.15f, 1.5f, 8));
+    // Create cone: radius 0.4, height 2.5
+    mesh.reset(Mesh::createCone(0.4f, 2.5f, 16));
     color = glm::vec3(0.4f, 0.35f, 0.3f); // Brown rock
     
-    updateBoundingSphere(0.3f);
+    updateBoundingSphere(0.4f);
     useSphereCollision = true;
 }
 
 void Stalactite::update(float deltaTime) {
     if (!isFalling) return;
     
-    fallSpeed += 9.8f * deltaTime; // Gravity
+    fallSpeed += 19.6f * deltaTime; // Gravity (2x faster)
     transform.position.y -= fallSpeed * deltaTime;
     
     if (transform.position.y < -10.0f) {
@@ -157,9 +164,9 @@ Geyser::Geyser(const glm::vec3& position)
       eruptDuration(2.0f), eruptInterval(5.0f), isErupting(false) {
     
     transform.position = position;
-    transform.scale = glm::vec3(0.8f, 0.1f, 0.8f);
+    transform.scale = glm::vec3(1.2f, 0.15f, 1.2f); // Reduced by half
     
-    mesh.reset(Mesh::createCylinder(0.4f, 0.1f, 16));
+    mesh.reset(Mesh::createCylinder(0.6f, 0.15f, 16)); // Smaller radius
     color = glm::vec3(0.25f, 0.2f, 0.2f); // Dark wet rock
     
     pushForce = glm::vec3(0.0f, 15.0f, 0.0f);
@@ -245,7 +252,13 @@ void Collectible::update(float deltaTime) {
 void Collectible::draw(Shader* shader) {
     if (!isActive) return;
     
-    shader->setMat4("model", transform.getModelMatrix());
+    glm::mat4 model = transform.getModelMatrix();
+    shader->setMat4("model", model);
+    
+    // Calculate normal matrix for proper lighting
+    glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(model)));
+    shader->setMat3("normalMatrix", normalMatrix);
+    
     shader->setVec3("objectColor", color);
     shader->setBool("useTexture", false);
     shader->setFloat("transparency", 1.0f);

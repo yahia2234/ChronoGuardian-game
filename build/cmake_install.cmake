@@ -1,4 +1,4 @@
-# Install script for directory: /Users/yahia/Desktop/acl proj
+# Install script for directory: /Users/minahossam/graphis proj/graphisss/ChronoGuardian-game
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,7 +40,7 @@ endif()
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/yahia/Desktop/acl proj/build/install_local_manifest.txt"
+  file(WRITE "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -56,6 +56,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/yahia/Desktop/acl proj/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

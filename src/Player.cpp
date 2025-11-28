@@ -85,11 +85,11 @@ void Player::update(float deltaTime, const glm::vec3& moveInput) {
     transform.position.z += velocity.z * deltaTime;
     
     // JUMP MECHANICS
-    // Check if grounded (close to hover height)
-    bool isGrounded = (transform.position.y <= hoverHeight + 0.1f);
+    // Check if grounded (vertical velocity is zero or player just landed)
+    bool isGrounded = (std::abs(velocity.y) < 0.1f && transform.position.y >= groundLevel);
     
     // Jump input (SPACE key)
-    if (Input::getInstance().isKeyJustPressed(GLFW_KEY_SPACE) && isGrounded) {
+    if (Input::getInstance().isKeyJustPressed(KEY_SPACE) && isGrounded) {
         velocity.y = 8.0f; // Jump force
     }
 

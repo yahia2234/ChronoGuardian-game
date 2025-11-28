@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <iostream>
 
-int main() {
+int main(int argc, char** argv) {
     std::cout << "====================================" << std::endl;
     std::cout << "    CHRONO GUARDIAN" << std::endl;
     std::cout << "    3D Puzzle Platformer" << std::endl;
@@ -10,13 +10,12 @@ int main() {
 
     Game game;
 
-    if (!game.init()) {
+    if (!game.init(argc, argv)) {
         std::cerr << "Failed to initialize game!" << std::endl;
         return -1;
     }
 
     game.run();
-    game.cleanup();
 
     return 0;
 }

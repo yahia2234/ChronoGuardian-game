@@ -7,31 +7,14 @@ ParticleSystem::ParticleSystem(int max) : maxParticles(max) {
 }
 
 ParticleSystem::~ParticleSystem() {
-    glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
 }
 
 void ParticleSystem::setupBuffers() {
-    glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
-
-    glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, maxParticles * sizeof(Particle), nullptr, GL_DYNAMIC_DRAW);
-
-    // Position
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Particle), (void*)offsetof(Particle, position));
-
-    // Color
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Particle), (void*)offsetof(Particle, color));
-
-    // Size
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(Particle), (void*)offsetof(Particle, size));
-
-    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void ParticleSystem::emit(const glm::vec3& position, const glm::vec3& velocity, 
@@ -99,9 +82,28 @@ void ParticleSystem::draw(const glm::mat4& view, const glm::mat4& projection) {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_PROGRAM_POINT_SIZE);
 
-    glBindVertexArray(VAO);
+    // Bind buffer and set up attributes (no VAO)
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    
+    // Position attribute (location 0)
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Particle), (void*)offsetof(Particle, position));
+    
+    // Color attribute (location 1)
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Particle), (void*)offsetof(Particle, color));
+    
+    // Size attribute (location 2)
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(Particle), (void*)offsetof(Particle, size));
+    
     glDrawArrays(GL_POINTS, 0, particles.size());
-    glBindVertexArray(0);
+    
+    // Cleanup
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(2);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glDisable(GL_PROGRAM_POINT_SIZE);
     glDisable(GL_BLEND);

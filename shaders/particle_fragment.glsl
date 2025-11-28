@@ -1,8 +1,6 @@
-#version 330 core
+#version 120
 
-out vec4 FragColor;
-
-in vec4 ParticleColor;
+varying vec4 ParticleColor;
 
 void main()
 {
@@ -11,5 +9,5 @@ void main()
     if(length(coord) > 0.5)
         discard;
     
-    FragColor = ParticleColor;
+    gl_FragColor = ParticleColor;
 }

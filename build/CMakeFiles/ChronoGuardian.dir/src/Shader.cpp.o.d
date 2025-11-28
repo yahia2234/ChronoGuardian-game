@@ -1,7 +1,7 @@
 CMakeFiles/ChronoGuardian.dir/src/Shader.cpp.o: \
-  /Users/yahia/Desktop/acl\ proj/src/Shader.cpp \
-  /Users/yahia/Desktop/acl\ proj/include/Shader.h \
-  /usr/local/include/GL/glew.h \
+  /Users/minahossam/graphis\ proj/graphisss/ChronoGuardian-game/src/Shader.cpp \
+  /Users/minahossam/graphis\ proj/graphisss/ChronoGuardian-game/include/Shader.h \
+  /opt/homebrew/include/GL/glew.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstddef \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__assert \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__config \
@@ -35,11 +35,11 @@ CMakeFiles/ChronoGuardian.dir/src/Shader.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_symbol_aliasing.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_posix_availability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_types.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/i386/_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_types.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_intptr_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/types.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/i386/types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int8_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int16_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int32_t.h \
@@ -54,8 +54,8 @@ CMakeFiles/ChronoGuardian.dir/src/Shader.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/availability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
-  /usr/local/include/glm/glm.hpp \
-  /usr/local/include/glm/detail/_fixes.hpp \
+  /opt/homebrew/include/glm/glm.hpp \
+  /opt/homebrew/include/glm/detail/_fixes.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cmath \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/math.h \
@@ -179,11 +179,11 @@ CMakeFiles/ChronoGuardian.dir/src/Shader.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/signal.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/appleapiopts.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/signal.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/i386/signal.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/signal.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/_mcontext.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/i386/_mcontext.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_mcontext.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/machine/_structs.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/i386/_structs.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach/arm/_structs.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_attr_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_sigaltstack.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_ucontext.h \
@@ -193,10 +193,11 @@ CMakeFiles/ChronoGuardian.dir/src/Shader.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/resource.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_timeval.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/endian.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/i386/endian.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/endian.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_endian.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libkern/_OSByteOrder.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libkern/i386/_OSByteOrder.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libkern/arm/OSByteOrder.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/arch.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/alloca.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_ct_rune_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_rune_t.h \
@@ -205,49 +206,49 @@ CMakeFiles/ChronoGuardian.dir/src/Shader.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_dev_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_mode_t.h \
-  /usr/local/include/glm/detail/setup.hpp \
+  /opt/homebrew/include/glm/detail/setup.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cassert \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/assert.h \
-  /usr/local/include/glm/detail/../simd/platform.h \
+  /opt/homebrew/include/glm/detail/../simd/platform.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/climits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include/limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/machine/limits.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/i386/limits.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/i386/_limits.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/limits.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/_limits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/syslimits.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cfloat \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/float.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include/float.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h \
-  /usr/local/include/glm/fwd.hpp \
-  /usr/local/include/glm/detail/qualifier.hpp \
-  /usr/local/include/glm/vec2.hpp \
-  /usr/local/include/glm/./ext/vector_bool2.hpp \
-  /usr/local/include/glm/./ext/../detail/type_vec2.hpp \
-  /usr/local/include/glm/detail/type_vec2.inl \
-  /usr/local/include/glm/detail/./compute_vector_relational.hpp \
-  /usr/local/include/glm/./ext/vector_bool2_precision.hpp \
-  /usr/local/include/glm/./ext/vector_float2.hpp \
-  /usr/local/include/glm/./ext/vector_float2_precision.hpp \
-  /usr/local/include/glm/./ext/vector_double2.hpp \
-  /usr/local/include/glm/./ext/vector_double2_precision.hpp \
-  /usr/local/include/glm/./ext/vector_int2.hpp \
-  /usr/local/include/glm/./ext/vector_int2_sized.hpp \
-  /usr/local/include/glm/./ext/../ext/vector_int2.hpp \
-  /usr/local/include/glm/./ext/../ext/scalar_int_sized.hpp \
-  /usr/local/include/glm/./ext/../detail/setup.hpp \
-  /usr/local/include/glm/./ext/vector_uint2.hpp \
-  /usr/local/include/glm/./ext/vector_uint2_sized.hpp \
-  /usr/local/include/glm/./ext/../ext/vector_uint2.hpp \
-  /usr/local/include/glm/./ext/../ext/scalar_uint_sized.hpp \
-  /usr/local/include/glm/vec3.hpp \
-  /usr/local/include/glm/./ext/vector_bool3.hpp \
-  /usr/local/include/glm/./ext/../detail/type_vec3.hpp \
-  /usr/local/include/glm/detail/type_vec3.inl \
-  /usr/local/include/glm/detail/compute_vector_relational.hpp \
-  /usr/local/include/glm/detail/compute_vector_decl.hpp \
+  /opt/homebrew/include/glm/fwd.hpp \
+  /opt/homebrew/include/glm/detail/qualifier.hpp \
+  /opt/homebrew/include/glm/vec2.hpp \
+  /opt/homebrew/include/glm/./ext/vector_bool2.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_vec2.hpp \
+  /opt/homebrew/include/glm/detail/type_vec2.inl \
+  /opt/homebrew/include/glm/detail/./compute_vector_relational.hpp \
+  /opt/homebrew/include/glm/./ext/vector_bool2_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_float2.hpp \
+  /opt/homebrew/include/glm/./ext/vector_float2_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_double2.hpp \
+  /opt/homebrew/include/glm/./ext/vector_double2_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_int2.hpp \
+  /opt/homebrew/include/glm/./ext/vector_int2_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/vector_int2.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/scalar_int_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/setup.hpp \
+  /opt/homebrew/include/glm/./ext/vector_uint2.hpp \
+  /opt/homebrew/include/glm/./ext/vector_uint2_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/vector_uint2.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/scalar_uint_sized.hpp \
+  /opt/homebrew/include/glm/vec3.hpp \
+  /opt/homebrew/include/glm/./ext/vector_bool3.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_vec3.hpp \
+  /opt/homebrew/include/glm/detail/type_vec3.inl \
+  /opt/homebrew/include/glm/detail/compute_vector_relational.hpp \
+  /opt/homebrew/include/glm/detail/compute_vector_decl.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/functional \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/search.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/comp.h \
@@ -703,123 +704,125 @@ CMakeFiles/ChronoGuardian.dir/src/Shader.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/pointer_to_binary_function.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/pointer_to_unary_function.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/unary_negate.h \
-  /usr/local/include/glm/detail/_vectorize.hpp \
-  /usr/local/include/glm/./ext/vector_bool3_precision.hpp \
-  /usr/local/include/glm/./ext/vector_float3.hpp \
-  /usr/local/include/glm/./ext/vector_float3_precision.hpp \
-  /usr/local/include/glm/./ext/vector_double3.hpp \
-  /usr/local/include/glm/./ext/vector_double3_precision.hpp \
-  /usr/local/include/glm/./ext/vector_int3.hpp \
-  /usr/local/include/glm/./ext/vector_int3_sized.hpp \
-  /usr/local/include/glm/./ext/../ext/vector_int3.hpp \
-  /usr/local/include/glm/./ext/vector_uint3.hpp \
-  /usr/local/include/glm/./ext/vector_uint3_sized.hpp \
-  /usr/local/include/glm/./ext/../ext/vector_uint3.hpp \
-  /usr/local/include/glm/vec4.hpp \
-  /usr/local/include/glm/./ext/vector_bool4.hpp \
-  /usr/local/include/glm/./ext/../detail/type_vec4.hpp \
-  /usr/local/include/glm/detail/type_vec4.inl \
-  /usr/local/include/glm/./ext/vector_bool4_precision.hpp \
-  /usr/local/include/glm/./ext/vector_float4.hpp \
-  /usr/local/include/glm/./ext/vector_float4_precision.hpp \
-  /usr/local/include/glm/./ext/vector_double4.hpp \
-  /usr/local/include/glm/./ext/vector_double4_precision.hpp \
-  /usr/local/include/glm/./ext/vector_int4.hpp \
-  /usr/local/include/glm/./ext/vector_int4_sized.hpp \
-  /usr/local/include/glm/./ext/../ext/vector_int4.hpp \
-  /usr/local/include/glm/./ext/vector_uint4.hpp \
-  /usr/local/include/glm/./ext/vector_uint4_sized.hpp \
-  /usr/local/include/glm/./ext/../ext/vector_uint4.hpp \
-  /usr/local/include/glm/mat2x2.hpp \
-  /usr/local/include/glm/./ext/matrix_double2x2.hpp \
-  /usr/local/include/glm/./ext/../detail/type_mat2x2.hpp \
-  /usr/local/include/glm/detail/type_vec2.hpp \
-  /usr/local/include/glm/detail/type_mat2x2.inl \
-  /usr/local/include/glm/detail/../matrix.hpp \
-  /usr/local/include/glm/mat2x3.hpp \
-  /usr/local/include/glm/./ext/matrix_double2x3.hpp \
-  /usr/local/include/glm/./ext/../detail/type_mat2x3.hpp \
-  /usr/local/include/glm/detail/type_vec3.hpp \
-  /usr/local/include/glm/detail/type_mat2x3.inl \
-  /usr/local/include/glm/./ext/matrix_double2x3_precision.hpp \
-  /usr/local/include/glm/./ext/matrix_float2x3.hpp \
-  /usr/local/include/glm/./ext/matrix_float2x3_precision.hpp \
-  /usr/local/include/glm/mat2x4.hpp \
-  /usr/local/include/glm/./ext/matrix_double2x4.hpp \
-  /usr/local/include/glm/./ext/../detail/type_mat2x4.hpp \
-  /usr/local/include/glm/detail/type_vec4.hpp \
-  /usr/local/include/glm/detail/type_mat2x4.inl \
-  /usr/local/include/glm/./ext/matrix_double2x4_precision.hpp \
-  /usr/local/include/glm/./ext/matrix_float2x4.hpp \
-  /usr/local/include/glm/./ext/matrix_float2x4_precision.hpp \
-  /usr/local/include/glm/mat3x2.hpp \
-  /usr/local/include/glm/./ext/matrix_double3x2.hpp \
-  /usr/local/include/glm/./ext/../detail/type_mat3x2.hpp \
-  /usr/local/include/glm/detail/type_mat3x2.inl \
-  /usr/local/include/glm/./ext/matrix_double3x2_precision.hpp \
-  /usr/local/include/glm/./ext/matrix_float3x2.hpp \
-  /usr/local/include/glm/./ext/matrix_float3x2_precision.hpp \
-  /usr/local/include/glm/mat3x3.hpp \
-  /usr/local/include/glm/./ext/matrix_double3x3.hpp \
-  /usr/local/include/glm/./ext/../detail/type_mat3x3.hpp \
-  /usr/local/include/glm/detail/type_mat3x3.inl \
-  /usr/local/include/glm/detail/../common.hpp \
-  /usr/local/include/glm/detail/func_common.inl \
-  /usr/local/include/glm/detail/../vector_relational.hpp \
-  /usr/local/include/glm/detail/func_vector_relational.inl \
-  /usr/local/include/glm/detail/compute_common.hpp \
-  /usr/local/include/glm/detail/type_vec1.hpp \
-  /usr/local/include/glm/detail/type_vec1.inl \
-  /usr/local/include/glm/./ext/matrix_double3x3_precision.hpp \
-  /usr/local/include/glm/./ext/matrix_float3x3.hpp \
-  /usr/local/include/glm/./ext/matrix_float3x3_precision.hpp \
-  /usr/local/include/glm/mat3x4.hpp \
-  /usr/local/include/glm/./ext/matrix_double3x4.hpp \
-  /usr/local/include/glm/./ext/../detail/type_mat3x4.hpp \
-  /usr/local/include/glm/detail/type_mat3x4.inl \
-  /usr/local/include/glm/./ext/matrix_double3x4_precision.hpp \
-  /usr/local/include/glm/./ext/matrix_float3x4.hpp \
-  /usr/local/include/glm/./ext/matrix_float3x4_precision.hpp \
-  /usr/local/include/glm/mat4x2.hpp \
-  /usr/local/include/glm/./ext/matrix_double4x2.hpp \
-  /usr/local/include/glm/./ext/../detail/type_mat4x2.hpp \
-  /usr/local/include/glm/detail/type_mat4x2.inl \
-  /usr/local/include/glm/./ext/matrix_double4x2_precision.hpp \
-  /usr/local/include/glm/./ext/matrix_float4x2.hpp \
-  /usr/local/include/glm/./ext/matrix_float4x2_precision.hpp \
-  /usr/local/include/glm/mat4x3.hpp \
-  /usr/local/include/glm/./ext/matrix_double4x3.hpp \
-  /usr/local/include/glm/./ext/../detail/type_mat4x3.hpp \
-  /usr/local/include/glm/detail/type_mat4x3.inl \
-  /usr/local/include/glm/./ext/matrix_double4x3_precision.hpp \
-  /usr/local/include/glm/./ext/matrix_float4x3.hpp \
-  /usr/local/include/glm/./ext/matrix_float4x3_precision.hpp \
-  /usr/local/include/glm/mat4x4.hpp \
-  /usr/local/include/glm/./ext/matrix_double4x4.hpp \
-  /usr/local/include/glm/./ext/../detail/type_mat4x4.hpp \
-  /usr/local/include/glm/detail/type_mat4x4.inl \
-  /usr/local/include/glm/detail/../geometric.hpp \
-  /usr/local/include/glm/detail/func_geometric.inl \
-  /usr/local/include/glm/detail/../exponential.hpp \
-  /usr/local/include/glm/detail/func_exponential.inl \
-  /usr/local/include/glm/./ext/matrix_double4x4_precision.hpp \
-  /usr/local/include/glm/./ext/matrix_float4x4.hpp \
-  /usr/local/include/glm/./ext/matrix_float4x4_precision.hpp \
-  /usr/local/include/glm/detail/func_matrix.inl \
-  /usr/local/include/glm/./ext/matrix_double2x2_precision.hpp \
-  /usr/local/include/glm/./ext/matrix_float2x2.hpp \
-  /usr/local/include/glm/./ext/matrix_float2x2_precision.hpp \
-  /usr/local/include/glm/trigonometric.hpp \
-  /usr/local/include/glm/detail/func_trigonometric.inl \
-  /usr/local/include/glm/exponential.hpp \
-  /usr/local/include/glm/common.hpp /usr/local/include/glm/packing.hpp \
-  /usr/local/include/glm/detail/func_packing.inl \
-  /usr/local/include/glm/detail/type_half.hpp \
-  /usr/local/include/glm/detail/type_half.inl \
-  /usr/local/include/glm/geometric.hpp /usr/local/include/glm/matrix.hpp \
-  /usr/local/include/glm/vector_relational.hpp \
-  /usr/local/include/glm/integer.hpp \
-  /usr/local/include/glm/detail/func_integer.inl \
+  /opt/homebrew/include/glm/detail/_vectorize.hpp \
+  /opt/homebrew/include/glm/./ext/vector_bool3_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_float3.hpp \
+  /opt/homebrew/include/glm/./ext/vector_float3_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_double3.hpp \
+  /opt/homebrew/include/glm/./ext/vector_double3_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_int3.hpp \
+  /opt/homebrew/include/glm/./ext/vector_int3_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/vector_int3.hpp \
+  /opt/homebrew/include/glm/./ext/vector_uint3.hpp \
+  /opt/homebrew/include/glm/./ext/vector_uint3_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/vector_uint3.hpp \
+  /opt/homebrew/include/glm/vec4.hpp \
+  /opt/homebrew/include/glm/./ext/vector_bool4.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_vec4.hpp \
+  /opt/homebrew/include/glm/detail/type_vec4.inl \
+  /opt/homebrew/include/glm/./ext/vector_bool4_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_float4.hpp \
+  /opt/homebrew/include/glm/./ext/vector_float4_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_double4.hpp \
+  /opt/homebrew/include/glm/./ext/vector_double4_precision.hpp \
+  /opt/homebrew/include/glm/./ext/vector_int4.hpp \
+  /opt/homebrew/include/glm/./ext/vector_int4_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/vector_int4.hpp \
+  /opt/homebrew/include/glm/./ext/vector_uint4.hpp \
+  /opt/homebrew/include/glm/./ext/vector_uint4_sized.hpp \
+  /opt/homebrew/include/glm/./ext/../ext/vector_uint4.hpp \
+  /opt/homebrew/include/glm/mat2x2.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double2x2.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat2x2.hpp \
+  /opt/homebrew/include/glm/detail/type_vec2.hpp \
+  /opt/homebrew/include/glm/detail/type_mat2x2.inl \
+  /opt/homebrew/include/glm/detail/../matrix.hpp \
+  /opt/homebrew/include/glm/mat2x3.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double2x3.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat2x3.hpp \
+  /opt/homebrew/include/glm/detail/type_vec3.hpp \
+  /opt/homebrew/include/glm/detail/type_mat2x3.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double2x3_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float2x3.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float2x3_precision.hpp \
+  /opt/homebrew/include/glm/mat2x4.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double2x4.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat2x4.hpp \
+  /opt/homebrew/include/glm/detail/type_vec4.hpp \
+  /opt/homebrew/include/glm/detail/type_mat2x4.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double2x4_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float2x4.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float2x4_precision.hpp \
+  /opt/homebrew/include/glm/mat3x2.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double3x2.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat3x2.hpp \
+  /opt/homebrew/include/glm/detail/type_mat3x2.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double3x2_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float3x2.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float3x2_precision.hpp \
+  /opt/homebrew/include/glm/mat3x3.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double3x3.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat3x3.hpp \
+  /opt/homebrew/include/glm/detail/type_mat3x3.inl \
+  /opt/homebrew/include/glm/detail/../common.hpp \
+  /opt/homebrew/include/glm/detail/func_common.inl \
+  /opt/homebrew/include/glm/detail/../vector_relational.hpp \
+  /opt/homebrew/include/glm/detail/func_vector_relational.inl \
+  /opt/homebrew/include/glm/detail/compute_common.hpp \
+  /opt/homebrew/include/glm/detail/type_vec1.hpp \
+  /opt/homebrew/include/glm/detail/type_vec1.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double3x3_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float3x3.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float3x3_precision.hpp \
+  /opt/homebrew/include/glm/mat3x4.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double3x4.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat3x4.hpp \
+  /opt/homebrew/include/glm/detail/type_mat3x4.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double3x4_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float3x4.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float3x4_precision.hpp \
+  /opt/homebrew/include/glm/mat4x2.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double4x2.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat4x2.hpp \
+  /opt/homebrew/include/glm/detail/type_mat4x2.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double4x2_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float4x2.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float4x2_precision.hpp \
+  /opt/homebrew/include/glm/mat4x3.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double4x3.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat4x3.hpp \
+  /opt/homebrew/include/glm/detail/type_mat4x3.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double4x3_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float4x3.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float4x3_precision.hpp \
+  /opt/homebrew/include/glm/mat4x4.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_double4x4.hpp \
+  /opt/homebrew/include/glm/./ext/../detail/type_mat4x4.hpp \
+  /opt/homebrew/include/glm/detail/type_mat4x4.inl \
+  /opt/homebrew/include/glm/detail/../geometric.hpp \
+  /opt/homebrew/include/glm/detail/func_geometric.inl \
+  /opt/homebrew/include/glm/detail/../exponential.hpp \
+  /opt/homebrew/include/glm/detail/func_exponential.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double4x4_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float4x4.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float4x4_precision.hpp \
+  /opt/homebrew/include/glm/detail/func_matrix.inl \
+  /opt/homebrew/include/glm/./ext/matrix_double2x2_precision.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float2x2.hpp \
+  /opt/homebrew/include/glm/./ext/matrix_float2x2_precision.hpp \
+  /opt/homebrew/include/glm/trigonometric.hpp \
+  /opt/homebrew/include/glm/detail/func_trigonometric.inl \
+  /opt/homebrew/include/glm/exponential.hpp \
+  /opt/homebrew/include/glm/common.hpp \
+  /opt/homebrew/include/glm/packing.hpp \
+  /opt/homebrew/include/glm/detail/func_packing.inl \
+  /opt/homebrew/include/glm/detail/type_half.hpp \
+  /opt/homebrew/include/glm/detail/type_half.inl \
+  /opt/homebrew/include/glm/geometric.hpp \
+  /opt/homebrew/include/glm/matrix.hpp \
+  /opt/homebrew/include/glm/vector_relational.hpp \
+  /opt/homebrew/include/glm/integer.hpp \
+  /opt/homebrew/include/glm/detail/func_integer.inl \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/string \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__ios/fpos.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__string/char_traits.h \

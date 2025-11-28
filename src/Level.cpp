@@ -109,6 +109,19 @@ void Level::checkCollisions(Player* player, ParticleSystem* particles) {
             if (obj->type == GameObjectType::PENDULUM) {
                 glm::vec3 knockback = glm::normalize(player->getPosition() - obj->transform.position);
                 player->onObstacleHit(knockback, particles);
+            } else if (obj->type == GameObjectType::STALACTITE) {
+                // If stalactite hits player while falling, it's a hazard
+                Stalactite* stal = dynamic_cast<Stalactite*>(obj.get());
+                if (stal && stal->isFalling) {
+                    std::cout << "Hit by falling stalactite!" << std::endl;
+                    // Apply pushback/knockback
+                    glm::vec3 knockback = glm::normalize(player->getPosition() - stal->transform.position);
+                    // Add some upward force too
+                    knockback.y = 0.5f; 
+                    knockback = glm::normalize(knockback);
+                    
+                    player->onObstacleHit(knockback, particles);
+                }
             }
         }
     }
@@ -180,7 +193,7 @@ void Level::createFloor(const glm::vec3& position, const glm::vec3& scale, const
     auto floor = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
     floor->transform.position = position;
     floor->transform.scale = scale;
-    floor->mesh.reset(Mesh::createPlane(scale.x, scale.z));
+    floor->mesh.reset(Mesh::createPlane(1.0f, 1.0f)); // Use unit plane, scale via transform
     floor->color = color;
     floor->updateBoundingBox();
     walls.push_back(std::move(floor));

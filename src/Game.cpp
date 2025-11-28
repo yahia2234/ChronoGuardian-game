@@ -5,38 +5,26 @@
 #include "AudioManager.h"
 #include <iostream>
 
+// Initialize static instance pointer
+Game* Game::instance = nullptr;
+
 Game::Game() 
-    : window(nullptr), screenWidth(1280), screenHeight(720),
+    : screenWidth(1280), screenHeight(720),
       gameState(GameState::LEVEL1), currentLevelIndex(0),
-      deltaTime(0.0f), lastFrame(0.0f) {
+      deltaTime(0.0f), lastFrame(0.0f), running(true) {
+    instance = this;
 }
 
 Game::~Game() {
     cleanup();
 }
 
-bool Game::init() {
-    // Initialize GLFW
-    if (!glfwInit()) {
-        std::cerr << "Failed to initialize GLFW" << std::endl;
-        return false;
-    }
-
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // For macOS
-
-    // Create window
-    window = glfwCreateWindow(screenWidth, screenHeight, "Chrono Guardian", nullptr, nullptr);
-    if (!window) {
-        std::cerr << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return false;
-    }
-
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1); // V-Sync
+bool Game::init(int argc, char** argv) {
+    // Initialize GLUT
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(screenWidth, screenHeight);
+    glutCreateWindow("Chrono Guardian");
 
     // Initialize GLEW
     glewExperimental = GL_TRUE;
@@ -49,13 +37,10 @@ bool Game::init() {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
-    glClearColor(0.2f, 0.3f, 0.4f, 1.0f); // Blue-grey background for better contrast
+    glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
 
     // Initialize input system
-    Input::getInstance().init(window);
-    
-    // Disable cursor for better mouse control
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    Input::getInstance().init();
 
     // Initialize audio system
     if (!AudioManager::getInstance().init()) {
@@ -80,52 +65,66 @@ bool Game::init() {
 
     std::cout << "Chrono Guardian - Controls:" << std::endl;
     std::cout << "  WASD - Move" << std::endl;
-    std::cout << "  SPACE - Jump" << std::endl;
     std::cout << "  Mouse - Look around" << std::endl;
     std::cout << "  T - Toggle camera view" << std::endl;
     std::cout << "  R - Restart level" << std::endl;
     std::cout << "  ESC - Quit" << std::endl;
 
+    // Register GLUT callbacks
+    glutDisplayFunc(displayCallback);
+    glutReshapeFunc(reshapeCallback);
+    glutIdleFunc(idleCallback);
+    glutTimerFunc(16, timerCallback, 0); // ~60 FPS
+
     return true;
 }
 
 void Game::run() {
-    while (!glfwWindowShouldClose(window)) {
-        float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
+    glutMainLoop();
+}
 
-        processInput();
-        update();
-        render();
-
-        glfwSwapBuffers(window);
-        
-        // Clear mouse delta AFTER it has been processed for this frame
-        Input::getInstance().clearMouseDelta();
-        
-        // Update input state for next frame (must be at END of loop)
-        Input::getInstance().update();
-        
-        glfwPollEvents();
+void Game::displayCallback() {
+    if (instance) {
+        instance->render();
     }
+}
 
+void Game::reshapeCallback(int width, int height) {
+    if (instance) {
+        instance->screenWidth = width;
+        instance->screenHeight = height;
+        glViewport(0, 0, width, height);
+    }
+}
+
+void Game::timerCallback(int value) {
+    if (instance) {
+        glutPostRedisplay();
+        glutTimerFunc(16, timerCallback, 0);
+    }
+}
+
+void Game::idleCallback() {
+    if (instance) {
+        instance->processInput();
+        instance->update();
+    }
 }
 
 void Game::processInput() {
     Input& input = Input::getInstance();
-    // Note: input.update() is now called at END of frame loop
 
-    if (input.isKeyPressed(GLFW_KEY_ESCAPE)) {
-        glfwSetWindowShouldClose(window, true);
+    if (input.isKeyPressed(KEY_ESC)) {
+        cleanup();
+        exit(0);
     }
 
-    if (input.isKeyJustPressed(GLFW_KEY_R)) {
+    if (input.isKeyJustPressed(KEY_R)) {
         restartLevel();
     }
 
-    // Camera toggle with T key
-    if (input.isKeyJustPressed(GLFW_KEY_T)) {
+    // Camera toggle with T key or Right Mouse Button
+    if (input.isKeyJustPressed(KEY_T) || input.isMouseButtonJustPressed(MOUSE_BUTTON_RIGHT)) {
         camera->toggleMode();
         std::cout << "Camera mode: " << (camera->mode == CameraMode::FIRST_PERSON ? "First Person" : "Third Person") << std::endl;
     }
@@ -135,21 +134,20 @@ void Game::processInput() {
     if (glm::length(mouseDelta) > 0.01f) {
         camera->processMouseMovement(mouseDelta.x, mouseDelta.y);
     }
+    
+    // Recenter mouse to prevent it from leaving window
+    glutWarpPointer(screenWidth / 2, screenHeight / 2);
 }
 
 void Game::update() {
+    // Calculate delta time
+    float currentFrame = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
+
     if (gameState == GameState::LEVEL1 || gameState == GameState::LEVEL2) {
         // Get movement input
         glm::vec3 moveInput = getMovementInput();
-
-        // Debug: Print player info every 60 frames
-        static int frameCount = 0;
-        frameCount++;
-        if (frameCount % 60 == 0) {
-            glm::vec3 pos = player->getPosition();
-            std::cout << "Player pos: (" << pos.x << ", " << pos.y << ", " << pos.z << ")" << std::endl;
-            std::cout << "Move input: (" << moveInput.x << ", " << moveInput.y << ", " << moveInput.z << ")" << std::endl;
-        }
 
         // Update player
         player->update(deltaTime, moveInput);
@@ -162,7 +160,7 @@ void Game::update() {
             
             // Camera Collision Check (Spring Arm)
             if (currentLevel) {
-                glm::vec3 targetPos = player->getPosition() + glm::vec3(0.0f, 1.0f, 0.0f); // Look at center
+                glm::vec3 targetPos = player->getPosition() + glm::vec3(0.0f, 1.0f, 0.0f);
                 currentLevel->checkCameraCollision(camera->position, targetPos);
             }
         }
@@ -186,8 +184,13 @@ void Game::update() {
             restartLevel();
         }
     }
+    
+    // Clear mouse delta AFTER processing
+    Input::getInstance().clearMouseDelta();
+    
+    // Update input state for next frame
+    Input::getInstance().update();
 }
-
 
 void Game::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -202,7 +205,7 @@ void Game::render() {
         mainShader->setMat4("projection", projection);
         mainShader->setMat4("view", view);
         mainShader->setVec3("viewPos", camera->position);
-        mainShader->setFloat("time", (float)glfwGetTime()); // Pass time for animations
+        mainShader->setFloat("time", glutGet(GLUT_ELAPSED_TIME) / 1000.0f);
 
         // Set lighting
         if (currentLevel) {
@@ -219,13 +222,14 @@ void Game::render() {
             player->draw(mainShader.get());
         }
 
-
         // Draw particles
         particleShader->use();
         particleShader->setMat4("projection", projection);
         particleShader->setMat4("view", view);
         particles->draw(view, projection);
     }
+
+    glutSwapBuffers();
 }
 
 void Game::loadLevel(int levelIndex) {
@@ -255,7 +259,6 @@ void Game::loadLevel(int levelIndex) {
     std::cout << "Number of walls: " << currentLevel->walls.size() << std::endl;
     std::cout << "Number of objects: " << currentLevel->objects.size() << std::endl;
 }
-
 
 void Game::restartLevel() {
     loadLevel(currentLevelIndex);
@@ -288,16 +291,16 @@ glm::vec3 Game::getMovementInput() {
         right = glm::normalize(right);
     }
 
-    if (input.isKeyPressed(GLFW_KEY_W)) {
+    if (input.isKeyPressed(KEY_W)) {
         moveInput += forward;
     }
-    if (input.isKeyPressed(GLFW_KEY_S)) {
+    if (input.isKeyPressed(KEY_S)) {
         moveInput -= forward;
     }
-    if (input.isKeyPressed(GLFW_KEY_A)) {
+    if (input.isKeyPressed(KEY_A)) {
         moveInput -= right;
     }
-    if (input.isKeyPressed(GLFW_KEY_D)) {
+    if (input.isKeyPressed(KEY_D)) {
         moveInput += right;
     }
 
@@ -309,12 +312,6 @@ glm::vec3 Game::getMovementInput() {
     return moveInput;
 }
 
-
 void Game::cleanup() {
     AudioManager::getInstance().cleanup();
-    
-    if (window) {
-        glfwDestroyWindow(window);
-        glfwTerminate();
-    }
 }

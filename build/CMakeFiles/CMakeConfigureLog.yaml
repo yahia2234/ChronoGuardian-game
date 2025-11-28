@@ -4,7 +4,7 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_UNAME"
@@ -20,45 +20,65 @@ events:
     names:
       - "uname"
     candidate_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     searched_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/uname"
+      - "/Users/minahossam/.antigravity/antigravity/bin/uname"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/uname"
+      - "/opt/homebrew/bin/uname"
+      - "/opt/homebrew/sbin/uname"
       - "/usr/local/bin/uname"
       - "/System/Cryptexes/App/usr/bin/uname"
     found: "/usr/bin/uname"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineSystem.cmake:212 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:212 (message)"
       - "CMakeLists.txt:2 (project)"
     message: |
-      The system is: Darwin - 22.6.0 - x86_64
+      The system is: Darwin - 22.5.0 - arm64
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeUnixFindMake.cmake:5 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeUnixFindMake.cmake:5 (find_program)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_MAKE_PROGRAM"
@@ -76,49 +96,76 @@ events:
       - "make"
       - "smake"
     candidate_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     searched_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/gmake"
+      - "/Users/minahossam/.antigravity/antigravity/bin/gmake"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/gmake"
+      - "/opt/homebrew/bin/gmake"
+      - "/opt/homebrew/sbin/gmake"
       - "/usr/local/bin/gmake"
       - "/System/Cryptexes/App/usr/bin/gmake"
       - "/usr/bin/gmake"
       - "/bin/gmake"
       - "/usr/sbin/gmake"
       - "/sbin/gmake"
+      - "/usr/local/share/dotnet/gmake"
+      - "/Users/minahossam/.dotnet/tools/gmake"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/gmake"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/gmake"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/gmake"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/make"
+      - "/Users/minahossam/.cabal/bin/gmake"
+      - "/Users/minahossam/.ghcup/bin/gmake"
+      - "/Users/minahossam/.antigravity/antigravity/bin/make"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/make"
+      - "/opt/homebrew/bin/make"
+      - "/opt/homebrew/sbin/make"
       - "/usr/local/bin/make"
       - "/System/Cryptexes/App/usr/bin/make"
     found: "/usr/bin/make"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompiler.cmake:73 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:64 (_cmake_find_compiler)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompiler.cmake:73 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:64 (_cmake_find_compiler)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_C_COMPILER"
@@ -140,42 +187,62 @@ events:
       - "icx"
       - "clang"
     candidate_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     searched_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/cc"
+      - "/Users/minahossam/.antigravity/antigravity/bin/cc"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/cc"
+      - "/opt/homebrew/bin/cc"
+      - "/opt/homebrew/sbin/cc"
       - "/usr/local/bin/cc"
       - "/System/Cryptexes/App/usr/bin/cc"
     found: "/usr/bin/cc"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:2 (project)"
     mode: "file"
     variable: "src_in"
@@ -191,27 +258,37 @@ events:
     names:
       - "CMakeCCompilerId.c.in"
     candidate_directories:
-      - "/usr/local/share/cmake/Modules/"
-    found: "/usr/local/share/cmake/Modules/CMakeCCompilerId.c.in"
+      - "/opt/homebrew/share/cmake/Modules/"
+    found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:2 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
@@ -226,20 +303,20 @@ events:
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
       
       The C compiler identification is AppleClang, found in:
-        /Users/yahia/Desktop/acl proj/build/CMakeFiles/4.2.0/CompilerIdC/a.out
+        /Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/4.2.0/CompilerIdC/a.out
       
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:290 (message)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:290 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:2 (project)"
     message: |
       Detecting C compiler apple sysroot: "/usr/bin/cc" "-E" "apple-sdk.c"
         # 1 "apple-sdk.c"
         # 1 "<built-in>" 1
         # 1 "<built-in>" 3
-        # 384 "<built-in>" 3
+        # 414 "<built-in>" 3
         # 1 "<command line>" 1
         # 1 "<built-in>" 2
         # 1 "apple-sdk.c" 2
@@ -259,8 +336,8 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_AR"
@@ -277,34 +354,51 @@ events:
       - "ar"
     candidate_directories:
       - "/usr/bin/"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     found: "/usr/bin/ar"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_RANLIB"
@@ -321,34 +415,51 @@ events:
       - "ranlib"
     candidate_directories:
       - "/usr/bin/"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     found: "/usr/bin/ranlib"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_STRIP"
@@ -365,34 +476,51 @@ events:
       - "strip"
     candidate_directories:
       - "/usr/bin/"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     found: "/usr/bin/strip"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_LINKER"
@@ -409,34 +537,51 @@ events:
       - "ld"
     candidate_directories:
       - "/usr/bin/"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     found: "/usr/bin/ld"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_NM"
@@ -453,34 +598,51 @@ events:
       - "nm"
     candidate_directories:
       - "/usr/bin/"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     found: "/usr/bin/nm"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_OBJDUMP"
@@ -497,34 +659,51 @@ events:
       - "objdump"
     candidate_directories:
       - "/usr/bin/"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     found: "/usr/bin/objdump"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_OBJCOPY"
@@ -541,45 +720,69 @@ events:
       - "objcopy"
     candidate_directories:
       - "/usr/bin/"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     searched_directories:
       - "/usr/bin/objcopy"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/objcopy"
+      - "/Users/minahossam/.antigravity/antigravity/bin/objcopy"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/objcopy"
+      - "/opt/homebrew/bin/objcopy"
+      - "/opt/homebrew/sbin/objcopy"
       - "/usr/local/bin/objcopy"
       - "/System/Cryptexes/App/usr/bin/objcopy"
       - "/bin/objcopy"
       - "/usr/sbin/objcopy"
       - "/sbin/objcopy"
+      - "/usr/local/share/dotnet/objcopy"
+      - "/Users/minahossam/.dotnet/tools/objcopy"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/objcopy"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/objcopy"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/objcopy"
+      - "/Users/minahossam/.cabal/bin/objcopy"
+      - "/Users/minahossam/.ghcup/bin/objcopy"
     found: false
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_READELF"
@@ -596,45 +799,69 @@ events:
       - "readelf"
     candidate_directories:
       - "/usr/bin/"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     searched_directories:
       - "/usr/bin/readelf"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/readelf"
+      - "/Users/minahossam/.antigravity/antigravity/bin/readelf"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/readelf"
+      - "/opt/homebrew/bin/readelf"
+      - "/opt/homebrew/sbin/readelf"
       - "/usr/local/bin/readelf"
       - "/System/Cryptexes/App/usr/bin/readelf"
       - "/bin/readelf"
       - "/usr/sbin/readelf"
       - "/sbin/readelf"
+      - "/usr/local/share/dotnet/readelf"
+      - "/Users/minahossam/.dotnet/tools/readelf"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/readelf"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/readelf"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/readelf"
+      - "/Users/minahossam/.cabal/bin/readelf"
+      - "/Users/minahossam/.ghcup/bin/readelf"
     found: false
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_DLLTOOL"
@@ -651,45 +878,69 @@ events:
       - "dlltool"
     candidate_directories:
       - "/usr/bin/"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     searched_directories:
       - "/usr/bin/dlltool"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/dlltool"
+      - "/Users/minahossam/.antigravity/antigravity/bin/dlltool"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/dlltool"
+      - "/opt/homebrew/bin/dlltool"
+      - "/opt/homebrew/sbin/dlltool"
       - "/usr/local/bin/dlltool"
       - "/System/Cryptexes/App/usr/bin/dlltool"
       - "/bin/dlltool"
       - "/usr/sbin/dlltool"
       - "/sbin/dlltool"
+      - "/usr/local/share/dotnet/dlltool"
+      - "/Users/minahossam/.dotnet/tools/dlltool"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/dlltool"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/dlltool"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/dlltool"
+      - "/Users/minahossam/.cabal/bin/dlltool"
+      - "/Users/minahossam/.ghcup/bin/dlltool"
     found: false
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_ADDR2LINE"
@@ -706,45 +957,69 @@ events:
       - "addr2line"
     candidate_directories:
       - "/usr/bin/"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     searched_directories:
       - "/usr/bin/addr2line"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/addr2line"
+      - "/Users/minahossam/.antigravity/antigravity/bin/addr2line"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/addr2line"
+      - "/opt/homebrew/bin/addr2line"
+      - "/opt/homebrew/sbin/addr2line"
       - "/usr/local/bin/addr2line"
       - "/System/Cryptexes/App/usr/bin/addr2line"
       - "/bin/addr2line"
       - "/usr/sbin/addr2line"
       - "/sbin/addr2line"
+      - "/usr/local/share/dotnet/addr2line"
+      - "/Users/minahossam/.dotnet/tools/addr2line"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/addr2line"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/addr2line"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/addr2line"
+      - "/Users/minahossam/.cabal/bin/addr2line"
+      - "/Users/minahossam/.ghcup/bin/addr2line"
     found: false
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_TAPI"
@@ -761,45 +1036,69 @@ events:
       - "tapi"
     candidate_directories:
       - "/usr/bin/"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     searched_directories:
       - "/usr/bin/tapi"
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/tapi"
+      - "/Users/minahossam/.antigravity/antigravity/bin/tapi"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/tapi"
+      - "/opt/homebrew/bin/tapi"
+      - "/opt/homebrew/sbin/tapi"
       - "/usr/local/bin/tapi"
       - "/System/Cryptexes/App/usr/bin/tapi"
       - "/bin/tapi"
       - "/usr/sbin/tapi"
       - "/sbin/tapi"
+      - "/usr/local/share/dotnet/tapi"
+      - "/Users/minahossam/.dotnet/tools/tapi"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/tapi"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/tapi"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/tapi"
+      - "/Users/minahossam/.cabal/bin/tapi"
+      - "/Users/minahossam/.ghcup/bin/tapi"
     found: false
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompiler.cmake:54 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:69 (_cmake_find_compiler)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompiler.cmake:54 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:69 (_cmake_find_compiler)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_CXX_COMPILER"
@@ -825,25 +1124,35 @@ events:
     found: "/usr/bin/c++"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:2 (project)"
     mode: "file"
     variable: "src_in"
@@ -859,27 +1168,37 @@ events:
     names:
       - "CMakeCXXCompilerId.cpp.in"
     candidate_directories:
-      - "/usr/local/share/cmake/Modules/"
-    found: "/usr/local/share/cmake/Modules/CMakeCXXCompilerId.cpp.in"
+      - "/opt/homebrew/share/cmake/Modules/"
+    found: "/opt/homebrew/share/cmake/Modules/CMakeCXXCompilerId.cpp.in"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:2 (project)"
     message: |
       Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
@@ -894,20 +1213,20 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
       
       The CXX compiler identification is AppleClang, found in:
-        /Users/yahia/Desktop/acl proj/build/CMakeFiles/4.2.0/CompilerIdCXX/a.out
+        /Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/4.2.0/CompilerIdCXX/a.out
       
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:290 (message)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake:290 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:2 (project)"
     message: |
       Detecting CXX compiler apple sysroot: "/usr/bin/c++" "-E" "apple-sdk.cpp"
         # 1 "apple-sdk.cpp"
         # 1 "<built-in>" 1
         # 1 "<built-in>" 3
-        # 398 "<built-in>" 3
+        # 428 "<built-in>" 3
         # 1 "<command line>" 1
         # 1 "<built-in>" 2
         # 1 "apple-sdk.cpp" 2
@@ -927,8 +1246,8 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/Platform/Darwin.cmake:76 (find_program)"
-      - "/usr/local/share/cmake/Modules/CMakeSystemSpecificInformation.cmake:32 (include)"
+      - "/opt/homebrew/share/cmake/Modules/Platform/Darwin.cmake:76 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeSystemSpecificInformation.cmake:32 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_INSTALL_NAME_TOOL"
@@ -944,46 +1263,66 @@ events:
     names:
       - "install_name_tool"
     candidate_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
     searched_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/install_name_tool"
+      - "/Users/minahossam/.antigravity/antigravity/bin/install_name_tool"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/install_name_tool"
+      - "/opt/homebrew/bin/install_name_tool"
+      - "/opt/homebrew/sbin/install_name_tool"
       - "/usr/local/bin/install_name_tool"
       - "/System/Cryptexes/App/usr/bin/install_name_tool"
     found: "/usr/bin/install_name_tool"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
       CMAKE_INSTALL_PREFIX: "/usr/local"
   -
     kind: "try_compile-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
-      - "/usr/local/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
       - "CMakeLists.txt:2 (project)"
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-1xwoqN"
-      binary: "/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-1xwoqN"
+      source: "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-wrgat5"
+      binary: "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-wrgat5"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -995,19 +1334,19 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-1xwoqN'
+        Change Dir: '/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-wrgat5'
         
-        Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d1015/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_d1015.dir/build.make CMakeFiles/cmTC_d1015.dir/build
-        Building C object CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o
-        /usr/bin/cc   -v -Wl,-v -MD -MT CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_800b4/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_800b4.dir/build.make CMakeFiles/cmTC_800b4.dir/build
+        Building C object CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o
+        /usr/bin/cc   -arch arm64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
         Apple clang version 14.0.3 (clang-1403.0.22.14.1)
-        Target: x86_64-apple-darwin22.6.0
+        Target: arm64-apple-darwin22.5.0
         Thread model: posix
         InstalledDir: /Library/Developer/CommandLineTools/usr/bin
         clang: warning: -Wl,-v: 'linker' input unused [-Wunused-command-line-argument]
-         "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple x86_64-apple-macosx13.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=2 -target-sdk-version=13.3 -fvisibility-inlines-hidden-static-local-var -target-cpu penryn -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=lldb -target-linker-version 857.1 -v "-fcoverage-compilation-dir=/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-1xwoqN" -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3 -dependency-file CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant "-fdebug-compilation-dir=/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-1xwoqN" -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -no-opaque-pointers -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -mllvm -disable-aligned-alloc-awareness=1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c
-        clang -cc1 version 14.0.3 (clang-1403.0.22.14.1) default target x86_64-apple-darwin22.6.0
+         "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx13.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=13.3 -fvisibility-inlines-hidden-static-local-var -target-cpu apple-m1 -target-feature +v8.5a -target-feature +crc -target-feature +lse -target-feature +rdm -target-feature +crypto -target-feature +dotprod -target-feature +fp-armv8 -target-feature +neon -target-feature +fp16fml -target-feature +ras -target-feature +rcpc -target-feature +zcm -target-feature +zcz -target-feature +fullfp16 -target-feature +sm4 -target-feature +sha3 -target-feature +sha2 -target-feature +aes -target-abi darwinpcs -fallow-half-arguments-and-returns -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=lldb -target-linker-version 857.1 -v "-fcoverage-compilation-dir=/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-wrgat5" -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3 -dependency-file CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant "-fdebug-compilation-dir=/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-wrgat5" -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -no-opaque-pointers -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -mllvm -disable-aligned-alloc-awareness=1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
+        clang -cc1 version 14.0.3 (clang-1403.0.22.14.1) default target arm64-apple-darwin22.5.0
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include"
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
         #include "..." search starts here:
@@ -1018,38 +1357,38 @@ events:
          /Library/Developer/CommandLineTools/usr/include
          /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)
         End of search list.
-        Linking C executable cmTC_d1015
-        /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d1015.dir/link.txt --verbose=1
+        Linking C executable cmTC_800b4
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_800b4.dir/link.txt --verbose=1
         Apple clang version 14.0.3 (clang-1403.0.22.14.1)
-        Target: x86_64-apple-darwin22.6.0
+        Target: arm64-apple-darwin22.5.0
         Thread model: posix
         InstalledDir: /Library/Developer/CommandLineTools/usr/bin
-         "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 13.0.0 13.3 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o cmTC_d1015 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/lib/darwin/libclang_rt.osx.a
+         "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 13.0.0 13.3 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o cmTC_800b4 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/lib/darwin/libclang_rt.osx.a
         @(#)PROGRAM:ld  PROJECT:ld64-857.1
-        BUILD 23:13:24 May  7 2023
+        BUILD 23:13:29 May  7 2023
         configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em
         Library search paths:
         	/usr/local/lib
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
         Framework search paths:
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/
-        /usr/bin/cc -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o -o cmTC_d1015
+        /usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o -o cmTC_800b4
         
       exitCode: 0
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:122 (message)"
-      - "/usr/local/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:122 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
       - "CMakeLists.txt:2 (project)"
     message: |
       Effective list of requested architectures (possibly empty)  : ""
-      Effective list of architectures found in the ABI info binary: "x86_64"
+      Effective list of architectures found in the ABI info binary: "arm64"
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
-      - "/usr/local/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
       - "CMakeLists.txt:2 (project)"
     message: |
       Parsed C implicit include dir info: rv=done
@@ -1070,26 +1409,26 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
-      - "/usr/local/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
       - "CMakeLists.txt:2 (project)"
     message: |
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-1xwoqN']
+        ignore line: [Change Dir: '/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-wrgat5']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d1015/fast]
-        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_d1015.dir/build.make CMakeFiles/cmTC_d1015.dir/build]
-        ignore line: [Building C object CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o]
-        ignore line: [/usr/bin/cc   -v -Wl -v -MD -MT CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_800b4/fast]
+        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_800b4.dir/build.make CMakeFiles/cmTC_800b4.dir/build]
+        ignore line: [Building C object CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/cc   -arch arm64   -v -Wl -v -MD -MT CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [Apple clang version 14.0.3 (clang-1403.0.22.14.1)]
-        ignore line: [Target: x86_64-apple-darwin22.6.0]
+        ignore line: [Target: arm64-apple-darwin22.5.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
         ignore line: [clang: warning: -Wl -v: 'linker' input unused [-Wunused-command-line-argument]]
-        ignore line: [ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple x86_64-apple-macosx13.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=2 -target-sdk-version=13.3 -fvisibility-inlines-hidden-static-local-var -target-cpu penryn -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=lldb -target-linker-version 857.1 -v "-fcoverage-compilation-dir=/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-1xwoqN" -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3 -dependency-file CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant "-fdebug-compilation-dir=/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-1xwoqN" -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -no-opaque-pointers -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -mllvm -disable-aligned-alloc-awareness=1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c]
-        ignore line: [clang -cc1 version 14.0.3 (clang-1403.0.22.14.1) default target x86_64-apple-darwin22.6.0]
+        ignore line: [ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx13.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=13.3 -fvisibility-inlines-hidden-static-local-var -target-cpu apple-m1 -target-feature +v8.5a -target-feature +crc -target-feature +lse -target-feature +rdm -target-feature +crypto -target-feature +dotprod -target-feature +fp-armv8 -target-feature +neon -target-feature +fp16fml -target-feature +ras -target-feature +rcpc -target-feature +zcm -target-feature +zcz -target-feature +fullfp16 -target-feature +sm4 -target-feature +sha3 -target-feature +sha2 -target-feature +aes -target-abi darwinpcs -fallow-half-arguments-and-returns -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=lldb -target-linker-version 857.1 -v "-fcoverage-compilation-dir=/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-wrgat5" -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3 -dependency-file CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant "-fdebug-compilation-dir=/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-wrgat5" -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -no-opaque-pointers -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -mllvm -disable-aligned-alloc-awareness=1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [clang -cc1 version 14.0.3 (clang-1403.0.22.14.1) default target arm64-apple-darwin22.5.0]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include"]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"]
         ignore line: [#include "..." search starts here:]
@@ -1100,20 +1439,20 @@ events:
         ignore line: [ /Library/Developer/CommandLineTools/usr/include]
         ignore line: [ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)]
         ignore line: [End of search list.]
-        ignore line: [Linking C executable cmTC_d1015]
-        ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d1015.dir/link.txt --verbose=1]
+        ignore line: [Linking C executable cmTC_800b4]
+        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_800b4.dir/link.txt --verbose=1]
         ignore line: [Apple clang version 14.0.3 (clang-1403.0.22.14.1)]
-        ignore line: [Target: x86_64-apple-darwin22.6.0]
+        ignore line: [Target: arm64-apple-darwin22.5.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
-        link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 13.0.0 13.3 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o cmTC_d1015 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/lib/darwin/libclang_rt.osx.a]
+        link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 13.0.0 13.3 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o cmTC_800b4 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/lib/darwin/libclang_rt.osx.a]
           arg [/Library/Developer/CommandLineTools/usr/bin/ld] ==> ignore
           arg [-demangle] ==> ignore
           arg [-lto_library] ==> ignore, skip following value
           arg [/Library/Developer/CommandLineTools/usr/lib/libLTO.dylib] ==> skip value of -lto_library
           arg [-dynamic] ==> ignore
           arg [-arch] ==> ignore
-          arg [x86_64] ==> ignore
+          arg [arm64] ==> ignore
           arg [-platform_version] ==> ignore
           arg [macos] ==> ignore
           arg [13.0.0] ==> ignore
@@ -1121,12 +1460,12 @@ events:
           arg [-syslibroot] ==> ignore
           arg [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_d1015] ==> ignore
+          arg [cmTC_800b4] ==> ignore
           arg [-L/usr/local/lib] ==> dir [/usr/local/lib]
           arg [-search_paths_first] ==> ignore
           arg [-headerpad_max_install_names] ==> ignore
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_d1015.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_800b4.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lSystem] ==> lib [System]
           arg [/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/lib/darwin/libclang_rt.osx.a] ==> lib [/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/lib/darwin/libclang_rt.osx.a]
         linker tool for 'C': /Library/Developer/CommandLineTools/usr/bin/ld
@@ -1147,28 +1486,28 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
-      - "/usr/local/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "/opt/homebrew/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
       - "CMakeLists.txt:2 (project)"
     message: |
       Running the C compiler's linker: "/Library/Developer/CommandLineTools/usr/bin/ld" "-v"
       @(#)PROGRAM:ld  PROJECT:ld64-857.1
-      BUILD 23:13:24 May  7 2023
+      BUILD 23:13:29 May  7 2023
       configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em
       LTO support using: LLVM version 14.0.3, (clang-1403.0.22.14.1) (static support for 29, runtime is 29)
       TAPI support using: Apple TAPI version 14.0.3 (tapi-1403.0.5.1)
   -
     kind: "try_compile-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
-      - "/usr/local/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
       - "CMakeLists.txt:2 (project)"
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-KA535w"
-      binary: "/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-KA535w"
+      source: "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-DegoNe"
+      binary: "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-DegoNe"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -1181,19 +1520,19 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-KA535w'
+        Change Dir: '/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-DegoNe'
         
-        Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_cbc24/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_cbc24.dir/build.make CMakeFiles/cmTC_cbc24.dir/build
-        Building CXX object CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o
-        /usr/bin/c++   -v -Wl,-v -MD -MT CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_93971/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_93971.dir/build.make CMakeFiles/cmTC_93971.dir/build
+        Building CXX object CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/c++   -arch arm64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         Apple clang version 14.0.3 (clang-1403.0.22.14.1)
-        Target: x86_64-apple-darwin22.6.0
+        Target: arm64-apple-darwin22.5.0
         Thread model: posix
         InstalledDir: /Library/Developer/CommandLineTools/usr/bin
         clang: warning: -Wl,-v: 'linker' input unused [-Wunused-command-line-argument]
-         "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple x86_64-apple-macosx13.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=2 -target-sdk-version=13.3 -fvisibility-inlines-hidden-static-local-var -target-cpu penryn -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=lldb -target-linker-version 857.1 -v "-fcoverage-compilation-dir=/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-KA535w" -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3 -dependency-file CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -stdlib=libc++ -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro "-fdebug-compilation-dir=/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-KA535w" -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -no-opaque-pointers -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -mllvm -disable-aligned-alloc-awareness=1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp
-        clang -cc1 version 14.0.3 (clang-1403.0.22.14.1) default target x86_64-apple-darwin22.6.0
+         "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx13.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=13.3 -fvisibility-inlines-hidden-static-local-var -target-cpu apple-m1 -target-feature +v8.5a -target-feature +crc -target-feature +lse -target-feature +rdm -target-feature +crypto -target-feature +dotprod -target-feature +fp-armv8 -target-feature +neon -target-feature +fp16fml -target-feature +ras -target-feature +rcpc -target-feature +zcm -target-feature +zcz -target-feature +fullfp16 -target-feature +sm4 -target-feature +sha3 -target-feature +sha2 -target-feature +aes -target-abi darwinpcs -fallow-half-arguments-and-returns -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=lldb -target-linker-version 857.1 -v "-fcoverage-compilation-dir=/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-DegoNe" -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3 -dependency-file CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -stdlib=libc++ -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro "-fdebug-compilation-dir=/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-DegoNe" -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -no-opaque-pointers -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -mllvm -disable-aligned-alloc-awareness=1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        clang -cc1 version 14.0.3 (clang-1403.0.22.14.1) default target arm64-apple-darwin22.5.0
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include"
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
         #include "..." search starts here:
@@ -1205,38 +1544,38 @@ events:
          /Library/Developer/CommandLineTools/usr/include
          /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)
         End of search list.
-        Linking CXX executable cmTC_cbc24
-        /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cbc24.dir/link.txt --verbose=1
+        Linking CXX executable cmTC_93971
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_93971.dir/link.txt --verbose=1
         Apple clang version 14.0.3 (clang-1403.0.22.14.1)
-        Target: x86_64-apple-darwin22.6.0
+        Target: arm64-apple-darwin22.5.0
         Thread model: posix
         InstalledDir: /Library/Developer/CommandLineTools/usr/bin
-         "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 13.0.0 13.3 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o cmTC_cbc24 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/lib/darwin/libclang_rt.osx.a
+         "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 13.0.0 13.3 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o cmTC_93971 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/lib/darwin/libclang_rt.osx.a
         @(#)PROGRAM:ld  PROJECT:ld64-857.1
-        BUILD 23:13:24 May  7 2023
+        BUILD 23:13:29 May  7 2023
         configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em
         Library search paths:
         	/usr/local/lib
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
         Framework search paths:
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/
-        /usr/bin/c++ -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_cbc24
+        /usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_93971
         
       exitCode: 0
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:122 (message)"
-      - "/usr/local/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:122 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
       - "CMakeLists.txt:2 (project)"
     message: |
       Effective list of requested architectures (possibly empty)  : ""
-      Effective list of architectures found in the ABI info binary: "x86_64"
+      Effective list of architectures found in the ABI info binary: "arm64"
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
-      - "/usr/local/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
       - "CMakeLists.txt:2 (project)"
     message: |
       Parsed CXX implicit include dir info: rv=done
@@ -1259,26 +1598,26 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
-      - "/usr/local/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
       - "CMakeLists.txt:2 (project)"
     message: |
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-KA535w']
+        ignore line: [Change Dir: '/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-DegoNe']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_cbc24/fast]
-        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_cbc24.dir/build.make CMakeFiles/cmTC_cbc24.dir/build]
-        ignore line: [Building CXX object CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o]
-        ignore line: [/usr/bin/c++   -v -Wl -v -MD -MT CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_93971/fast]
+        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_93971.dir/build.make CMakeFiles/cmTC_93971.dir/build]
+        ignore line: [Building CXX object CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/c++   -arch arm64   -v -Wl -v -MD -MT CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Apple clang version 14.0.3 (clang-1403.0.22.14.1)]
-        ignore line: [Target: x86_64-apple-darwin22.6.0]
+        ignore line: [Target: arm64-apple-darwin22.5.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
         ignore line: [clang: warning: -Wl -v: 'linker' input unused [-Wunused-command-line-argument]]
-        ignore line: [ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple x86_64-apple-macosx13.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=2 -target-sdk-version=13.3 -fvisibility-inlines-hidden-static-local-var -target-cpu penryn -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=lldb -target-linker-version 857.1 -v "-fcoverage-compilation-dir=/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-KA535w" -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3 -dependency-file CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -stdlib=libc++ -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro "-fdebug-compilation-dir=/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-KA535w" -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -no-opaque-pointers -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -mllvm -disable-aligned-alloc-awareness=1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
-        ignore line: [clang -cc1 version 14.0.3 (clang-1403.0.22.14.1) default target x86_64-apple-darwin22.6.0]
+        ignore line: [ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx13.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=13.3 -fvisibility-inlines-hidden-static-local-var -target-cpu apple-m1 -target-feature +v8.5a -target-feature +crc -target-feature +lse -target-feature +rdm -target-feature +crypto -target-feature +dotprod -target-feature +fp-armv8 -target-feature +neon -target-feature +fp16fml -target-feature +ras -target-feature +rcpc -target-feature +zcm -target-feature +zcz -target-feature +fullfp16 -target-feature +sm4 -target-feature +sha3 -target-feature +sha2 -target-feature +aes -target-abi darwinpcs -fallow-half-arguments-and-returns -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=lldb -target-linker-version 857.1 -v "-fcoverage-compilation-dir=/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-DegoNe" -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3 -dependency-file CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -stdlib=libc++ -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro "-fdebug-compilation-dir=/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/CMakeScratch/TryCompile-DegoNe" -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -no-opaque-pointers -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -mllvm -disable-aligned-alloc-awareness=1 -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang -cc1 version 14.0.3 (clang-1403.0.22.14.1) default target arm64-apple-darwin22.5.0]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include"]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"]
         ignore line: [#include "..." search starts here:]
@@ -1290,20 +1629,20 @@ events:
         ignore line: [ /Library/Developer/CommandLineTools/usr/include]
         ignore line: [ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)]
         ignore line: [End of search list.]
-        ignore line: [Linking CXX executable cmTC_cbc24]
-        ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cbc24.dir/link.txt --verbose=1]
+        ignore line: [Linking CXX executable cmTC_93971]
+        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_93971.dir/link.txt --verbose=1]
         ignore line: [Apple clang version 14.0.3 (clang-1403.0.22.14.1)]
-        ignore line: [Target: x86_64-apple-darwin22.6.0]
+        ignore line: [Target: arm64-apple-darwin22.5.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
-        link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 13.0.0 13.3 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o cmTC_cbc24 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/lib/darwin/libclang_rt.osx.a]
+        link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 13.0.0 13.3 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o cmTC_93971 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/lib/darwin/libclang_rt.osx.a]
           arg [/Library/Developer/CommandLineTools/usr/bin/ld] ==> ignore
           arg [-demangle] ==> ignore
           arg [-lto_library] ==> ignore, skip following value
           arg [/Library/Developer/CommandLineTools/usr/lib/libLTO.dylib] ==> skip value of -lto_library
           arg [-dynamic] ==> ignore
           arg [-arch] ==> ignore
-          arg [x86_64] ==> ignore
+          arg [arm64] ==> ignore
           arg [-platform_version] ==> ignore
           arg [macos] ==> ignore
           arg [13.0.0] ==> ignore
@@ -1311,12 +1650,12 @@ events:
           arg [-syslibroot] ==> ignore
           arg [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_cbc24] ==> ignore
+          arg [cmTC_93971] ==> ignore
           arg [-L/usr/local/lib] ==> dir [/usr/local/lib]
           arg [-search_paths_first] ==> ignore
           arg [-headerpad_max_install_names] ==> ignore
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_cbc24.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_93971.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lc++] ==> lib [c++]
           arg [-lSystem] ==> lib [System]
           arg [/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/lib/darwin/libclang_rt.osx.a] ==> lib [/Library/Developer/CommandLineTools/usr/lib/clang/14.0.3/lib/darwin/libclang_rt.osx.a]
@@ -1338,21 +1677,21 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
-      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
-      - "/usr/local/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "/opt/homebrew/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
       - "CMakeLists.txt:2 (project)"
     message: |
       Running the CXX compiler's linker: "/Library/Developer/CommandLineTools/usr/bin/ld" "-v"
       @(#)PROGRAM:ld  PROJECT:ld64-857.1
-      BUILD 23:13:24 May  7 2023
+      BUILD 23:13:29 May  7 2023
       configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em
       LTO support using: LLVM version 14.0.3, (clang-1403.0.22.14.1) (static support for 29, runtime is 29)
       TAPI support using: Apple TAPI version 14.0.3 (tapi-1403.0.5.1)
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/FindOpenGL.cmake:356 (find_library)"
+      - "/opt/homebrew/share/cmake/Modules/FindOpenGL.cmake:356 (find_library)"
       - "CMakeLists.txt:8 (find_package)"
     mode: "library"
     variable: "OPENGL_gl_LIBRARY"
@@ -1369,15 +1708,22 @@ events:
       - "OpenGL"
       - "GL"
     candidate_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.ghcup/bin/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
+      - "/opt/homebrew/lib/"
+      - "/opt/homebrew/"
       - "/usr/local/lib/"
       - "/usr/local/"
       - "/usr/lib/"
@@ -1390,25 +1736,35 @@ events:
     found: "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr"
         - "/"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr/X11R6"
         - "/usr/pkg"
@@ -1430,7 +1786,7 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/FindOpenGL.cmake:358 (find_library)"
+      - "/opt/homebrew/share/cmake/Modules/FindOpenGL.cmake:358 (find_library)"
       - "CMakeLists.txt:8 (find_package)"
     mode: "library"
     variable: "OPENGL_glu_LIBRARY"
@@ -1447,15 +1803,22 @@ events:
       - "OpenGL"
       - "GLU"
     candidate_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.ghcup/bin/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
+      - "/opt/homebrew/lib/"
+      - "/opt/homebrew/"
       - "/usr/local/lib/"
       - "/usr/local/"
       - "/usr/lib/"
@@ -1468,25 +1831,35 @@ events:
     found: "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr"
         - "/"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr/X11R6"
         - "/usr/pkg"
@@ -1508,7 +1881,7 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/FindOpenGL.cmake:360 (find_path)"
+      - "/opt/homebrew/share/cmake/Modules/FindOpenGL.cmake:360 (find_path)"
       - "CMakeLists.txt:8 (find_package)"
     mode: "path"
     variable: "OPENGL_INCLUDE_DIR"
@@ -1525,18 +1898,27 @@ events:
       - "OpenGL/gl.h"
       - "GL/gl.h"
     candidate_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
+      - "/opt/homebrew/include/"
+      - "/opt/homebrew/"
       - "/usr/local/include/"
       - "/usr/local/"
       - "/usr/include/"
@@ -1553,7 +1935,7 @@ events:
       - "/opt/local/include/"
       - "/opt/local/"
       - "/usr/include/X11/"
-      - "/Users/yahia/Library/Frameworks/"
+      - "/Users/minahossam/Library/Frameworks/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/"
@@ -1562,18 +1944,27 @@ events:
       - "/Network/Library/Frameworks/"
       - "/System/Library/Frameworks/"
     searched_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/OpenGL.framework/Headers/gl.h"
+      - "/Users/minahossam/.antigravity/antigravity/bin/OpenGL.framework/Headers/gl.h"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/OpenGL.framework/Headers/gl.h"
+      - "/opt/homebrew/bin/OpenGL.framework/Headers/gl.h"
+      - "/opt/homebrew/sbin/OpenGL.framework/Headers/gl.h"
       - "/usr/local/bin/OpenGL.framework/Headers/gl.h"
       - "/System/Cryptexes/App/usr/bin/OpenGL.framework/Headers/gl.h"
       - "/usr/bin/OpenGL.framework/Headers/gl.h"
       - "/bin/OpenGL.framework/Headers/gl.h"
       - "/usr/sbin/OpenGL.framework/Headers/gl.h"
       - "/sbin/OpenGL.framework/Headers/gl.h"
+      - "/usr/local/share/dotnet/OpenGL.framework/Headers/gl.h"
+      - "/Users/minahossam/.dotnet/tools/OpenGL.framework/Headers/gl.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/OpenGL.framework/Headers/gl.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/OpenGL.framework/Headers/gl.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/OpenGL.framework/Headers/gl.h"
+      - "/Users/minahossam/.cabal/bin/OpenGL.framework/Headers/gl.h"
+      - "/Users/minahossam/.ghcup/bin/OpenGL.framework/Headers/gl.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/OpenGL.framework/Headers/gl.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/OpenGL.framework/Headers/gl.h"
+      - "/opt/homebrew/include/OpenGL.framework/Headers/gl.h"
+      - "/opt/homebrew/OpenGL.framework/Headers/gl.h"
       - "/usr/local/include/OpenGL.framework/Headers/gl.h"
       - "/usr/local/OpenGL.framework/Headers/gl.h"
       - "/usr/include/OpenGL.framework/Headers/gl.h"
@@ -1590,31 +1981,41 @@ events:
       - "/opt/local/include/OpenGL.framework/Headers/gl.h"
       - "/opt/local/OpenGL.framework/Headers/gl.h"
       - "/usr/include/X11/OpenGL.framework/Headers/gl.h"
-      - "/Users/yahia/Library/Frameworks/OpenGL.framework/Headers/gl.h"
+      - "/Users/minahossam/Library/Frameworks/OpenGL.framework/Headers/gl.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks/OpenGL.framework/Headers/gl.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks/OpenGL.framework/Headers/gl.h"
     found: "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr"
         - "/"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr/X11R6"
         - "/usr/pkg"
@@ -1636,7 +2037,7 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/FindOpenGL.cmake:362 (find_path)"
+      - "/opt/homebrew/share/cmake/Modules/FindOpenGL.cmake:362 (find_path)"
       - "CMakeLists.txt:8 (find_package)"
     mode: "path"
     variable: "OPENGL_GLU_INCLUDE_DIR"
@@ -1653,18 +2054,27 @@ events:
       - "OpenGL/glu.h"
       - "GL/glu.h"
     candidate_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
       - "/usr/bin/"
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
+      - "/opt/homebrew/include/"
+      - "/opt/homebrew/"
       - "/usr/local/include/"
       - "/usr/local/"
       - "/usr/include/"
@@ -1681,7 +2091,7 @@ events:
       - "/opt/local/include/"
       - "/opt/local/"
       - "/usr/include/X11/"
-      - "/Users/yahia/Library/Frameworks/"
+      - "/Users/minahossam/Library/Frameworks/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/"
@@ -1690,18 +2100,27 @@ events:
       - "/Network/Library/Frameworks/"
       - "/System/Library/Frameworks/"
     searched_directories:
-      - "/Library/Frameworks/Python.framework/Versions/3.13/bin/OpenGL.framework/Headers/glu.h"
+      - "/Users/minahossam/.antigravity/antigravity/bin/OpenGL.framework/Headers/glu.h"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/OpenGL.framework/Headers/glu.h"
+      - "/opt/homebrew/bin/OpenGL.framework/Headers/glu.h"
+      - "/opt/homebrew/sbin/OpenGL.framework/Headers/glu.h"
       - "/usr/local/bin/OpenGL.framework/Headers/glu.h"
       - "/System/Cryptexes/App/usr/bin/OpenGL.framework/Headers/glu.h"
       - "/usr/bin/OpenGL.framework/Headers/glu.h"
       - "/bin/OpenGL.framework/Headers/glu.h"
       - "/usr/sbin/OpenGL.framework/Headers/glu.h"
       - "/sbin/OpenGL.framework/Headers/glu.h"
+      - "/usr/local/share/dotnet/OpenGL.framework/Headers/glu.h"
+      - "/Users/minahossam/.dotnet/tools/OpenGL.framework/Headers/glu.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/OpenGL.framework/Headers/glu.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/OpenGL.framework/Headers/glu.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/OpenGL.framework/Headers/glu.h"
+      - "/Users/minahossam/.cabal/bin/OpenGL.framework/Headers/glu.h"
+      - "/Users/minahossam/.ghcup/bin/OpenGL.framework/Headers/glu.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/OpenGL.framework/Headers/glu.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/OpenGL.framework/Headers/glu.h"
+      - "/opt/homebrew/include/OpenGL.framework/Headers/glu.h"
+      - "/opt/homebrew/OpenGL.framework/Headers/glu.h"
       - "/usr/local/include/OpenGL.framework/Headers/glu.h"
       - "/usr/local/OpenGL.framework/Headers/glu.h"
       - "/usr/include/OpenGL.framework/Headers/glu.h"
@@ -1718,31 +2137,41 @@ events:
       - "/opt/local/include/OpenGL.framework/Headers/glu.h"
       - "/opt/local/OpenGL.framework/Headers/glu.h"
       - "/usr/include/X11/OpenGL.framework/Headers/glu.h"
-      - "/Users/yahia/Library/Frameworks/OpenGL.framework/Headers/glu.h"
+      - "/Users/minahossam/Library/Frameworks/OpenGL.framework/Headers/glu.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks/OpenGL.framework/Headers/glu.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks/OpenGL.framework/Headers/glu.h"
     found: "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr"
         - "/"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr/X11R6"
         - "/usr/pkg"
@@ -1762,133 +2191,488 @@ events:
         - "/Network/Library/Frameworks"
         - "/System/Library/Frameworks"
   -
-    kind: "try_compile-v1"
+    kind: "find-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
-      - "/usr/local/share/cmake/Modules/CheckCSourceCompiles.cmake:103 (cmake_check_source_compiles)"
-      - "/usr/local/share/cmake/Modules/FindThreads.cmake:160 (check_c_source_compiles)"
-      - "/usr/local/share/cmake/Modules/FindThreads.cmake:226 (_threads_check_libc)"
-      - "/usr/local/share/cmake/Modules/CMakeFindDependencyMacro.cmake:93 (find_package)"
-      - "/usr/local/share/cmake/Modules/CMakeFindDependencyMacro.cmake:125 (__find_dependency_common)"
-      - "/usr/local/lib/cmake/glfw3/glfw3Config.cmake:2 (find_dependency)"
+      - "/opt/homebrew/share/cmake/Modules/FindPkgConfig.cmake:517 (find_program)"
+      - "/opt/homebrew/share/cmake/Modules/FindGLUT.cmake:79 (find_package)"
       - "CMakeLists.txt:9 (find_package)"
-    checks:
-      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
-    directories:
-      source: "/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-YLXpLa"
-      binary: "/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-YLXpLa"
-    cmakeVariables:
-      CMAKE_C_FLAGS: ""
-      CMAKE_C_FLAGS_DEBUG: "-g"
-      CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_OSX_ARCHITECTURES: ""
-      CMAKE_OSX_DEPLOYMENT_TARGET: ""
-      CMAKE_OSX_SYSROOT: ""
-    buildResult:
-      variable: "CMAKE_HAVE_LIBC_PTHREAD"
-      cached: true
-      stdout: |
-        Change Dir: '/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-YLXpLa'
-        
-        Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_4fbf6/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_4fbf6.dir/build.make CMakeFiles/cmTC_4fbf6.dir/build
-        Building C object CMakeFiles/cmTC_4fbf6.dir/src.c.o
-        /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -MD -MT CMakeFiles/cmTC_4fbf6.dir/src.c.o -MF CMakeFiles/cmTC_4fbf6.dir/src.c.o.d -o CMakeFiles/cmTC_4fbf6.dir/src.c.o -c "/Users/yahia/Desktop/acl proj/build/CMakeFiles/CMakeScratch/TryCompile-YLXpLa/src.c"
-        Linking C executable cmTC_4fbf6
-        /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4fbf6.dir/link.txt --verbose=1
-        /usr/bin/cc -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_4fbf6.dir/src.c.o -o cmTC_4fbf6
-        
-      exitCode: 0
-  -
-    kind: "find_package-v1"
-    backtrace:
-      - "CMakeLists.txt:9 (find_package)"
-    name: "glfw3"
-    configs:
-      -
-        filename: "glfw3Config.cmake"
-        kind: "cmake"
-      -
-        filename: "glfw3-config.cmake"
-        kind: "cmake"
-    version_request:
-      exact: false
+    mode: "program"
+    variable: "PKG_CONFIG_EXECUTABLE"
+    description: "pkg-config executable"
     settings:
-      required: "required_explicit"
-      quiet: false
-      global: false
-      policy_scope: true
-      bypass_provider: false
-      names:
-        - "glfw3"
-      path_suffixes:
-        - ""
-      paths:
-        CMAKE_FIND_USE_CMAKE_PATH: true
-        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-        CMAKE_FIND_USE_INSTALL_PREFIX: true
-        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
-        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
-        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
-        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
-    candidates:
-      -
-        path: "/Users/yahia/Desktop/acl proj/build/CMakeFiles/pkgRedirects/glfw3Config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/Users/yahia/Desktop/acl proj/build/CMakeFiles/pkgRedirects/glfw3-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/Library/Frameworks/Python.framework/Versions/3.13/glfw3Config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/Library/Frameworks/Python.framework/Versions/3.13/glfw3-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/usr/local/glfw3Config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/usr/local/glfw3-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-    found:
-      path: "/usr/local/lib/cmake/glfw3/glfw3Config.cmake"
-      mode: "config"
-      version: "3.4.0"
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "pkg-config"
+      - "pkgconf"
+    candidate_directories:
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/bin/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/sbin/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/opt/homebrew/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/"
+      - "/usr/bin/"
+      - "/usr/sbin/"
+      - "/usr/"
+      - "/bin/"
+      - "/sbin/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/"
+      - "/opt/bin/"
+      - "/opt/sbin/"
+      - "/opt/"
+      - "/sw/bin/"
+      - "/sw/sbin/"
+      - "/sw/"
+      - "/opt/local/bin/"
+      - "/opt/local/sbin/"
+      - "/opt/local/"
+      - "/Users/minahossam/Applications/"
+      - "/Applications/"
+    searched_directories:
+      - "/Users/minahossam/.antigravity/antigravity/bin/pkg-config"
+      - "/Users/minahossam/.antigravity/antigravity/bin/pkgconf"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/pkg-config"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/pkgconf"
+    found: "/opt/homebrew/bin/pkg-config"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr"
         - "/"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr/X11R6"
         - "/usr/pkg"
         - "/opt"
         - "/sw"
         - "/opt/local"
+      CMAKE_SYSTEM_APPBUNDLE_PATH:
+        - "/Users/minahossam/Applications"
+        - "/Applications"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/FindPkgConfig.cmake:761 (find_library)"
+      - "/opt/homebrew/share/cmake/Modules/FindPkgConfig.cmake:811 (_pkg_find_libs)"
+      - "/opt/homebrew/share/cmake/Modules/FindPkgConfig.cmake:1149 (_pkg_recalculate)"
+      - "/opt/homebrew/share/cmake/Modules/FindPkgConfig.cmake:1166 (_pkg_check_modules_internal)"
+      - "/opt/homebrew/share/cmake/Modules/FindGLUT.cmake:81 (pkg_check_modules)"
+      - "CMakeLists.txt:9 (find_package)"
+    mode: "library"
+    variable: "pkgcfg_lib_PC_GLUT_glut"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "glut"
+    candidate_directories:
+      - "/opt/homebrew/Cellar/freeglut/3.6.0/lib/"
+    found: "/opt/homebrew/Cellar/freeglut/3.6.0/lib/libglut.dylib"
+    search_context:
+      ENV{PATH}:
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+        - "/sw"
+        - "/opt/local"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+      CMAKE_SYSTEM_FRAMEWORK_PATH:
+        - "~/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/Library/Frameworks"
+        - "/Library/Frameworks"
+        - "/Network/Library/Frameworks"
+        - "/System/Library/Frameworks"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/FindGLUT.cmake:111 (find_path)"
+      - "CMakeLists.txt:9 (find_package)"
+    mode: "path"
+    variable: "GLUT_INCLUDE_DIR"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "glut.h"
+    candidate_directories:
+      - "/opt/homebrew/Cellar/freeglut/3.6.0/include/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.dotnet/tools/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Users/minahossam/.cabal/bin/"
+      - "/Users/minahossam/.ghcup/bin/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
+      - "/opt/homebrew/include/"
+      - "/opt/homebrew/"
+      - "/usr/local/include/"
+      - "/usr/local/"
+      - "/usr/include/"
+      - "/usr/"
+      - "/include/"
+      - "/usr/X11R6/include/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/include/"
+      - "/usr/pkg/"
+      - "/opt/include/"
+      - "/opt/"
+      - "/sw/include/"
+      - "/sw/"
+      - "/opt/local/include/"
+      - "/opt/local/"
+      - "/usr/include/X11/"
+      - "/Users/minahossam/Library/Frameworks/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/"
+      - "/Library/Developer/CommandLineTools/Library/Frameworks/"
+      - "/Library/Frameworks/"
+      - "/Network/Library/Frameworks/"
+      - "/System/Library/Frameworks/"
+    found: "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/GLUT.framework/Headers/"
+    search_context:
+      ENV{PATH}:
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+        - "/sw"
+        - "/opt/local"
+      CMAKE_SYSTEM_INCLUDE_PATH:
+        - "/usr/include/X11"
+      CMAKE_SYSTEM_FRAMEWORK_PATH:
+        - "~/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/Library/Frameworks"
+        - "/Library/Frameworks"
+        - "/Network/Library/Frameworks"
+        - "/System/Library/Frameworks"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/FindGLUT.cmake:113 (find_library)"
+      - "CMakeLists.txt:9 (find_package)"
+    mode: "library"
+    variable: "GLUT_glut_LIBRARY"
+    description: "GLUT library for OSX"
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "GLUT"
+    candidate_directories:
+      - "/opt/homebrew/Cellar/freeglut/3.6.0/lib/"
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.ghcup/bin/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
+      - "/opt/homebrew/lib/"
+      - "/opt/homebrew/"
+      - "/usr/local/lib/"
+      - "/usr/local/"
+      - "/usr/lib/"
+      - "/usr/"
+      - "/opt/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/"
+      - "/Library/Developer/CommandLineTools/Library/Frameworks/"
+      - "/Library/Frameworks/"
+      - "/System/Library/Frameworks/"
+    found: "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/GLUT.framework"
+    search_context:
+      ENV{PATH}:
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+        - "/sw"
+        - "/opt/local"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+      CMAKE_SYSTEM_FRAMEWORK_PATH:
+        - "~/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/Library/Frameworks"
+        - "/Library/Frameworks"
+        - "/Network/Library/Frameworks"
+        - "/System/Library/Frameworks"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/FindGLUT.cmake:114 (find_library)"
+      - "CMakeLists.txt:9 (find_package)"
+    mode: "library"
+    variable: "GLUT_cocoa_LIBRARY"
+    description: "Cocoa framework for OSX"
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "Cocoa"
+    candidate_directories:
+      - "/Users/minahossam/.antigravity/antigravity/bin/"
+      - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/minahossam/.ghcup/bin/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
+      - "/opt/homebrew/lib/"
+      - "/opt/homebrew/"
+      - "/usr/local/lib/"
+      - "/usr/local/"
+      - "/usr/lib/"
+      - "/usr/"
+      - "/opt/"
+      - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/"
+      - "/Library/Developer/CommandLineTools/Library/Frameworks/"
+      - "/Library/Frameworks/"
+      - "/System/Library/Frameworks/"
+    found: "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Cocoa.framework"
+    search_context:
+      ENV{PATH}:
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+        - "/sw"
+        - "/opt/local"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
       CMAKE_SYSTEM_FRAMEWORK_PATH:
         - "~/Library/Frameworks"
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
@@ -1902,7 +2686,7 @@ events:
   -
     kind: "find_package-v1"
     backtrace:
-      - "/usr/local/share/cmake/Modules/FindGLEW.cmake:139 (find_package)"
+      - "/opt/homebrew/share/cmake/Modules/FindGLEW.cmake:139 (find_package)"
       - "CMakeLists.txt:10 (find_package)"
     name: "GLEW"
     configs:
@@ -1936,58 +2720,76 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "/Users/yahia/Desktop/acl proj/build/CMakeFiles/pkgRedirects/GLEWConfig.cmake"
+        path: "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/pkgRedirects/GLEWConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "/Users/yahia/Desktop/acl proj/build/CMakeFiles/pkgRedirects/glew-config.cmake"
+        path: "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/pkgRedirects/glew-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "/Library/Frameworks/Python.framework/Versions/3.13/GLEWConfig.cmake"
+        path: "/Users/minahossam/.antigravity/antigravity/GLEWConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "/Library/Frameworks/Python.framework/Versions/3.13/glew-config.cmake"
+        path: "/Users/minahossam/.antigravity/antigravity/glew-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "/usr/local/GLEWConfig.cmake"
+        path: "/Users/minahossam/.nvm/versions/node/v22.18.0/GLEWConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "/usr/local/glew-config.cmake"
+        path: "/Users/minahossam/.nvm/versions/node/v22.18.0/glew-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "/usr/local/lib/cmake/glew/GLEWConfig.cmake"
+        path: "/opt/homebrew/GLEWConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/glew-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/lib/cmake/glew/GLEWConfig.cmake"
         mode: "config"
         reason: "no_exist"
     found:
-      path: "/usr/local/lib/cmake/glew/glew-config.cmake"
+      path: "/opt/homebrew/lib/cmake/glew/glew-config.cmake"
       mode: "config"
       version: ""
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr"
         - "/"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr/X11R6"
         - "/usr/pkg"
@@ -2040,54 +2842,72 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "/Users/yahia/Desktop/acl proj/build/CMakeFiles/pkgRedirects/glmConfig.cmake"
+        path: "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/pkgRedirects/glmConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "/Users/yahia/Desktop/acl proj/build/CMakeFiles/pkgRedirects/glm-config.cmake"
+        path: "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles/pkgRedirects/glm-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "/Library/Frameworks/Python.framework/Versions/3.13/glmConfig.cmake"
+        path: "/Users/minahossam/.antigravity/antigravity/glmConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "/Library/Frameworks/Python.framework/Versions/3.13/glm-config.cmake"
+        path: "/Users/minahossam/.antigravity/antigravity/glm-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "/usr/local/glmConfig.cmake"
+        path: "/Users/minahossam/.nvm/versions/node/v22.18.0/glmConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "/usr/local/glm-config.cmake"
+        path: "/Users/minahossam/.nvm/versions/node/v22.18.0/glm-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/glmConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/glm-config.cmake"
         mode: "config"
         reason: "no_exist"
     found:
-      path: "/usr/local/share/glm/glmConfig.cmake"
+      path: "/opt/homebrew/share/glm/glmConfig.cmake"
       mode: "config"
       version: "1.0.2"
     search_context:
       ENV{PATH}:
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
         - "/usr/bin"
         - "/bin"
         - "/usr/sbin"
         - "/sbin"
+        - "/opt/homebrew/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-        - "/Library/Frameworks/Python.framework/Versions/3.13/bin"
+        - "/Users/minahossam/.antigravity/antigravity/bin"
+        - "/Users/minahossam/.nvm/versions/node/v22.18.0/bin"
+        - "/opt/homebrew/sbin"
+        - "/Users/minahossam/.cabal/bin"
+        - "/Users/minahossam/.ghcup/bin"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr"
         - "/"
-        - "/usr/local"
+        - "/opt/homebrew"
         - "/usr/local"
         - "/usr/X11R6"
         - "/usr/pkg"
