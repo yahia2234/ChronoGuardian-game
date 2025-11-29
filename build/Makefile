@@ -57,10 +57,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game"
+CMAKE_SOURCE_DIR = /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build"
+CMAKE_BINARY_DIR = /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles" "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build//CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/build/CMakeFiles /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -345,6 +345,30 @@ src/Mesh.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChronoGuardian.dir/build.make CMakeFiles/ChronoGuardian.dir/src/Mesh.cpp.s
 .PHONY : src/Mesh.cpp.s
 
+src/Model.o: src/Model.cpp.o
+.PHONY : src/Model.o
+
+# target to build an object file
+src/Model.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChronoGuardian.dir/build.make CMakeFiles/ChronoGuardian.dir/src/Model.cpp.o
+.PHONY : src/Model.cpp.o
+
+src/Model.i: src/Model.cpp.i
+.PHONY : src/Model.i
+
+# target to preprocess a source file
+src/Model.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChronoGuardian.dir/build.make CMakeFiles/ChronoGuardian.dir/src/Model.cpp.i
+.PHONY : src/Model.cpp.i
+
+src/Model.s: src/Model.cpp.s
+.PHONY : src/Model.s
+
+# target to generate assembly for a file
+src/Model.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChronoGuardian.dir/build.make CMakeFiles/ChronoGuardian.dir/src/Model.cpp.s
+.PHONY : src/Model.cpp.s
+
 src/ParticleSystem.o: src/ParticleSystem.cpp.o
 .PHONY : src/ParticleSystem.o
 
@@ -549,6 +573,9 @@ help:
 	@echo "... src/Mesh.o"
 	@echo "... src/Mesh.i"
 	@echo "... src/Mesh.s"
+	@echo "... src/Model.o"
+	@echo "... src/Model.i"
+	@echo "... src/Model.s"
 	@echo "... src/ParticleSystem.o"
 	@echo "... src/ParticleSystem.i"
 	@echo "... src/ParticleSystem.s"

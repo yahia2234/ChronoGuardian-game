@@ -4,9 +4,9 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/include" -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/GLUT.framework/Headers
+CXX_INCLUDES = -I/Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /opt/homebrew/include -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/GLUT.framework/Headers
 
-CXX_FLAGSarm64 = -std=gnu++17 -arch arm64 -F/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/System/Library/Frameworks 
+CXX_FLAGSarm64 = -std=gnu++17 -arch arm64 -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.sdk/System/Library/Frameworks 
 
-CXX_FLAGS = -std=gnu++17 -arch arm64 -F/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/System/Library/Frameworks 
+CXX_FLAGS = -std=gnu++17 -arch arm64 -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.sdk/System/Library/Frameworks 
 

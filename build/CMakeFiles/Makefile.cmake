@@ -7,10 +7,14 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/CMakeLists.txt"
+  "/Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/CMakeLists.txt"
   "CMakeFiles/4.2.0/CMakeCCompiler.cmake"
   "CMakeFiles/4.2.0/CMakeCXXCompiler.cmake"
   "CMakeFiles/4.2.0/CMakeSystem.cmake"
+  "/opt/homebrew/lib/cmake/assimp-6.0/assimpConfig.cmake"
+  "/opt/homebrew/lib/cmake/assimp-6.0/assimpConfigVersion.cmake"
+  "/opt/homebrew/lib/cmake/assimp-6.0/assimpTargets-release.cmake"
+  "/opt/homebrew/lib/cmake/assimp-6.0/assimpTargets.cmake"
   "/opt/homebrew/lib/cmake/glew/CopyImportedTargetProperties.cmake"
   "/opt/homebrew/lib/cmake/glew/glew-config.cmake"
   "/opt/homebrew/lib/cmake/glew/glew-targets-release.cmake"
