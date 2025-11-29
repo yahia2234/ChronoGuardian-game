@@ -7,65 +7,62 @@
 #else
 #include <GL/glut.h>
 #endif
-#include <memory>
-#include "Shader.h"
 #include "Camera.h"
-#include "Player.h"
 #include "Level.h"
 #include "ParticleSystem.h"
+#include "Player.h"
+#include "Shader.h"
+#include <memory>
+#include <string>
 
-enum class GameState {
-    MENU,
-    LEVEL1,
-    LEVEL2,
-    WIN,
-    GAME_OVER
-};
+enum class GameState { MENU, LEVEL1, LEVEL2, WIN, GAME_OVER };
 
 class Game {
 public:
-    Game();
-    ~Game();
+  Game();
+  ~Game();
 
-    bool init(int argc, char** argv);
-    void run();
-    void cleanup();
+  bool init(int argc, char **argv);
+  void run();
+  void renderText(float x, float y, const std::string &text,
+                  void *font = GLUT_BITMAP_HELVETICA_18);
+  void cleanup();
 
-    // GLUT callbacks (must be static)
-    static void displayCallback();
-    static void reshapeCallback(int width, int height);
-    static void timerCallback(int value);
-    static void idleCallback();
+  // GLUT callbacks (must be static)
+  static void displayCallback();
+  static void reshapeCallback(int width, int height);
+  static void timerCallback(int value);
+  static void idleCallback();
 
-    static Game* instance; // Singleton for GLUT callbacks
+  static Game *instance; // Singleton for GLUT callbacks
 
 private:
-    int screenWidth;
-    int screenHeight;
+  int screenWidth;
+  int screenHeight;
 
-    std::unique_ptr<Shader> mainShader;
-    std::unique_ptr<Shader> particleShader;
-    std::unique_ptr<Camera> camera;
-    std::unique_ptr<Player> player;
-    std::unique_ptr<Level> currentLevel;
-    std::unique_ptr<ParticleSystem> particles;
+  std::unique_ptr<Shader> mainShader;
+  std::unique_ptr<Shader> particleShader;
+  std::unique_ptr<Camera> camera;
+  std::unique_ptr<Player> player;
+  std::unique_ptr<Level> currentLevel;
+  std::unique_ptr<ParticleSystem> particles;
 
-    GameState gameState;
-    int currentLevelIndex;
+  GameState gameState;
+  int currentLevelIndex;
 
-    float deltaTime;
-    float lastFrame;
-    bool running;
+  float deltaTime;
+  float lastFrame;
+  bool running;
 
-    void processInput();
-    void update();
-    void render();
+  void processInput();
+  void update();
+  void render();
 
-    void loadLevel(int levelIndex);
-    void restartLevel();
-    void nextLevel();
+  void loadLevel(int levelIndex);
+  void restartLevel();
+  void nextLevel();
 
-    glm::vec3 getMovementInput();
+  glm::vec3 getMovementInput();
 };
 
 #endif

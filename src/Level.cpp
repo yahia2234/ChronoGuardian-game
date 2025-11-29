@@ -1,200 +1,224 @@
 #include "Level.h"
 #include "Shader.h"
-#include <iostream>
 #include <cmath>
+#include <iostream>
 
-Level::Level() 
+Level::Level()
     : ambientLight(0.2f), playerStartPosition(0.0f, 1.0f, 0.0f),
-      levelComplete(false), hasCollectible(false) {
+      levelComplete(false), hasCollectible(false) {}
+
+void Level::update(float deltaTime, Player *player, ParticleSystem *particles) {
+  // Update all game objects
+  for (auto &obj : objects) {
+    if (obj->isActive) {
+      obj->update(deltaTime);
+    }
+  }
+
+  // Update lights (flickering)
+  for (auto &light : lights) {
+    if (light.flickerSpeed > 0.0f) {
+      light.flickerOffset += light.flickerSpeed * deltaTime;
+      float flicker = sin(light.flickerOffset) * light.flickerAmount;
+      light.intensity = std::max(0.1f, light.intensity + flicker * deltaTime);
+    }
+  }
+
+  // Check collisions and triggers
+  checkCollisions(player, particles);
+  checkTriggers(player);
 }
 
-void Level::update(float deltaTime, Player* player, ParticleSystem* particles) {
-    // Update all game objects
-    for (auto& obj : objects) {
-        if (obj->isActive) {
-            obj->update(deltaTime);
-        }
+void Level::draw(Shader *shader) {
+  // Draw walls
+  for (const auto &wall : walls) {
+    if (wall->isActive) {
+      wall->draw(shader);
     }
-    
-    // Update lights (flickering)
-    for (auto& light : lights) {
-        if (light.flickerSpeed > 0.0f) {
-            light.flickerOffset += light.flickerSpeed * deltaTime;
-            float flicker = sin(light.flickerOffset) * light.flickerAmount;
-            light.intensity = std::max(0.1f, light.intensity + flicker * deltaTime);
-        }
+  }
+
+  // Draw objects
+  for (const auto &obj : objects) {
+    if (obj->isActive) {
+      obj->draw(shader);
     }
-    
-    // Check collisions and triggers
-    checkCollisions(player, particles);
-    checkTriggers(player);
+  }
 }
 
-void Level::draw(Shader* shader) {
-    // Draw walls
-    for (const auto& wall : walls) {
-        if (wall->isActive) {
-            wall->draw(shader);
-        }
-    }
-    
-    // Draw objects
-    for (const auto& obj : objects) {
-        if (obj->isActive) {
-            obj->draw(shader);
-        }
-    }
+void Level::drawLights(Shader *shader) {
+  shader->setVec3("ambientLight", ambientLight);
+  shader->setInt("numLights", std::min((int)lights.size(), 10));
+
+  for (size_t i = 0; i < lights.size() && i < 10; i++) {
+    std::string base = "lights[" + std::to_string(i) + "]";
+    shader->setVec3(base + ".position", lights[i].position);
+    shader->setVec3(base + ".color", lights[i].color);
+    shader->setFloat(base + ".intensity", lights[i].intensity);
+  }
 }
 
-void Level::drawLights(Shader* shader) {
-    shader->setVec3("ambientLight", ambientLight);
-    shader->setInt("numLights", std::min((int)lights.size(), 10));
-    
-    for (size_t i = 0; i < lights.size() && i < 10; i++) {
-        std::string base = "lights[" + std::to_string(i) + "]";
-        shader->setVec3(base + ".position", lights[i].position);
-        shader->setVec3(base + ".color", lights[i].color);
-        shader->setFloat(base + ".intensity", lights[i].intensity);
-    }
-}
+void Level::checkCollisions(Player *player, ParticleSystem *particles) {
+  // Check wall collisions - ACTUALLY PREVENT PENETRATION
+  for (const auto &wall : walls) {
+    if (!wall->isActive)
+      continue;
 
+    if (Physics::checkSphereAABBCollision(player->collisionSphere,
+                                          wall->boundingBox)) {
+      // Calculate penetration and push player out
+      glm::vec3 playerPos = player->getPosition();
+      glm::vec3 wallCenter = wall->boundingBox.getCenter();
+      glm::vec3 wallSize = wall->boundingBox.max - wall->boundingBox.min;
 
-void Level::checkCollisions(Player* player, ParticleSystem* particles) {
-    // Check wall collisions - ACTUALLY PREVENT PENETRATION
-    for (const auto& wall : walls) {
-        if (!wall->isActive) continue;
-        
-        if (Physics::checkSphereAABBCollision(player->collisionSphere, wall->boundingBox)) {
-            // Calculate penetration and push player out
-            glm::vec3 playerPos = player->getPosition();
-            glm::vec3 wallCenter = wall->boundingBox.getCenter();
-            glm::vec3 wallSize = wall->boundingBox.max - wall->boundingBox.min;
-            
-            // Find closest point on box to sphere
-            glm::vec3 closestPoint = glm::clamp(playerPos, wall->boundingBox.min, wall->boundingBox.max);
-            glm::vec3 normal = playerPos - closestPoint;
-            float distance = glm::length(normal);
-            
-            if (distance < player->collisionSphere.radius) {
-                // Push player out
-                if (distance > 0.001f) {
-                    normal = glm::normalize(normal);
-                } else {
-                    // Player is exactly at closest point, use direction from wall center
-                    normal = glm::normalize(playerPos - wallCenter);
-                }
-                
-                float penetration = player->collisionSphere.radius - distance;
-                player->transform.position += normal * (penetration + 0.01f); // Small epsilon to ensure separation
-                player->collisionSphere.center = player->transform.position;
-                
-                // Play collision sound and emit particles
-                player->onWallCollision(normal, particles);
-            }
-        }
-    }
-    
-    // Check obstacle collisions
-    for (auto& obj : objects) {
-        if (!obj->isActive || obj->isTrigger) continue;
-        
-        bool collision = false;
-        if (obj->useSphereCollision) {
-            collision = Physics::checkSphereCollision(player->collisionSphere, obj->boundingSphere);
+      // Find closest point on box to sphere
+      glm::vec3 closestPoint =
+          glm::clamp(playerPos, wall->boundingBox.min, wall->boundingBox.max);
+      glm::vec3 normal = playerPos - closestPoint;
+      float distance = glm::length(normal);
+
+      if (distance < player->collisionSphere.radius) {
+        // Push player out
+        if (distance > 0.001f) {
+          normal = glm::normalize(normal);
         } else {
-            collision = Physics::checkSphereAABBCollision(player->collisionSphere, obj->boundingBox);
+          // Player is exactly at closest point, use direction from wall center
+          normal = glm::normalize(playerPos - wallCenter);
         }
-        
-        if (collision) {
-            if (obj->type == GameObjectType::PENDULUM) {
-                glm::vec3 knockback = glm::normalize(player->getPosition() - obj->transform.position);
-                player->onObstacleHit(knockback, particles);
-            } else if (obj->type == GameObjectType::STALACTITE) {
-                // If stalactite hits player while falling, it's a hazard
-                Stalactite* stal = dynamic_cast<Stalactite*>(obj.get());
-                if (stal && stal->isFalling) {
-                    std::cout << "Hit by falling stalactite!" << std::endl;
-                    // Apply pushback/knockback
-                    glm::vec3 knockback = glm::normalize(player->getPosition() - stal->transform.position);
-                    // Add some upward force too
-                    knockback.y = 0.5f; 
-                    knockback = glm::normalize(knockback);
-                    
-                    player->onObstacleHit(knockback, particles);
-                }
+
+        float penetration = player->collisionSphere.radius - distance;
+        player->transform.position +=
+            normal *
+            (penetration + 0.01f); // Small epsilon to ensure separation
+        player->collisionSphere.center = player->transform.position;
+
+        // Play collision sound and emit particles
+        player->onWallCollision(normal, particles);
+      }
+    }
+  }
+
+  // Check obstacle collisions
+  for (auto &obj : objects) {
+    if (!obj->isActive || obj->isTrigger)
+      continue;
+
+    bool collision = false;
+    if (obj->useSphereCollision) {
+      collision = Physics::checkSphereCollision(player->collisionSphere,
+                                                obj->boundingSphere);
+    } else {
+      collision = Physics::checkSphereAABBCollision(player->collisionSphere,
+                                                    obj->boundingBox);
+    }
+
+    if (collision) {
+      if (obj->type == GameObjectType::PENDULUM) {
+        glm::vec3 knockback =
+            glm::normalize(player->getPosition() - obj->transform.position);
+        player->onObstacleHit(knockback, particles);
+      } else if (obj->type == GameObjectType::STALACTITE) {
+        // If stalactite hits player while falling, it's a hazard
+        Stalactite *stal = dynamic_cast<Stalactite *>(obj.get());
+        if (stal && stal->isFalling) {
+          // Apply pushback/knockback
+          glm::vec3 knockback =
+              glm::normalize(player->getPosition() - stal->transform.position);
+          // Add some upward force too
+          knockback.y = 0.5f;
+          knockback = glm::normalize(knockback);
+
+          player->onObstacleHit(knockback, particles);
+        }
+      }
+    }
+  }
+}
+
+void Level::checkTriggers(Player *player) {
+  // Check triggers
+  for (auto &obj : objects) {
+    if (obj->isActive && obj->isTrigger) {
+      if (obj->useSphereCollision) {
+        // Enhanced debug logging for collectibles
+        if (obj->type == GameObjectType::COLLECTIBLE) {
+          auto collectible = static_cast<Collectible *>(obj.get());
+          if (!collectible->isCollected) {
+            float distance = glm::length(player->collisionSphere.center -
+                                         obj->boundingSphere.center);
+            float combinedRadius =
+                player->collisionSphere.radius + obj->boundingSphere.radius;
+
+            // Debug output every frame when player is near gem
+          }
+        }
+
+        if (Physics::checkSphereCollision(player->collisionSphere,
+                                          obj->boundingSphere)) {
+          obj->onTrigger();
+          if (obj->type == GameObjectType::COLLECTIBLE) {
+            auto collectible = static_cast<Collectible *>(obj.get());
+            if (!collectible->isCollected) {
+              collectible->collect();
+              hasCollectible = true;
             }
+          }
         }
-    }
-}
-
-
-void Level::checkTriggers(Player* player) {
-          // Check triggers
-    for (auto& obj : objects) {
-        if (obj->isActive && obj->isTrigger) {
-            if (obj->useSphereCollision) {
-                if (Physics::checkSphereCollision(player->collisionSphere, obj->boundingSphere)) {
-                    obj->onTrigger();
-                    if (obj->type == GameObjectType::COLLECTIBLE) {
-                        auto collectible = static_cast<Collectible*>(obj.get());
-                        collectible->collect();
-                        hasCollectible = true;
-                        std::cout << "COLLECTIBLE COLLECTED! Animation should play now." << std::endl;
-                    }
-                }
-            } else {
-                if (Physics::checkSphereAABBCollision(player->collisionSphere, obj->boundingBox)) {
-                    obj->onTrigger();
-                }
-            }
+      } else {
+        if (Physics::checkSphereAABBCollision(player->collisionSphere,
+                                              obj->boundingBox)) {
+          obj->onTrigger();
         }
+      }
     }
+  }
 }
 
-void Level::checkCameraCollision(glm::vec3& cameraPos, const glm::vec3& targetPos) {
-    // Reset all walls to opaque first
-    for (auto& wall : walls) {
-        wall->transparency = 1.0f;
-    }
+void Level::checkCameraCollision(glm::vec3 &cameraPos,
+                                 const glm::vec3 &targetPos) {
+  // Reset all walls to opaque first
+  for (auto &wall : walls) {
+    wall->transparency = 1.0f;
+  }
 
-    glm::vec3 rayDir = cameraPos - targetPos;
-    float maxDist = glm::length(rayDir);
-    rayDir = glm::normalize(rayDir);
-    
-    // Check for walls between camera and player
-    for (auto& wall : walls) {
-        float t;
-        if (Physics::rayIntersectAABB(targetPos, rayDir, wall->boundingBox, t)) {
-            // If wall is between player and camera (with some buffer)
-            if (t > 0.5f && t < maxDist - 0.5f) {
-                // Make it transparent!
-                wall->transparency = 0.3f;
-            }
-        }
+  glm::vec3 rayDir = cameraPos - targetPos;
+  float maxDist = glm::length(rayDir);
+  rayDir = glm::normalize(rayDir);
+
+  // Check for walls between camera and player
+  for (auto &wall : walls) {
+    float t;
+    if (Physics::rayIntersectAABB(targetPos, rayDir, wall->boundingBox, t)) {
+      // If wall is between player and camera (with some buffer)
+      if (t > 0.5f && t < maxDist - 0.5f) {
+        // Make it transparent!
+        wall->transparency = 0.3f;
+      }
     }
-    
-    // No longer moving the camera - we just make walls see-through
+  }
+
+  // No longer moving the camera - we just make walls see-through
 }
 
-
-
-void Level::createWall(const glm::vec3& position, const glm::vec3& scale, const glm::vec3& color, int materialType) {
-    auto wall = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
-    wall->transform.position = position;
-    wall->transform.scale = scale;
-    wall->mesh.reset(Mesh::createCube(1.0f));
-    wall->color = color;
-    wall->materialType = materialType;
-    wall->updateBoundingBox();
-    walls.push_back(std::move(wall));
+void Level::createWall(const glm::vec3 &position, const glm::vec3 &scale,
+                       const glm::vec3 &color, int materialType) {
+  auto wall = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
+  wall->transform.position = position;
+  wall->transform.scale = scale;
+  wall->mesh.reset(Mesh::createCube(1.0f));
+  wall->color = color;
+  wall->materialType = materialType;
+  wall->updateBoundingBox();
+  walls.push_back(std::move(wall));
 }
 
-void Level::createFloor(const glm::vec3& position, const glm::vec3& scale, const glm::vec3& color) {
-    auto floor = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
-    floor->transform.position = position;
-    floor->transform.scale = scale;
-    floor->mesh.reset(Mesh::createPlane(1.0f, 1.0f)); // Use unit plane, scale via transform
-    floor->color = color;
-    floor->updateBoundingBox();
-    walls.push_back(std::move(floor));
+void Level::createFloor(const glm::vec3 &position, const glm::vec3 &scale,
+                        const glm::vec3 &color) {
+  auto floor = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
+  floor->transform.position = position;
+  floor->transform.scale = scale;
+  floor->mesh.reset(
+      Mesh::createPlane(1.0f, 1.0f)); // Use unit plane, scale via transform
+  floor->color = color;
+  floor->updateBoundingBox();
+  walls.push_back(std::move(floor));
 }

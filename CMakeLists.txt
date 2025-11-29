@@ -12,6 +12,9 @@ find_package(GLEW REQUIRED)
 # GLM (header-only library)
 find_package(glm REQUIRED)
 
+# Assimp for 3D model loading
+find_package(assimp REQUIRED)
+
 # Source files
 set(SOURCES
     src/main.cpp
@@ -28,6 +31,7 @@ set(SOURCES
     src/Renderer.cpp
     src/Texture.cpp
     src/Mesh.cpp
+    src/Model.cpp
     src/ParticleSystem.cpp
     src/AudioManager.cpp
 )
@@ -47,6 +51,7 @@ set(HEADERS
     include/Renderer.h
     include/Texture.h
     include/Mesh.h
+    include/Model.h
     include/ParticleSystem.h
     include/AudioManager.h
     include/GameObject.h
@@ -70,6 +75,7 @@ target_link_libraries(${PROJECT_NAME}
     GLUT::GLUT
     GLEW::GLEW
     glm::glm
+    assimp::assimp
 )
 
 # Add OpenAL for audio (macOS has it built-in)
