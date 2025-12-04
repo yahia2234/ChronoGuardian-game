@@ -1068,4 +1068,37 @@ CMakeFiles/ChronoGuardian.dir/src/Level2.cpp.o: \
   /opt/homebrew/include/glm/gtc/../vector_relational.hpp \
   /opt/homebrew/include/glm/gtc/../common.hpp \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/ParticleSystem.h \
-  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Player.h
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Player.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Model.h \
+  /opt/homebrew/include/assimp/Importer.hpp \
+  /opt/homebrew/include/assimp/types.h \
+  /opt/homebrew/include/assimp/defs.h \
+  /opt/homebrew/include/assimp/config.h \
+  /opt/homebrew/include/assimp/vector2.h \
+  /opt/homebrew/include/assimp/vector3.h \
+  /opt/homebrew/include/assimp/color4.h \
+  /opt/homebrew/include/assimp/matrix3x3.h \
+  /opt/homebrew/include/assimp/matrix4x4.h \
+  /opt/homebrew/include/assimp/quaternion.h \
+  /opt/homebrew/include/assimp/vector2.inl \
+  /opt/homebrew/include/assimp/vector3.inl \
+  /opt/homebrew/include/assimp/color4.inl \
+  /opt/homebrew/include/assimp/matrix3x3.inl \
+  /opt/homebrew/include/assimp/matrix4x4.inl \
+  /opt/homebrew/include/assimp/MathFunctions.h \
+  /opt/homebrew/include/assimp/quaternion.inl \
+  /opt/homebrew/include/assimp/postprocess.h \
+  /opt/homebrew/include/assimp/scene.h \
+  /opt/homebrew/include/assimp/texture.h \
+  /opt/homebrew/include/assimp/./Compiler/pushpack1.h \
+  /opt/homebrew/include/assimp/./Compiler/poppack1.h \
+  /opt/homebrew/include/assimp/mesh.h \
+  /opt/homebrew/include/assimp/aabb.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_set \
+  /opt/homebrew/include/assimp/light.h \
+  /opt/homebrew/include/assimp/camera.h \
+  /opt/homebrew/include/assimp/material.h \
+  /opt/homebrew/include/assimp/material.inl \
+  /opt/homebrew/include/assimp/anim.h \
+  /opt/homebrew/include/assimp/metadata.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Texture.h

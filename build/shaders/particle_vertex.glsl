@@ -1,10 +1,10 @@
-#version 120
+#version 330 core
 
-attribute vec3 aPos;
-attribute vec4 aColor;
-attribute float aSize;
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec4 aColor;
+layout (location = 2) in float aSize;
 
-varying vec4 ParticleColor;
+out vec4 ParticleColor;
 
 uniform mat4 view;
 uniform mat4 projection;

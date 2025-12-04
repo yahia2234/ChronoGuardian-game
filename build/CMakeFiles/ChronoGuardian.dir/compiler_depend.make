@@ -1805,7 +1805,6 @@ CMakeFiles/ChronoGuardian.dir/src/Camera.cpp.o: /Users/omar/Desktop/GUC/Chron0/C
   /opt/homebrew/include/glm/vector_relational.hpp
 
 CMakeFiles/ChronoGuardian.dir/src/Game.cpp.o: /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/src/Game.cpp \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/GLUT.framework/Headers/glut.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/al.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/alc.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
@@ -2477,6 +2476,7 @@ CMakeFiles/ChronoGuardian.dir/src/Game.cpp.o: /Users/omar/Desktop/GUC/Chron0/Chr
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_map \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_set \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/variant \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector \
@@ -2645,12 +2645,45 @@ CMakeFiles/ChronoGuardian.dir/src/Game.cpp.o: /Users/omar/Desktop/GUC/Chron0/Chr
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level1.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level2.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Mesh.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Model.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/ParticleSystem.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Physics.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Player.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Shader.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Texture.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Transform.h \
   /opt/homebrew/include/GL/glew.h \
+  /opt/homebrew/include/GLFW/glfw3.h \
+  /opt/homebrew/include/assimp/Compiler/poppack1.h \
+  /opt/homebrew/include/assimp/Compiler/pushpack1.h \
+  /opt/homebrew/include/assimp/Importer.hpp \
+  /opt/homebrew/include/assimp/MathFunctions.h \
+  /opt/homebrew/include/assimp/aabb.h \
+  /opt/homebrew/include/assimp/anim.h \
+  /opt/homebrew/include/assimp/camera.h \
+  /opt/homebrew/include/assimp/color4.h \
+  /opt/homebrew/include/assimp/color4.inl \
+  /opt/homebrew/include/assimp/config.h \
+  /opt/homebrew/include/assimp/defs.h \
+  /opt/homebrew/include/assimp/light.h \
+  /opt/homebrew/include/assimp/material.h \
+  /opt/homebrew/include/assimp/material.inl \
+  /opt/homebrew/include/assimp/matrix3x3.h \
+  /opt/homebrew/include/assimp/matrix3x3.inl \
+  /opt/homebrew/include/assimp/matrix4x4.h \
+  /opt/homebrew/include/assimp/matrix4x4.inl \
+  /opt/homebrew/include/assimp/mesh.h \
+  /opt/homebrew/include/assimp/metadata.h \
+  /opt/homebrew/include/assimp/postprocess.h \
+  /opt/homebrew/include/assimp/quaternion.h \
+  /opt/homebrew/include/assimp/quaternion.inl \
+  /opt/homebrew/include/assimp/scene.h \
+  /opt/homebrew/include/assimp/texture.h \
+  /opt/homebrew/include/assimp/types.h \
+  /opt/homebrew/include/assimp/vector2.h \
+  /opt/homebrew/include/assimp/vector2.inl \
+  /opt/homebrew/include/assimp/vector3.h \
+  /opt/homebrew/include/assimp/vector3.inl \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/vector_relational.hpp \
@@ -4032,7 +4065,6 @@ CMakeFiles/ChronoGuardian.dir/src/GameObject.cpp.o: /Users/omar/Desktop/GUC/Chro
   /opt/homebrew/include/glm/vector_relational.hpp
 
 CMakeFiles/ChronoGuardian.dir/src/Input.cpp.o: /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/src/Input.cpp \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/GLUT.framework/Headers/glut.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/glu.h \
@@ -4825,6 +4857,7 @@ CMakeFiles/ChronoGuardian.dir/src/Input.cpp.o: /Users/omar/Desktop/GUC/Chron0/Ch
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdint.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Input.h \
   /opt/homebrew/include/GL/glew.h \
+  /opt/homebrew/include/GLFW/glfw3.h \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/vector_relational.hpp \
@@ -5683,6 +5716,7 @@ CMakeFiles/ChronoGuardian.dir/src/Level.cpp.o: /Users/omar/Desktop/GUC/Chron0/Ch
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_map \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_set \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/variant \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector \
@@ -5845,12 +5879,44 @@ CMakeFiles/ChronoGuardian.dir/src/Level.cpp.o: /Users/omar/Desktop/GUC/Chron0/Ch
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/GameObject.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Mesh.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Model.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/ParticleSystem.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Physics.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Player.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Shader.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Texture.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Transform.h \
   /opt/homebrew/include/GL/glew.h \
+  /opt/homebrew/include/assimp/Compiler/poppack1.h \
+  /opt/homebrew/include/assimp/Compiler/pushpack1.h \
+  /opt/homebrew/include/assimp/Importer.hpp \
+  /opt/homebrew/include/assimp/MathFunctions.h \
+  /opt/homebrew/include/assimp/aabb.h \
+  /opt/homebrew/include/assimp/anim.h \
+  /opt/homebrew/include/assimp/camera.h \
+  /opt/homebrew/include/assimp/color4.h \
+  /opt/homebrew/include/assimp/color4.inl \
+  /opt/homebrew/include/assimp/config.h \
+  /opt/homebrew/include/assimp/defs.h \
+  /opt/homebrew/include/assimp/light.h \
+  /opt/homebrew/include/assimp/material.h \
+  /opt/homebrew/include/assimp/material.inl \
+  /opt/homebrew/include/assimp/matrix3x3.h \
+  /opt/homebrew/include/assimp/matrix3x3.inl \
+  /opt/homebrew/include/assimp/matrix4x4.h \
+  /opt/homebrew/include/assimp/matrix4x4.inl \
+  /opt/homebrew/include/assimp/mesh.h \
+  /opt/homebrew/include/assimp/metadata.h \
+  /opt/homebrew/include/assimp/postprocess.h \
+  /opt/homebrew/include/assimp/quaternion.h \
+  /opt/homebrew/include/assimp/quaternion.inl \
+  /opt/homebrew/include/assimp/scene.h \
+  /opt/homebrew/include/assimp/texture.h \
+  /opt/homebrew/include/assimp/types.h \
+  /opt/homebrew/include/assimp/vector2.h \
+  /opt/homebrew/include/assimp/vector2.inl \
+  /opt/homebrew/include/assimp/vector3.h \
+  /opt/homebrew/include/assimp/vector3.inl \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/vector_relational.hpp \
@@ -6769,6 +6835,7 @@ CMakeFiles/ChronoGuardian.dir/src/Level1.cpp.o: /Users/omar/Desktop/GUC/Chron0/C
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_map \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_set \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/variant \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector \
@@ -6932,11 +6999,43 @@ CMakeFiles/ChronoGuardian.dir/src/Level1.cpp.o: /Users/omar/Desktop/GUC/Chron0/C
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level1.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Mesh.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Model.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/ParticleSystem.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Physics.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Player.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Texture.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Transform.h \
   /opt/homebrew/include/GL/glew.h \
+  /opt/homebrew/include/assimp/Compiler/poppack1.h \
+  /opt/homebrew/include/assimp/Compiler/pushpack1.h \
+  /opt/homebrew/include/assimp/Importer.hpp \
+  /opt/homebrew/include/assimp/MathFunctions.h \
+  /opt/homebrew/include/assimp/aabb.h \
+  /opt/homebrew/include/assimp/anim.h \
+  /opt/homebrew/include/assimp/camera.h \
+  /opt/homebrew/include/assimp/color4.h \
+  /opt/homebrew/include/assimp/color4.inl \
+  /opt/homebrew/include/assimp/config.h \
+  /opt/homebrew/include/assimp/defs.h \
+  /opt/homebrew/include/assimp/light.h \
+  /opt/homebrew/include/assimp/material.h \
+  /opt/homebrew/include/assimp/material.inl \
+  /opt/homebrew/include/assimp/matrix3x3.h \
+  /opt/homebrew/include/assimp/matrix3x3.inl \
+  /opt/homebrew/include/assimp/matrix4x4.h \
+  /opt/homebrew/include/assimp/matrix4x4.inl \
+  /opt/homebrew/include/assimp/mesh.h \
+  /opt/homebrew/include/assimp/metadata.h \
+  /opt/homebrew/include/assimp/postprocess.h \
+  /opt/homebrew/include/assimp/quaternion.h \
+  /opt/homebrew/include/assimp/quaternion.inl \
+  /opt/homebrew/include/assimp/scene.h \
+  /opt/homebrew/include/assimp/texture.h \
+  /opt/homebrew/include/assimp/types.h \
+  /opt/homebrew/include/assimp/vector2.h \
+  /opt/homebrew/include/assimp/vector2.inl \
+  /opt/homebrew/include/assimp/vector3.h \
+  /opt/homebrew/include/assimp/vector3.inl \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/vector_relational.hpp \
@@ -7841,6 +7940,7 @@ CMakeFiles/ChronoGuardian.dir/src/Level2.cpp.o: /Users/omar/Desktop/GUC/Chron0/C
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_map \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_set \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/variant \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector \
@@ -8003,11 +8103,43 @@ CMakeFiles/ChronoGuardian.dir/src/Level2.cpp.o: /Users/omar/Desktop/GUC/Chron0/C
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level2.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Mesh.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Model.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/ParticleSystem.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Physics.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Player.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Texture.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Transform.h \
   /opt/homebrew/include/GL/glew.h \
+  /opt/homebrew/include/assimp/Compiler/poppack1.h \
+  /opt/homebrew/include/assimp/Compiler/pushpack1.h \
+  /opt/homebrew/include/assimp/Importer.hpp \
+  /opt/homebrew/include/assimp/MathFunctions.h \
+  /opt/homebrew/include/assimp/aabb.h \
+  /opt/homebrew/include/assimp/anim.h \
+  /opt/homebrew/include/assimp/camera.h \
+  /opt/homebrew/include/assimp/color4.h \
+  /opt/homebrew/include/assimp/color4.inl \
+  /opt/homebrew/include/assimp/config.h \
+  /opt/homebrew/include/assimp/defs.h \
+  /opt/homebrew/include/assimp/light.h \
+  /opt/homebrew/include/assimp/material.h \
+  /opt/homebrew/include/assimp/material.inl \
+  /opt/homebrew/include/assimp/matrix3x3.h \
+  /opt/homebrew/include/assimp/matrix3x3.inl \
+  /opt/homebrew/include/assimp/matrix4x4.h \
+  /opt/homebrew/include/assimp/matrix4x4.inl \
+  /opt/homebrew/include/assimp/mesh.h \
+  /opt/homebrew/include/assimp/metadata.h \
+  /opt/homebrew/include/assimp/postprocess.h \
+  /opt/homebrew/include/assimp/quaternion.h \
+  /opt/homebrew/include/assimp/quaternion.inl \
+  /opt/homebrew/include/assimp/scene.h \
+  /opt/homebrew/include/assimp/texture.h \
+  /opt/homebrew/include/assimp/types.h \
+  /opt/homebrew/include/assimp/vector2.h \
+  /opt/homebrew/include/assimp/vector2.inl \
+  /opt/homebrew/include/assimp/vector3.h \
+  /opt/homebrew/include/assimp/vector3.inl \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/vector_relational.hpp \
@@ -12255,7 +12387,6 @@ CMakeFiles/ChronoGuardian.dir/src/Physics.cpp.o: /Users/omar/Desktop/GUC/Chron0/
   /opt/homebrew/include/glm/vector_relational.hpp
 
 CMakeFiles/ChronoGuardian.dir/src/Player.cpp.o: /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/src/Player.cpp \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/GLUT.framework/Headers/glut.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/al.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/alc.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
@@ -12927,6 +13058,7 @@ CMakeFiles/ChronoGuardian.dir/src/Player.cpp.o: /Users/omar/Desktop/GUC/Chron0/C
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_map \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_set \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/variant \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector \
@@ -13087,15 +13219,48 @@ CMakeFiles/ChronoGuardian.dir/src/Player.cpp.o: /Users/omar/Desktop/GUC/Chron0/C
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdint.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/AudioManager.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Camera.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Input.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Mesh.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Model.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/ParticleSystem.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Physics.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Player.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Shader.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Texture.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Transform.h \
   /opt/homebrew/include/GL/glew.h \
   /opt/homebrew/include/GLFW/glfw3.h \
+  /opt/homebrew/include/assimp/Compiler/poppack1.h \
+  /opt/homebrew/include/assimp/Compiler/pushpack1.h \
+  /opt/homebrew/include/assimp/Importer.hpp \
+  /opt/homebrew/include/assimp/MathFunctions.h \
+  /opt/homebrew/include/assimp/aabb.h \
+  /opt/homebrew/include/assimp/anim.h \
+  /opt/homebrew/include/assimp/camera.h \
+  /opt/homebrew/include/assimp/color4.h \
+  /opt/homebrew/include/assimp/color4.inl \
+  /opt/homebrew/include/assimp/config.h \
+  /opt/homebrew/include/assimp/defs.h \
+  /opt/homebrew/include/assimp/light.h \
+  /opt/homebrew/include/assimp/material.h \
+  /opt/homebrew/include/assimp/material.inl \
+  /opt/homebrew/include/assimp/matrix3x3.h \
+  /opt/homebrew/include/assimp/matrix3x3.inl \
+  /opt/homebrew/include/assimp/matrix4x4.h \
+  /opt/homebrew/include/assimp/matrix4x4.inl \
+  /opt/homebrew/include/assimp/mesh.h \
+  /opt/homebrew/include/assimp/metadata.h \
+  /opt/homebrew/include/assimp/postprocess.h \
+  /opt/homebrew/include/assimp/quaternion.h \
+  /opt/homebrew/include/assimp/quaternion.inl \
+  /opt/homebrew/include/assimp/scene.h \
+  /opt/homebrew/include/assimp/texture.h \
+  /opt/homebrew/include/assimp/types.h \
+  /opt/homebrew/include/assimp/vector2.h \
+  /opt/homebrew/include/assimp/vector2.inl \
+  /opt/homebrew/include/assimp/vector3.h \
+  /opt/homebrew/include/assimp/vector3.inl \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/vector_relational.hpp \
@@ -15191,7 +15356,6 @@ CMakeFiles/ChronoGuardian.dir/src/Texture.cpp.o: /Users/omar/Desktop/GUC/Chron0/
   /opt/homebrew/include/GL/glew.h
 
 CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/src/main.cpp \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/GLUT.framework/Headers/glut.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/glu.h \
@@ -15859,6 +16023,7 @@ CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: /Users/omar/Desktop/GUC/Chron0/Chr
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/type_traits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/typeinfo \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_map \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_set \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/utility \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/variant \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector \
@@ -16023,12 +16188,45 @@ CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: /Users/omar/Desktop/GUC/Chron0/Chr
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/GameObject.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Mesh.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Model.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/ParticleSystem.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Physics.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Player.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Shader.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Texture.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Transform.h \
   /opt/homebrew/include/GL/glew.h \
+  /opt/homebrew/include/GLFW/glfw3.h \
+  /opt/homebrew/include/assimp/Compiler/poppack1.h \
+  /opt/homebrew/include/assimp/Compiler/pushpack1.h \
+  /opt/homebrew/include/assimp/Importer.hpp \
+  /opt/homebrew/include/assimp/MathFunctions.h \
+  /opt/homebrew/include/assimp/aabb.h \
+  /opt/homebrew/include/assimp/anim.h \
+  /opt/homebrew/include/assimp/camera.h \
+  /opt/homebrew/include/assimp/color4.h \
+  /opt/homebrew/include/assimp/color4.inl \
+  /opt/homebrew/include/assimp/config.h \
+  /opt/homebrew/include/assimp/defs.h \
+  /opt/homebrew/include/assimp/light.h \
+  /opt/homebrew/include/assimp/material.h \
+  /opt/homebrew/include/assimp/material.inl \
+  /opt/homebrew/include/assimp/matrix3x3.h \
+  /opt/homebrew/include/assimp/matrix3x3.inl \
+  /opt/homebrew/include/assimp/matrix4x4.h \
+  /opt/homebrew/include/assimp/matrix4x4.inl \
+  /opt/homebrew/include/assimp/mesh.h \
+  /opt/homebrew/include/assimp/metadata.h \
+  /opt/homebrew/include/assimp/postprocess.h \
+  /opt/homebrew/include/assimp/quaternion.h \
+  /opt/homebrew/include/assimp/quaternion.inl \
+  /opt/homebrew/include/assimp/scene.h \
+  /opt/homebrew/include/assimp/texture.h \
+  /opt/homebrew/include/assimp/types.h \
+  /opt/homebrew/include/assimp/vector2.h \
+  /opt/homebrew/include/assimp/vector2.inl \
+  /opt/homebrew/include/assimp/vector3.h \
+  /opt/homebrew/include/assimp/vector3.inl \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/common.hpp \
   /opt/homebrew/include/glm/vector_relational.hpp \
@@ -16303,40 +16501,6 @@ CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: /Users/omar/Desktop/GUC/Chron0/Chr
 
 /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/src/Renderer.cpp:
 
-/opt/homebrew/include/GLFW/glfw3.h:
-
-/opt/homebrew/include/assimp/vector3.inl:
-
-/opt/homebrew/include/assimp/vector3.h:
-
-/opt/homebrew/include/assimp/metadata.h:
-
-/opt/homebrew/include/assimp/mesh.h:
-
-/opt/homebrew/include/assimp/matrix4x4.h:
-
-/opt/homebrew/include/assimp/matrix3x3.h:
-
-/opt/homebrew/include/assimp/material.inl:
-
-/opt/homebrew/include/assimp/defs.h:
-
-/opt/homebrew/include/assimp/config.h:
-
-/opt/homebrew/include/assimp/camera.h:
-
-/opt/homebrew/include/assimp/anim.h:
-
-/opt/homebrew/include/assimp/Importer.hpp:
-
-/opt/homebrew/include/assimp/Compiler/pushpack1.h:
-
-/opt/homebrew/include/assimp/Compiler/poppack1.h:
-
-/Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Texture.h:
-
-/Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Model.h:
-
 /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/src/Level2.cpp:
 
 /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/src/Level1.cpp:
@@ -16375,9 +16539,41 @@ CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: /Users/omar/Desktop/GUC/Chron0/Chr
 
 /opt/homebrew/include/glm/ext/quaternion_common.hpp:
 
+/opt/homebrew/include/assimp/vector3.inl:
+
+/opt/homebrew/include/assimp/vector3.h:
+
+/opt/homebrew/include/assimp/metadata.h:
+
+/opt/homebrew/include/assimp/mesh.h:
+
+/opt/homebrew/include/assimp/matrix4x4.h:
+
+/opt/homebrew/include/assimp/matrix3x3.h:
+
+/opt/homebrew/include/assimp/material.inl:
+
+/opt/homebrew/include/assimp/defs.h:
+
+/opt/homebrew/include/assimp/config.h:
+
+/opt/homebrew/include/assimp/camera.h:
+
+/opt/homebrew/include/assimp/anim.h:
+
+/opt/homebrew/include/assimp/Importer.hpp:
+
+/opt/homebrew/include/assimp/Compiler/pushpack1.h:
+
+/opt/homebrew/include/assimp/Compiler/poppack1.h:
+
+/opt/homebrew/include/GLFW/glfw3.h:
+
 /opt/homebrew/include/glm/ext/vector_relational.hpp:
 
 /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Transform.h:
+
+/Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Texture.h:
 
 /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Shader.h:
 
@@ -16386,6 +16582,8 @@ CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: /Users/omar/Desktop/GUC/Chron0/Chr
 /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Physics.h:
 
 /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/ParticleSystem.h:
+
+/Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Model.h:
 
 /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Mesh.h:
 
@@ -16420,8 +16618,6 @@ CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: /Users/omar/Desktop/GUC/Chron0/Chr
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/GLUT.framework/Headers/glut.h:
 
 /opt/homebrew/include/glm/packing.hpp:
 

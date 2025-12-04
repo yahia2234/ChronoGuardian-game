@@ -982,6 +982,39 @@ CMakeFiles/ChronoGuardian.dir/src/Player.cpp.o: \
   /opt/homebrew/include/glm/vector_relational.hpp \
   /opt/homebrew/include/glm/integer.hpp \
   /opt/homebrew/include/glm/detail/func_integer.inl \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Model.h \
+  /opt/homebrew/include/assimp/Importer.hpp \
+  /opt/homebrew/include/assimp/types.h \
+  /opt/homebrew/include/assimp/defs.h \
+  /opt/homebrew/include/assimp/config.h \
+  /opt/homebrew/include/assimp/vector2.h \
+  /opt/homebrew/include/assimp/vector3.h \
+  /opt/homebrew/include/assimp/color4.h \
+  /opt/homebrew/include/assimp/matrix3x3.h \
+  /opt/homebrew/include/assimp/matrix4x4.h \
+  /opt/homebrew/include/assimp/quaternion.h \
+  /opt/homebrew/include/assimp/vector2.inl \
+  /opt/homebrew/include/assimp/vector3.inl \
+  /opt/homebrew/include/assimp/color4.inl \
+  /opt/homebrew/include/assimp/matrix3x3.inl \
+  /opt/homebrew/include/assimp/matrix4x4.inl \
+  /opt/homebrew/include/assimp/MathFunctions.h \
+  /opt/homebrew/include/assimp/quaternion.inl \
+  /opt/homebrew/include/assimp/postprocess.h \
+  /opt/homebrew/include/assimp/scene.h \
+  /opt/homebrew/include/assimp/texture.h \
+  /opt/homebrew/include/assimp/./Compiler/pushpack1.h \
+  /opt/homebrew/include/assimp/./Compiler/poppack1.h \
+  /opt/homebrew/include/assimp/mesh.h \
+  /opt/homebrew/include/assimp/aabb.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/unordered_set \
+  /opt/homebrew/include/assimp/light.h \
+  /opt/homebrew/include/assimp/camera.h \
+  /opt/homebrew/include/assimp/material.h \
+  /opt/homebrew/include/assimp/material.inl \
+  /opt/homebrew/include/assimp/anim.h \
+  /opt/homebrew/include/assimp/metadata.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Texture.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/ParticleSystem.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Physics.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Transform.h \
@@ -1072,7 +1105,7 @@ CMakeFiles/ChronoGuardian.dir/src/Player.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Input.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/GLUT.framework/Headers/glut.h \
+  /opt/homebrew/include/GLFW/glfw3.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Shader.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/fstream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/filesystem \
@@ -1109,5 +1142,4 @@ CMakeFiles/ChronoGuardian.dir/src/Player.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/u8path.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/sstream \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \
-  /opt/homebrew/include/GLFW/glfw3.h
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream

@@ -1,17 +1,13 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <GL/glew.h>
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
 #include "Camera.h"
 #include "Level.h"
 #include "ParticleSystem.h"
 #include "Player.h"
 #include "Shader.h"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include <memory>
 #include <string>
 
@@ -22,21 +18,19 @@ public:
   Game();
   ~Game();
 
-  bool init(int argc, char **argv);
+  bool init();
   void run();
-  void renderText(float x, float y, const std::string &text,
-                  void *font = GLUT_BITMAP_HELVETICA_18);
+  void renderText(float x, float y, const std::string &text);
   void cleanup();
 
-  // GLUT callbacks (must be static)
-  static void displayCallback();
-  static void reshapeCallback(int width, int height);
-  static void timerCallback(int value);
-  static void idleCallback();
+  // GLFW Callbacks
+  static void framebufferSizeCallback(GLFWwindow *window, int width,
+                                      int height);
 
-  static Game *instance; // Singleton for GLUT callbacks
+  static Game *instance; // Singleton for GLFW callbacks
 
 private:
+  GLFWwindow *window;
   int screenWidth;
   int screenHeight;
 

@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "Mesh.h"
+#include "Model.h"
 #include "ParticleSystem.h"
 #include "Physics.h"
 #include "Transform.h"
@@ -33,7 +34,8 @@ public:
 
   std::vector<Fragment> fragments;
   std::unique_ptr<Mesh> coreMesh;
-  std::unique_ptr<Mesh> headMesh; // New head component
+  std::unique_ptr<Mesh> headMesh;     // New head component
+  std::unique_ptr<Model> playerModel; // For loading external models
 
   float fragmentRotationSpeed;
   float currentBobOffset;

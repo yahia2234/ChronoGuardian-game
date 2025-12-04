@@ -1,12 +1,10 @@
 #include "Level1.h"
 #include <iostream>
 
-Level1::Level1()
-    : forceFieldDoor(nullptr), mainGem(nullptr), shardsCollected(0),
-      mainGemActive(false) {
+Level1::Level1() : forceFieldDoor(nullptr) {
   levelComplete = false;
   // Spawn in corner opposite to door (Door is at z=28)
-  // Level is 60x60, so corners are at +/- 30
+  // Level is 90x90, so corners are at +/- 30
   playerStartPosition = glm::vec3(-25.0f, 2.0f, -25.0f);
 }
 
@@ -16,75 +14,18 @@ void Level1::init() {
   createPendulums();
   createCrumblingTiles();
   createForceFieldDoor();
-  createCollectible(); // Creates 6 coins AND main gem
+  createCheckeredFloor(); // New checkered floor
+  createCollectible();    // Creates 6 coins AND main gem
 
-  // Setup lights
+  // Setup lights - Single bright light that will follow the player
   lights.clear();
 
-  // VERY BRIGHT LIGHTING - Increased intensity for wall visibility
-  GLfloat ambientLight[] = {0.7f, 0.7f, 0.8f, 1.0f};   // Much brighter ambient
-  GLfloat diffuseLight[] = {1.2f, 1.2f, 1.3f, 1.0f};   // Very bright diffuse
-  GLfloat specularLight[] = {0.8f, 0.8f, 0.8f, 1.0f};  // Bright specular
-  GLfloat lightPosition[] = {0.0f, 18.0f, 0.0f, 1.0f}; // High overhead
-
-  glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
-  glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
-  glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
-  glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-  glEnable(GL_LIGHT0);
-
-  // Light 1 - North wall illumination
-  GLfloat wallLight[] = {0.6f, 0.6f, 0.7f, 1.0f};
-  GLfloat brightDiffuse[] = {1.0f, 1.0f, 1.1f, 1.0f};
-  GLfloat lightPos2[] = {0.0f, 8.0f, -40.0f, 1.0f};
-  glLightfv(GL_LIGHT1, GL_AMBIENT, wallLight);
-  glLightfv(GL_LIGHT1, GL_DIFFUSE, brightDiffuse);
-  glLightfv(GL_LIGHT1, GL_POSITION, lightPos2);
-  glEnable(GL_LIGHT1);
-
-  // Light 2 - West wall illumination
-  GLfloat lightPos3[] = {-40.0f, 8.0f, 0.0f, 1.0f};
-  glLightfv(GL_LIGHT2, GL_AMBIENT, wallLight);
-  glLightfv(GL_LIGHT2, GL_DIFFUSE, brightDiffuse);
-  glLightfv(GL_LIGHT2, GL_POSITION, lightPos3);
-  glEnable(GL_LIGHT2);
-
-  // Light 3 - East wall illumination
-  GLfloat lightPos4[] = {40.0f, 8.0f, 0.0f, 1.0f};
-  glLightfv(GL_LIGHT3, GL_AMBIENT, wallLight);
-  glLightfv(GL_LIGHT3, GL_DIFFUSE, brightDiffuse);
-  glLightfv(GL_LIGHT3, GL_POSITION, lightPos4);
-  glEnable(GL_LIGHT3);
-
-  // Light 4 - South wall illumination
-  GLfloat lightPos5[] = {0.0f, 8.0f, 40.0f, 1.0f};
-  glLightfv(GL_LIGHT4, GL_AMBIENT, wallLight);
-  glLightfv(GL_LIGHT4, GL_DIFFUSE, brightDiffuse);
-  glLightfv(GL_LIGHT4, GL_POSITION, lightPos5);
-  glEnable(GL_LIGHT4);
-
-  // Light 5 - Northwest corridor
-  GLfloat corridorLight[] = {0.5f, 0.5f, 0.6f, 1.0f};
-  GLfloat corridorDiffuse[] = {0.9f, 0.9f, 1.0f, 1.0f};
-  GLfloat lightPos6[] = {-20.0f, 7.0f, -20.0f, 1.0f};
-  glLightfv(GL_LIGHT5, GL_AMBIENT, corridorLight);
-  glLightfv(GL_LIGHT5, GL_DIFFUSE, corridorDiffuse);
-  glLightfv(GL_LIGHT5, GL_POSITION, lightPos6);
-  glEnable(GL_LIGHT5);
-
-  // Light 6 - Northeast corridor
-  GLfloat lightPos7[] = {20.0f, 7.0f, -20.0f, 1.0f};
-  glLightfv(GL_LIGHT6, GL_AMBIENT, corridorLight);
-  glLightfv(GL_LIGHT6, GL_DIFFUSE, corridorDiffuse);
-  glLightfv(GL_LIGHT6, GL_POSITION, lightPos7);
-  glEnable(GL_LIGHT6);
-
-  // Light 7 - Central gauntlet
-  GLfloat lightPos8[] = {0.0f, 7.0f, 10.0f, 1.0f};
-  glLightfv(GL_LIGHT7, GL_AMBIENT, corridorLight);
-  glLightfv(GL_LIGHT7, GL_DIFFUSE, corridorDiffuse);
-  glLightfv(GL_LIGHT7, GL_POSITION, lightPos8);
-  glEnable(GL_LIGHT7);
+  // This light will be updated in the update() method to follow the player
+  Light playerLight;
+  playerLight.position = glm::vec3(0.0f, 5.0f, 0.0f); // Will be updated
+  playerLight.color = glm::vec3(1.0f, 1.0f, 1.0f);
+  playerLight.intensity = 3.0f; // Very bright
+  lights.push_back(playerLight);
 
   glEnable(GL_LIGHTING);
   glEnable(GL_COLOR_MATERIAL);
@@ -131,15 +72,7 @@ void Level1::createChamber() {
   createWall(glm::vec3(0.0f, roomHeight, 0.0f),
              glm::vec3(roomWidth, 1.0f, roomDepth), outerWallColor);
 
-  // Floor - Dark Checkered
-  auto floor = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
-  floor->transform.position = glm::vec3(0.0f, 0.0f, 0.0f);
-  floor->transform.scale = glm::vec3(roomWidth, 0.1f, roomDepth);
-  floor->mesh.reset(Mesh::createCube(1.0f));
-  floor->color = glm::vec3(0.2f, 0.2f, 0.25f);
-  floor->materialType = 2; // Checkered
-  floor->updateBoundingBox();
-  walls.push_back(std::move(floor));
+  // Floor is now created in createCheckeredFloor()
 
   // Invisible floor boundary
   createWall(glm::vec3(0.0f, -0.5f, 0.0f),
@@ -172,9 +105,23 @@ void Level1::createMazeWalls() {
              brickColor, 1);
 
   // === CENTRAL GAUNTLET (Main Corridor) - Extended ===
-  createWall(glm::vec3(-9.0f, h / 2, -15.0f), glm::vec3(1.0f, h, 60.0f),
+  // === CENTRAL GAUNTLET (Main Corridor) - Modified for Access ===
+  // Split walls to create entry gaps near spawn (z = -25 to -15)
+
+  // Left side (West)
+  // Segment 1: Back
+  createWall(glm::vec3(-9.0f, h / 2, -35.0f), glm::vec3(1.0f, h, 20.0f),
              brickColor, 1);
-  createWall(glm::vec3(9.0f, h / 2, -15.0f), glm::vec3(1.0f, h, 60.0f),
+  // Segment 2: Front (Gap from -25 to -15)
+  createWall(glm::vec3(-9.0f, h / 2, 0.0f), glm::vec3(1.0f, h, 30.0f),
+             brickColor, 1);
+
+  // Right side (East)
+  // Segment 1: Back
+  createWall(glm::vec3(9.0f, h / 2, -35.0f), glm::vec3(1.0f, h, 20.0f),
+             brickColor, 1);
+  // Segment 2: Front (Gap from -25 to -15)
+  createWall(glm::vec3(9.0f, h / 2, 0.0f), glm::vec3(1.0f, h, 30.0f),
              brickColor, 1);
 
   // === ZONE 3: WEST WING - Expanded ===
@@ -210,8 +157,9 @@ void Level1::createMazeWalls() {
              brickColor, 1);
 
   // Additional maze complexity - more walls for challenge
-  createWall(glm::vec3(0.0f, h / 2, -7.0f), glm::vec3(12.0f, h, 1.0f),
-             brickColor, 1);
+  // REMOVED BLOCKING WALL at (0, -7) to allow path
+  // createWall(glm::vec3(0.0f, h / 2, -7.0f), glm::vec3(12.0f, h, 1.0f),
+  //            brickColor, 1);
   createWall(glm::vec3(-15.0f, h / 2, 7.0f), glm::vec3(1.0f, h, 15.0f),
              brickColor, 1);
   createWall(glm::vec3(15.0f, h / 2, 7.0f), glm::vec3(1.0f, h, 15.0f),
@@ -224,72 +172,39 @@ void Level1::createMazeWalls() {
 }
 
 void Level1::createPendulums() {
-  // SWINGING BLOCK PENDULUMS - More pendulums, faster speeds
+  // SWINGING BLOCK PENDULUMS - Significantly increased count
 
-  // 1. The Gauntlet (Central Corridor) - 8 pendulums (increased from 6)
-  for (int i = 0; i < 8; i++) {
-    float zPos = -18.0f + (i * 7.0f);
+  // 1. The Gauntlet (Central Corridor) - 12 pendulums (increased from 8)
+  for (int i = 0; i < 12; i++) {
+    float zPos = -18.0f + (i * 4.5f); // Tighter spacing
     auto p = std::make_unique<Pendulum>(glm::vec3(0.0f, 8.0f, zPos), 6.0f);
-    p->swingSpeed = 2.0f + (i % 3) * 0.5f; // Increased speed
-    p->swingAngle = i * 1.0f;
+    p->swingSpeed = 2.0f + (i % 4) * 0.5f;
+    p->swingAngle = i * 0.8f;
     p->transform.scale = glm::vec3(6.0f, 4.0f, 0.5f);
     p->updateBoundingBox();
     objects.push_back(std::move(p));
   }
 
-  // 2. West Wing Guards - 4 pendulums (increased from 2)
-  auto p1 = std::make_unique<Pendulum>(glm::vec3(-22.0f, 8.0f, -15.0f), 5.0f);
-  p1->swingSpeed = 2.5f; // Faster
-  p1->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
-  p1->updateBoundingBox();
-  objects.push_back(std::move(p1));
+  // 2. West Wing Guards - 6 pendulums
+  for (int i = 0; i < 6; i++) {
+    float zPos = -15.0f + (i * 8.0f);
+    auto p = std::make_unique<Pendulum>(glm::vec3(-26.0f, 8.0f, zPos), 5.0f);
+    p->swingSpeed = 2.5f + (i % 2) * 0.5f;
+    p->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+    p->updateBoundingBox();
+    objects.push_back(std::move(p));
+  }
 
-  auto p2 = std::make_unique<Pendulum>(glm::vec3(-30.0f, 8.0f, 5.0f), 5.0f);
-  p2->swingSpeed = 2.5f;
-  p2->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
-  p2->updateBoundingBox();
-  objects.push_back(std::move(p2));
-
-  auto p3 = std::make_unique<Pendulum>(glm::vec3(-22.0f, 8.0f, 15.0f), 5.0f);
-  p3->swingSpeed = 2.0f;
-  p3->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
-  p3->updateBoundingBox();
-  objects.push_back(std::move(p3));
-
-  auto p4 = std::make_unique<Pendulum>(glm::vec3(-30.0f, 8.0f, 25.0f), 5.0f);
-  p4->swingSpeed = 2.5f;
-  p4->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
-  p4->updateBoundingBox();
-  objects.push_back(std::move(p4));
-
-  // 3. East Wing Guards - 4 pendulums (increased from 2)
-  auto p5 = std::make_unique<Pendulum>(glm::vec3(22.0f, 8.0f, -15.0f), 5.0f);
-  p5->swingSpeed = 2.5f;
-  p5->swingAngle = 3.14f;
-  p5->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
-  p5->updateBoundingBox();
-  objects.push_back(std::move(p5));
-
-  auto p6 = std::make_unique<Pendulum>(glm::vec3(30.0f, 8.0f, 5.0f), 5.0f);
-  p6->swingSpeed = 2.5f;
-  p6->swingAngle = 3.14f;
-  p6->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
-  p6->updateBoundingBox();
-  objects.push_back(std::move(p6));
-
-  auto p7 = std::make_unique<Pendulum>(glm::vec3(22.0f, 8.0f, 15.0f), 5.0f);
-  p7->swingSpeed = 2.0f;
-  p7->swingAngle = 3.14f;
-  p7->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
-  p7->updateBoundingBox();
-  objects.push_back(std::move(p7));
-
-  auto p8 = std::make_unique<Pendulum>(glm::vec3(30.0f, 8.0f, 25.0f), 5.0f);
-  p8->swingSpeed = 2.5f;
-  p8->swingAngle = 3.14f;
-  p8->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
-  p8->updateBoundingBox();
-  objects.push_back(std::move(p8));
+  // 3. East Wing Guards - 6 pendulums
+  for (int i = 0; i < 6; i++) {
+    float zPos = -15.0f + (i * 8.0f);
+    auto p = std::make_unique<Pendulum>(glm::vec3(26.0f, 8.0f, zPos), 5.0f);
+    p->swingSpeed = 2.5f + (i % 2) * 0.5f;
+    p->swingAngle = 3.14f;
+    p->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+    p->updateBoundingBox();
+    objects.push_back(std::move(p));
+  }
 }
 
 void Level1::createCrumblingTiles() {
@@ -317,57 +232,49 @@ void Level1::createCrumblingTiles() {
 }
 
 void Level1::createCollectible() {
-  // 6 Coins strategically placed throughout the expanded maze (Ground level
-  // y=1.0)
+  // 6 Coins placed throughout the level
 
-  // 1. Northwest zone - Deep corner (requires exploring spawn area)
-  auto c1 = std::make_unique<Collectible>(glm::vec3(-23.0f, 1.0f, -23.0f),
+  // 1. Hidden behind Northwest corner wall
+  auto c1 = std::make_unique<Collectible>(glm::vec3(-40.0f, 1.0f, -40.0f),
                                           glm::vec3(1.0f, 0.84f, 0.0f));
   c1->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
   c1->rotationSpeed = 6.0f;
   objects.push_back(std::move(c1));
 
-  // 2. Northeast zone - Behind pendulum (challenging)
-  auto c2 = std::make_unique<Collectible>(glm::vec3(23.0f, 1.0f, -18.0f),
+  // 2. Hidden in Northeast alcove
+  auto c2 = std::make_unique<Collectible>(glm::vec3(40.0f, 1.0f, -40.0f),
                                           glm::vec3(1.0f, 0.84f, 0.0f));
   c2->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
   c2->rotationSpeed = 6.0f;
   objects.push_back(std::move(c2));
 
-  // 3. West wing - Dead end (rewards exploration)
-  auto c3 = std::make_unique<Collectible>(glm::vec3(-23.0f, 1.0f, 18.0f),
+  // 3. Hidden in West Wing dead end
+  auto c3 = std::make_unique<Collectible>(glm::vec3(-40.0f, 1.0f, 10.0f),
                                           glm::vec3(1.0f, 0.84f, 0.0f));
   c3->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
   c3->rotationSpeed = 6.0f;
   objects.push_back(std::move(c3));
 
-  // 4. East wing - Dead end (symmetric to west)
-  auto c4 = std::make_unique<Collectible>(glm::vec3(23.0f, 1.0f, 18.0f),
+  // 4. Hidden in East Wing dead end
+  auto c4 = std::make_unique<Collectible>(glm::vec3(40.0f, 1.0f, 10.0f),
                                           glm::vec3(1.0f, 0.84f, 0.0f));
   c4->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
   c4->rotationSpeed = 6.0f;
   objects.push_back(std::move(c4));
 
-  // 5. Central area - Mid gauntlet (requires timing through pendulums)
-  auto c5 = std::make_unique<Collectible>(glm::vec3(0.0f, 1.0f, 0.0f),
+  // 5. Hidden behind a pillar in the South
+  auto c5 = std::make_unique<Collectible>(glm::vec3(-20.0f, 1.0f, 35.0f),
                                           glm::vec3(1.0f, 0.84f, 0.0f));
   c5->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
   c5->rotationSpeed = 6.0f;
   objects.push_back(std::move(c5));
 
-  // 6. South zone - Near exit (final coin before gem)
-  auto c6 = std::make_unique<Collectible>(glm::vec3(0.0f, 1.0f, 18.0f),
+  // 6. Hidden in the opposite South corner
+  auto c6 = std::make_unique<Collectible>(glm::vec3(20.0f, 1.0f, 35.0f),
                                           glm::vec3(1.0f, 0.84f, 0.0f));
   c6->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
   c6->rotationSpeed = 6.0f;
   objects.push_back(std::move(c6));
-
-  // MAIN GEM (Energy Crystal) - At the very end
-  auto gem = std::make_unique<Collectible>(glm::vec3(0.0f, 1.0f, 25.0f),
-                                           glm::vec3(0.0f, 1.0f, 1.0f));
-  gem->isActive = false; // Hidden until coins collected
-  mainGem = gem.get();   // Store raw pointer
-  objects.push_back(std::move(gem));
 }
 
 void Level1::createForceFieldDoor() {
@@ -404,7 +311,12 @@ void Level1::createForceFieldDoor() {
 
 void Level1::update(float deltaTime, Player *player,
                     ParticleSystem *particles) {
-  // Custom update logic to track shards
+  // Update player-following light
+  if (!lights.empty()) {
+    lights[0].position = player->getPosition() + glm::vec3(0.0f, 5.0f, 0.0f);
+  }
+
+  // Custom update logic to track coins
   for (auto &obj : objects) {
     if (!obj->isActive || !obj->isTrigger)
       continue;
@@ -415,21 +327,11 @@ void Level1::update(float deltaTime, Player *player,
         auto collectible = static_cast<Collectible *>(obj.get());
         if (!collectible->isCollected) {
           collectible->collect();
+          hasCollectible = true;
 
-          if (collectible == mainGem) {
-            hasCollectible = true;
-          } else {
-            shardsCollected++;
-
-            // Emit Yellow Flare
-            particles->emitExplosion(collectible->transform.position,
-                                     glm::vec3(1.0f, 0.8f, 0.2f), 20);
-
-            // Check if all shards collected
-            if (shardsCollected >= totalShards && mainGem) {
-              mainGem->isActive = true;
-            }
-          }
+          // Emit particle effect
+          particles->emitExplosion(collectible->transform.position,
+                                   glm::vec3(1.0f, 0.8f, 0.2f), 20);
         }
       }
     }
@@ -437,9 +339,38 @@ void Level1::update(float deltaTime, Player *player,
 
   Level::update(deltaTime, player, particles);
 
-  // Check if player reached the exit (Door is always open now)
-  // Trigger just past the door (door is at 28.0 now)
+  // Check if player reached the exit (Door is always open)
   if (player->getPosition().z > 28.5f) {
     levelComplete = true;
+  }
+}
+
+void Level1::createCheckeredFloor() {
+  float roomSize = 90.0f;
+  float tileSize = 5.0f;
+  int tilesPerSide = static_cast<int>(roomSize / tileSize);
+  float startOffset = -roomSize / 2.0f + tileSize / 2.0f;
+
+  for (int i = 0; i < tilesPerSide; ++i) {
+    for (int j = 0; j < tilesPerSide; ++j) {
+      auto tile = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
+
+      float x = startOffset + i * tileSize;
+      float z = startOffset + j * tileSize;
+
+      tile->transform.position = glm::vec3(x, -0.5f, z);
+      tile->transform.scale = glm::vec3(tileSize, 1.0f, tileSize);
+      tile->mesh.reset(Mesh::createCube(1.0f));
+
+      // Checkered pattern
+      if ((i + j) % 2 == 0) {
+        tile->color = glm::vec3(0.2f, 0.2f, 0.25f); // Darker
+      } else {
+        tile->color = glm::vec3(0.4f, 0.4f, 0.45f); // Lighter
+      }
+
+      tile->updateBoundingBox();
+      walls.push_back(std::move(tile));
+    }
   }
 }

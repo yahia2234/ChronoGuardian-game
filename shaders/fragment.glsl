@@ -1,8 +1,10 @@
-#version 120
+#version 330 core
 
-varying vec3 FragPos;
-varying vec3 Normal;
-varying vec2 TexCoord;
+in vec3 FragPos;
+in vec3 Normal;
+in vec2 TexCoord;
+
+out vec4 FragColor;
 
 uniform vec3 viewPos;
 uniform vec3 objectColor;
@@ -164,7 +166,7 @@ void main() {
     final = totalLight * finalObjectColor + (result - ambient); // Add specular on top
     
     final = mix(fogColor, final, fogFactor);
-    gl_FragColor = vec4(final, 1.0);
+    FragColor = vec4(final, 1.0);
 }
 
 

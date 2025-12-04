@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include <GLFW/glfw3.h>
 #include <cmath>
+#include <iostream>
 
 Player::Player()
     : moveSpeed(8.0f), hoverHeight(1.0f), bobSpeed(2.0f), bobAmount(0.1f),
@@ -38,6 +39,15 @@ Player::Player()
 
     frag.transform.scale = glm::vec3(1.0f);
     fragments.push_back(std::move(frag));
+  }
+
+  // Load external model
+  // Try to load the player model
+  try {
+    playerModel = std::make_unique<Model>("assets/models/player.glb");
+  } catch (...) {
+    std::cout << "Failed to load player model, falling back to procedural mesh."
+              << std::endl;
   }
 }
 
@@ -161,16 +171,56 @@ void Player::draw(Shader *shader) {
   shader->setVec3("objectColor", coreColor);
   shader->setBool("useTexture", false);
   shader->setFloat("shininess", 64.0f);
-  coreMesh->draw();
+  shader->setFloat("shininess", 64.0f);
 
-  // Draw Head (Floating above)
-  glm::mat4 headModel = transform.getModelMatrix();
-  headModel =
-      glm::translate(headModel, glm::vec3(0.0f, 0.6f, 0.0f)); // Float above
+  if (playerModel && !playerModel->meshes.empty()) {
+    // Draw the imported model
 
-  shader->setMat4("model", headModel);
-  shader->setVec3("objectColor", coreColor); // Same gold color
-  headMesh->draw();
+    // 1. Disable culling temporarily (fixes inside-out models)
+    glDisable(GL_CULL_FACE);
+
+    glm::mat4 modelMatrix = transform.getModelMatrix();
+
+    // Center the model - adjust X, Y, Z offsets to align with player center
+    // Adjust these values based on where your model's origin is
+    modelMatrix = glm::translate(modelMatrix, glm::vec3(0.7f, -1.0f, 2.8f));
+
+    // Scale - 0.1f for good size
+    modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f));
+
+    // Rotate 90° counter-clockwise on Y-axis (facing direction)
+    modelMatrix =
+        glm::rotate(modelMatrix, glm::radians(90.0f), glm::vec3(0, 1, 0));
+
+    // Fix upright orientation (X-axis rotation)
+    modelMatrix =
+        glm::rotate(modelMatrix, glm::radians(-90.0f), glm::vec3(1, 0, 0));
+    shader->setMat4("model", modelMatrix);
+
+    // 4. Set a bright default color (white) so it's visible even without
+    // textures
+    shader->setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
+
+    playerModel->draw(shader);
+
+    // Re-enable culling
+    glEnable(GL_CULL_FACE);
+  } else {
+    // Fallback to procedural mesh
+    shader->setVec3("objectColor", coreColor);
+    coreMesh->draw();
+  }
+
+  // Draw Head (Floating above) - Only if no model loaded
+  if (!playerModel || playerModel->meshes.empty()) {
+    glm::mat4 headModel = transform.getModelMatrix();
+    headModel =
+        glm::translate(headModel, glm::vec3(0.0f, 0.6f, 0.0f)); // Float above
+
+    shader->setMat4("model", headModel);
+    shader->setVec3("objectColor", coreColor); // Same gold color
+    headMesh->draw();
+  }
 
   // Draw fragments (Ancient Stone/Energy)
   glm::vec3 fragmentColor =

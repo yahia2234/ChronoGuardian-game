@@ -9,19 +9,39 @@
 Game *Game::instance = nullptr;
 
 Game::Game()
-    : screenWidth(1280), screenHeight(720), gameState(GameState::LEVEL1),
-      currentLevelIndex(0), deltaTime(0.0f), lastFrame(0.0f), running(true) {
+    : window(nullptr), screenWidth(1280), screenHeight(720),
+      gameState(GameState::LEVEL1), currentLevelIndex(0), deltaTime(0.0f),
+      lastFrame(0.0f), running(true) {
   instance = this;
 }
 
 Game::~Game() { cleanup(); }
 
-bool Game::init(int argc, char **argv) {
-  // Initialize GLUT
-  glutInit(&argc, argv);
-  glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-  glutInitWindowSize(screenWidth, screenHeight);
-  glutCreateWindow("Chrono Guardian");
+bool Game::init() {
+  // Initialize GLFW
+  if (!glfwInit()) {
+    std::cerr << "Failed to initialize GLFW" << std::endl;
+    return false;
+  }
+
+  // Configure GLFW
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#ifdef __APPLE__
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
+
+  // Create window
+  window = glfwCreateWindow(screenWidth, screenHeight, "Chrono Guardian",
+                            nullptr, nullptr);
+  if (window == nullptr) {
+    std::cerr << "Failed to create GLFW window" << std::endl;
+    glfwTerminate();
+    return false;
+  }
+  glfwMakeContextCurrent(window);
+  glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
 
   // Initialize GLEW
   glewExperimental = GL_TRUE;
@@ -37,7 +57,7 @@ bool Game::init(int argc, char **argv) {
   glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
 
   // Initialize input system
-  Input::getInstance().init();
+  Input::getInstance().init(window);
 
   // Initialize audio system
   if (!AudioManager::getInstance().init()) {
@@ -69,24 +89,26 @@ bool Game::init(int argc, char **argv) {
   std::cout << "  R - Restart level" << std::endl;
   std::cout << "  ESC - Quit" << std::endl;
 
-  // Register GLUT callbacks
-  glutDisplayFunc(displayCallback);
-  glutReshapeFunc(reshapeCallback);
-  glutIdleFunc(idleCallback);
-  glutTimerFunc(16, timerCallback, 0); // ~60 FPS
-
   return true;
 }
 
-void Game::run() { glutMainLoop(); }
+void Game::run() {
+  while (!glfwWindowShouldClose(window)) {
+    // Calculate delta time
+    float currentFrame = glfwGetTime();
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
 
-void Game::displayCallback() {
-  if (instance) {
-    instance->render();
+    processInput();
+    update();
+    render();
+
+    glfwSwapBuffers(window);
+    glfwPollEvents();
   }
 }
 
-void Game::reshapeCallback(int width, int height) {
+void Game::framebufferSizeCallback(GLFWwindow *window, int width, int height) {
   if (instance) {
     instance->screenWidth = width;
     instance->screenHeight = height;
@@ -94,26 +116,11 @@ void Game::reshapeCallback(int width, int height) {
   }
 }
 
-void Game::timerCallback(int value) {
-  if (instance) {
-    glutPostRedisplay();
-    glutTimerFunc(16, timerCallback, 0);
-  }
-}
-
-void Game::idleCallback() {
-  if (instance) {
-    instance->processInput();
-    instance->update();
-  }
-}
-
 void Game::processInput() {
   Input &input = Input::getInstance();
 
   if (input.isKeyPressed(KEY_ESC)) {
-    cleanup();
-    exit(0);
+    glfwSetWindowShouldClose(window, true);
   }
 
   if (input.isKeyJustPressed(KEY_R)) {
@@ -131,30 +138,24 @@ void Game::processInput() {
     camera->toggleMode();
   }
 
-  // Camera rotation with Q and E keys (reduced speed)
+  // Camera rotation with Q and E keys
   if (input.isKeyPressed(KEY_Q)) {
-    camera->processMouseMovement(-3.0f, 0.0f); // Rotate left (ultra slow)
+    camera->processMouseMovement(-1.0f, 0.0f); // Rotate left
   }
   if (input.isKeyPressed(KEY_E)) {
-    camera->processMouseMovement(3.0f, 0.0f); // Rotate right (ultra slow)
+    camera->processMouseMovement(1.0f, 0.0f); // Rotate right
   }
 
-  // Mouse look - always active
+  // Mouse look
   glm::vec2 mouseDelta = input.getMouseDelta();
   if (glm::length(mouseDelta) > 0.01f) {
     camera->processMouseMovement(mouseDelta.x, mouseDelta.y);
   }
 
-  // Recenter mouse to prevent it from leaving window
-  glutWarpPointer(screenWidth / 2, screenHeight / 2);
+  // No need to manually warp pointer, GLFW handles it with GLFW_CURSOR_DISABLED
 }
 
 void Game::update() {
-  // Calculate delta time
-  float currentFrame = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
-  deltaTime = currentFrame - lastFrame;
-  lastFrame = currentFrame;
-
   if (gameState == GameState::LEVEL1 || gameState == GameState::LEVEL2) {
     // Get movement input
     glm::vec3 moveInput = getMovementInput();
@@ -203,33 +204,10 @@ void Game::update() {
   Input::getInstance().update();
 }
 
-void Game::renderText(float x, float y, const std::string &text, void *font) {
-  glMatrixMode(GL_PROJECTION);
-  glPushMatrix();
-  glLoadIdentity();
-  gluOrtho2D(0, screenWidth, 0, screenHeight);
-
-  glMatrixMode(GL_MODELVIEW);
-  glPushMatrix();
-  glLoadIdentity();
-
-  glDisable(GL_DEPTH_TEST);
-  glDisable(GL_LIGHTING);
-
-  glColor3f(1.0f, 1.0f, 1.0f); // White text
-  glRasterPos2f(x, y);
-
-  for (char c : text) {
-    glutBitmapCharacter(font, c);
-  }
-
-  glEnable(GL_LIGHTING);
-  glEnable(GL_DEPTH_TEST);
-
-  glMatrixMode(GL_PROJECTION);
-  glPopMatrix();
-  glMatrixMode(GL_MODELVIEW);
-  glPopMatrix();
+void Game::renderText(float x, float y, const std::string &text) {
+  // Text rendering is temporarily disabled during GLFW migration
+  // as GLUT bitmap fonts are not available.
+  // TODO: Implement FreeType or similar font rendering.
 }
 
 void Game::render() {
@@ -238,16 +216,8 @@ void Game::render() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // Render "YOU WON!"
-    std::string winText = "YOU WON!";
-    // Center roughly: screenWidth/2 - (approx width)
-    renderText(screenWidth / 2.0f - 40.0f, screenHeight / 2.0f + 20.0f, winText,
-               GLUT_BITMAP_TIMES_ROMAN_24);
-
-    // Render instruction
-    std::string restartText = "PRESS 'R' TO RESTART";
-    renderText(screenWidth / 2.0f - 80.0f, screenHeight / 2.0f - 20.0f,
-               restartText, GLUT_BITMAP_HELVETICA_18);
+    // Render "YOU WON!" - disabled
+    // renderText(...)
 
     return;
   } else {
@@ -267,7 +237,7 @@ void Game::render() {
     mainShader->setMat4("projection", projection);
     mainShader->setMat4("view", view);
     mainShader->setVec3("viewPos", camera->position);
-    mainShader->setFloat("time", glutGet(GLUT_ELAPSED_TIME) / 1000.0f);
+    mainShader->setFloat("time", glfwGetTime());
 
     // Set lighting
     if (currentLevel) {
@@ -290,8 +260,6 @@ void Game::render() {
     particleShader->setMat4("view", view);
     particles->draw(view, projection);
   }
-
-  glutSwapBuffers();
 }
 
 void Game::loadLevel(int levelIndex) {
@@ -360,4 +328,7 @@ glm::vec3 Game::getMovementInput() {
   return moveInput;
 }
 
-void Game::cleanup() { AudioManager::getInstance().cleanup(); }
+void Game::cleanup() {
+  AudioManager::getInstance().cleanup();
+  glfwTerminate();
+}

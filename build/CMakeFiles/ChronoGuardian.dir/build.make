@@ -352,11 +352,10 @@ ChronoGuardian: CMakeFiles/ChronoGuardian.dir/src/ParticleSystem.cpp.o
 ChronoGuardian: CMakeFiles/ChronoGuardian.dir/src/AudioManager.cpp.o
 ChronoGuardian: CMakeFiles/ChronoGuardian.dir/build.make
 ChronoGuardian: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework
-ChronoGuardian: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/GLUT.framework
+ChronoGuardian: /opt/homebrew/lib/libglfw.3.4.dylib
 ChronoGuardian: /opt/homebrew/lib/libGLEW.2.2.0.dylib
 ChronoGuardian: /opt/homebrew/lib/libglm.dylib
 ChronoGuardian: /opt/homebrew/lib/libassimp.6.0.2.dylib
-ChronoGuardian: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Cocoa.framework
 ChronoGuardian: /Library/Developer/CommandLineTools/SDKs/MacOSX15.sdk/usr/lib/libz.tbd
 ChronoGuardian: CMakeFiles/ChronoGuardian.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Linking CXX executable ChronoGuardian"

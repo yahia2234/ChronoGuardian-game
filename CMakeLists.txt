@@ -5,8 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find required packages
+# Find required packages
 find_package(OpenGL REQUIRED)
-find_package(GLUT REQUIRED)
+find_package(glfw3 REQUIRED)
 find_package(GLEW REQUIRED)
 
 # GLM (header-only library)
@@ -66,13 +67,12 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${OPENGL_INCLUDE_DIR}
     ${GLEW_INCLUDE_DIRS}
-    ${GLUT_INCLUDE_DIRS}
 )
 
 # Link libraries
 target_link_libraries(${PROJECT_NAME}
     OpenGL::GL
-    GLUT::GLUT
+    glfw
     GLEW::GLEW
     glm::glm
     assimp::assimp
