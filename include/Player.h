@@ -39,6 +39,7 @@ public:
 
   float fragmentRotationSpeed;
   float currentBobOffset;
+  float cameraYaw; // Track camera yaw for player model rotation
 
   Player();
   ~Player();
@@ -51,6 +52,7 @@ public:
 
   glm::vec3 getPosition() const { return transform.position; }
   void setPosition(const glm::vec3 &pos) { transform.position = pos; }
+  void setCameraYaw(float yaw) { cameraYaw = yaw; }
 
 private:
   void updateFragments(float deltaTime, float movementMagnitude);

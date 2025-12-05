@@ -1,5 +1,4 @@
 #include "Level1.h"
-#include <iostream>
 
 Level1::Level1() : forceFieldDoor(nullptr) {
   levelComplete = false;
@@ -17,15 +16,29 @@ void Level1::init() {
   createCheckeredFloor(); // New checkered floor
   createCollectible();    // Creates 6 coins AND main gem
 
-  // Setup lights - Single bright light that will follow the player
+  // Setup lights - 8 evenly distributed static lights
   lights.clear();
 
-  // This light will be updated in the update() method to follow the player
-  Light playerLight;
-  playerLight.position = glm::vec3(0.0f, 5.0f, 0.0f); // Will be updated
-  playerLight.color = glm::vec3(1.0f, 1.0f, 1.0f);
-  playerLight.intensity = 3.0f; // Very bright
-  lights.push_back(playerLight);
+  // Create 8 lights in a grid pattern (2x4) across the 90x90 room
+  // Room spans from -45 to +45 in both x and z
+  float lightHeight = 15.0f;              // High up for good coverage
+  float lightIntensity = 3.0f;            // Bright intensity for well-lit scene
+  glm::vec3 lightColor(1.0f, 1.0f, 1.0f); // White light
+
+  // Grid positions: 2 rows (x), 4 columns (z)
+  float xPositions[] = {-22.5f, 22.5f}; // 2 positions along x-axis
+  float zPositions[] = {-33.75f, -11.25f, 11.25f,
+                        33.75f}; // 4 positions along z-axis
+
+  for (float xPos : xPositions) {
+    for (float zPos : zPositions) {
+      Light light;
+      light.position = glm::vec3(xPos, lightHeight, zPos);
+      light.color = lightColor;
+      light.intensity = lightIntensity;
+      lights.push_back(light);
+    }
+  }
 
   glEnable(GL_LIGHTING);
   glEnable(GL_COLOR_MATERIAL);
@@ -311,11 +324,6 @@ void Level1::createForceFieldDoor() {
 
 void Level1::update(float deltaTime, Player *player,
                     ParticleSystem *particles) {
-  // Update player-following light
-  if (!lights.empty()) {
-    lights[0].position = player->getPosition() + glm::vec3(0.0f, 5.0f, 0.0f);
-  }
-
   // Custom update logic to track coins
   for (auto &obj : objects) {
     if (!obj->isActive || !obj->isTrigger)
@@ -353,24 +361,41 @@ void Level1::createCheckeredFloor() {
 
   for (int i = 0; i < tilesPerSide; ++i) {
     for (int j = 0; j < tilesPerSide; ++j) {
-      auto tile = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
-
       float x = startOffset + i * tileSize;
       float z = startOffset + j * tileSize;
 
-      tile->transform.position = glm::vec3(x, -0.5f, z);
-      tile->transform.scale = glm::vec3(tileSize, 1.0f, tileSize);
-      tile->mesh.reset(Mesh::createCube(1.0f));
+      // Determine if this should be a crumbling tile
+      // Make roughly 20% of tiles crumbling, distributed in a pattern
+      bool isCrumbling = ((i + j) % 5 == 2) || ((i * 3 + j * 2) % 7 == 3);
 
-      // Checkered pattern
-      if ((i + j) % 2 == 0) {
-        tile->color = glm::vec3(0.2f, 0.2f, 0.25f); // Darker
+      if (isCrumbling) {
+        // Create crumbling tile with orange color at ground level
+        auto crumblingTile =
+            std::make_unique<CrumblingTile>(glm::vec3(x, -0.5f, z));
+        crumblingTile->transform.scale = glm::vec3(tileSize, 1.0f, tileSize);
+        crumblingTile->color =
+            glm::vec3(0.9f, 0.5f, 0.2f); // Bright orange for crumbling tiles
+        crumblingTile->originalPosition = glm::vec3(x, -0.5f, z);
+        crumblingTile->fallTimer = 2.0f; // 2 seconds before falling
+        crumblingTile->updateBoundingBox();
+        objects.push_back(std::move(crumblingTile));
       } else {
-        tile->color = glm::vec3(0.4f, 0.4f, 0.45f); // Lighter
-      }
+        // Create regular static tile
+        auto tile = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
+        tile->transform.position = glm::vec3(x, -0.5f, z);
+        tile->transform.scale = glm::vec3(tileSize, 1.0f, tileSize);
+        tile->mesh.reset(Mesh::createCube(1.0f));
 
-      tile->updateBoundingBox();
-      walls.push_back(std::move(tile));
+        // Checkered pattern with orange and grey
+        if ((i + j) % 2 == 0) {
+          tile->color = glm::vec3(0.5f, 0.5f, 0.5f); // Grey
+        } else {
+          tile->color = glm::vec3(0.7f, 0.35f, 0.15f); // Darker orange
+        }
+
+        tile->updateBoundingBox();
+        walls.push_back(std::move(tile));
+      }
     }
   }
 }

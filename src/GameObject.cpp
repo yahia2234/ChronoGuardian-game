@@ -91,8 +91,8 @@ void CrumblingTile::update(float deltaTime) {
 
   shakeTimer += deltaTime;
 
-  // Requirement: "fall after the player rests on them for one second"
-  if (shakeTimer < 1.0f) {
+  // Fall after the player rests on them for 2 seconds
+  if (shakeTimer < 2.0f) {
     // Shake effect
     float shakeAmount = 0.05f;
     transform.position.x =

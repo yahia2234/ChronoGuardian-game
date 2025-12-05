@@ -9,7 +9,7 @@
 Player::Player()
     : moveSpeed(8.0f), hoverHeight(1.0f), bobSpeed(2.0f), bobAmount(0.1f),
       velocity(0.0f), isFlashing(false), flashTimer(0.0f),
-      fragmentRotationSpeed(1.0f), currentBobOffset(0.0f) {
+      fragmentRotationSpeed(1.0f), currentBobOffset(0.0f), cameraYaw(0.0f) {
 
   // Create core mesh (ornate sphere - Ancient Gold)
   coreMesh.reset(Mesh::createSphere(0.5f, 36, 18));
@@ -181,16 +181,22 @@ void Player::draw(Shader *shader) {
 
     glm::mat4 modelMatrix = transform.getModelMatrix();
 
+    // Apply camera yaw rotation first (rotate the model to face camera
+    // direction)
+    modelMatrix =
+        glm::rotate(modelMatrix, glm::radians(cameraYaw), glm::vec3(0, 1, 0));
+
     // Center the model - adjust X, Y, Z offsets to align with player center
     // Adjust these values based on where your model's origin is
-    modelMatrix = glm::translate(modelMatrix, glm::vec3(0.7f, -1.0f, 2.8f));
+    modelMatrix = glm::translate(modelMatrix, glm::vec3(2.9f, -1.0f, -2.0f));
 
     // Scale - 0.1f for good size
     modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f));
 
-    // Rotate 90° counter-clockwise on Y-axis (facing direction)
+    // Rotate 180° on Y-axis for correct facing direction (90° base + 90°
+    // adjustment)
     modelMatrix =
-        glm::rotate(modelMatrix, glm::radians(90.0f), glm::vec3(0, 1, 0));
+        glm::rotate(modelMatrix, glm::radians(180.0f), glm::vec3(0, 1, 0));
 
     // Fix upright orientation (X-axis rotation)
     modelMatrix =

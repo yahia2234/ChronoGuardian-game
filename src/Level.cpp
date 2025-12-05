@@ -138,7 +138,27 @@ void Level::checkTriggers(Player *player) {
   // Check triggers
   for (auto &obj : objects) {
     if (obj->isActive && obj->isTrigger) {
-      if (obj->useSphereCollision) {
+      // Special handling for crumbling tiles - check if player is standing on
+      // top
+      if (obj->type == GameObjectType::CRUMBLING_TILE) {
+        glm::vec3 playerPos = player->getPosition();
+        glm::vec3 tilePos = obj->transform.position;
+        glm::vec3 tileScale = obj->transform.scale;
+
+        // Check if player is above the tile (within reasonable height)
+        float heightDiff = playerPos.y - tilePos.y;
+        bool isAboveTile = (heightDiff > 0.0f && heightDiff < 2.0f);
+
+        // Check horizontal overlap (is player's XZ position over the tile?)
+        bool xOverlap = std::abs(playerPos.x - tilePos.x) <
+                        (tileScale.x / 2.0f + player->collisionSphere.radius);
+        bool zOverlap = std::abs(playerPos.z - tilePos.z) <
+                        (tileScale.z / 2.0f + player->collisionSphere.radius);
+
+        if (isAboveTile && xOverlap && zOverlap) {
+          obj->onTrigger();
+        }
+      } else if (obj->useSphereCollision) {
         // Enhanced debug logging for collectibles
         if (obj->type == GameObjectType::COLLECTIBLE) {
           auto collectible = static_cast<Collectible *>(obj.get());

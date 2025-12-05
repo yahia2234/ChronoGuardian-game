@@ -178,6 +178,9 @@ void Game::update() {
     }
     camera->updateCameraVectors();
 
+    // Update player's camera yaw for model rotation
+    player->setCameraYaw(camera->yaw);
+
     // Update level
     if (currentLevel) {
       currentLevel->update(deltaTime, player.get(), particles.get());
