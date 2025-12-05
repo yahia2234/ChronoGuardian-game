@@ -185,6 +185,12 @@ void Game::update() {
     if (currentLevel) {
       currentLevel->update(deltaTime, player.get(), particles.get());
 
+      // Check if level should restart (e.g., player on disappeared tile)
+      if (currentLevel->shouldRestart) {
+        restartLevel();
+        return;
+      }
+
       // Check level completion
       if (currentLevel->levelComplete) {
         nextLevel();

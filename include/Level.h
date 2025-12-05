@@ -33,6 +33,7 @@ public:
 
   bool levelComplete;
   bool hasCollectible;
+  bool shouldRestart; // Flag to signal level should restart
 
   Level();
   virtual ~Level() = default;

@@ -347,6 +347,33 @@ void Level1::update(float deltaTime, Player *player,
 
   Level::update(deltaTime, player, particles);
 
+  // Check if player is standing on a disappeared crumbling tile
+  glm::vec3 playerPos = player->getPosition();
+  for (auto &obj : objects) {
+    if (obj->type == GameObjectType::CRUMBLING_TILE) {
+      auto tile = static_cast<CrumblingTile *>(obj.get());
+      // If tile has fallen and player is still above its original position
+      if (tile->hasFallen && !obj->isActive) {
+        glm::vec3 tilePos = tile->originalPosition;
+        float tileSize = 5.0f; // Match the floor tile size
+
+        // Check if player is above the disappeared tile's original position
+        float heightDiff = playerPos.y - tilePos.y;
+        bool isAboveTile = (heightDiff > 0.0f && heightDiff < 3.0f);
+
+        // Check horizontal overlap
+        bool xOverlap = std::abs(playerPos.x - tilePos.x) < (tileSize / 2.0f);
+        bool zOverlap = std::abs(playerPos.z - tilePos.z) < (tileSize / 2.0f);
+
+        if (isAboveTile && xOverlap && zOverlap) {
+          // Player is standing where a tile disappeared - restart level
+          shouldRestart = true;
+          return;
+        }
+      }
+    }
+  }
+
   // Check if player reached the exit (Door is always open)
   if (player->getPosition().z > 28.5f) {
     levelComplete = true;

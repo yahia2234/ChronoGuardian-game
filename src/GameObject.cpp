@@ -91,7 +91,7 @@ void CrumblingTile::update(float deltaTime) {
 
   shakeTimer += deltaTime;
 
-  // Fall after the player rests on them for 2 seconds
+  // Shake for 2 seconds, then fall rapidly
   if (shakeTimer < 2.0f) {
     // Shake effect
     float shakeAmount = 0.05f;
@@ -99,13 +99,13 @@ void CrumblingTile::update(float deltaTime) {
         originalPosition.x + (sin(shakeTimer * 20.0f) * shakeAmount);
     transform.position.z =
         originalPosition.z + (cos(shakeTimer * 15.0f) * shakeAmount);
+  } else if (shakeTimer < 2.3f) {
+    // Fall rapidly for 0.3 seconds
+    transform.position.y -= 30.0f * deltaTime; // Fast fall
   } else {
-    // Fall
-    transform.position.y -= 10.0f * deltaTime;
-    if (transform.position.y < -10.0f) {
-      hasFallen = true;
-      isActive = false;
-    }
+    // Completely disappear - player will fall through
+    hasFallen = true;
+    isActive = false;
   }
 
   updateBoundingBox();
