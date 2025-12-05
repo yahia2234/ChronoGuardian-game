@@ -29,8 +29,8 @@ void Level1::init() {
 
   // Create 8 lights in a grid pattern (2x4) across the 90x90 room
   // Room spans from -45 to +45 in both x and z
-  float lightHeight = 15.0f;              // High up for good coverage
-  float lightIntensity = 3.0f;            // Bright intensity for well-lit scene
+  float lightHeight = 12.0f;              // High up for good coverage
+  float lightIntensity = 4.0f;            // Bright intensity for well-lit scene
   glm::vec3 lightColor(1.0f, 1.0f, 1.0f); // White light
 
   // Grid positions: 2 rows (x), 4 columns (z)

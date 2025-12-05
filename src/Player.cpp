@@ -9,7 +9,8 @@
 Player::Player()
     : moveSpeed(8.0f), hoverHeight(1.0f), bobSpeed(2.0f), bobAmount(0.1f),
       velocity(0.0f), isFlashing(false), flashTimer(0.0f),
-      fragmentRotationSpeed(1.0f), currentBobOffset(0.0f), cameraYaw(0.0f) {
+      fragmentRotationSpeed(1.0f), currentBobOffset(0.0f), walkBobOffset(0.0f),
+      cameraYaw(0.0f) {
 
   // Create core mesh (ornate sphere - Ancient Gold)
   coreMesh.reset(Mesh::createSphere(0.5f, 36, 18));
@@ -111,9 +112,22 @@ void Player::update(float deltaTime, const glm::vec3 &moveInput) {
   // Update hover animation
   updateHoverAnimation(deltaTime);
 
-  // Update fragments
+  // Update fragments and walking bob
   float movementMagnitude = glm::length(glm::vec2(moveInput.x, moveInput.z));
   updateFragments(deltaTime, movementMagnitude);
+
+  // Update walking bob animation
+  if (movementMagnitude > 0.1f && isGrounded) {
+    // Player is walking - animate bob
+    walkBobOffset += deltaTime * 10.0f; // Speed of walking animation
+    // Keep it in range to avoid overflow
+    if (walkBobOffset > 2.0f * M_PI) {
+      walkBobOffset -= 2.0f * M_PI;
+    }
+  } else {
+    // Not walking - smoothly return to neutral position
+    walkBobOffset *= 0.9f;
+  }
 
   // Update flash effect
   if (isFlashing) {
@@ -186,9 +200,13 @@ void Player::draw(Shader *shader) {
     modelMatrix =
         glm::rotate(modelMatrix, glm::radians(cameraYaw), glm::vec3(0, 1, 0));
 
+    // Calculate walking bob (vertical offset)
+    float bobY = sin(walkBobOffset) * 0.15f; // 0.15 units up/down amplitude
+
     // Center the model - adjust X, Y, Z offsets to align with player center
-    // Adjust these values based on where your model's origin is
-    modelMatrix = glm::translate(modelMatrix, glm::vec3(2.9f, -1.0f, -2.0f));
+    // Add walking bob to Y offset
+    modelMatrix =
+        glm::translate(modelMatrix, glm::vec3(2.9f, -1.0f + bobY, -2.0f));
 
     // Scale - 0.1f for good size
     modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f));

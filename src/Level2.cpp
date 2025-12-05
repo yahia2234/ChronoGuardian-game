@@ -17,10 +17,10 @@ void Level2::createCavern() {
   // Enhanced earthy colors for distinct cave appearance
   glm::vec3 rockColor(0.42f, 0.32f, 0.25f); // Warmer brown cave rock
 
-  // Hallway-style cavern (longer horizontally)
-  float roomWidth = 25.0f;
+  // Expanded square cavern (60x60)
+  float roomWidth = 60.0f;
   float roomHeight = 15.0f;
-  float roomDepth = 60.0f; // Extended for hallway effect
+  float roomDepth = 60.0f; // Square layout
 
   // North wall (irregular rough rock)
   createWall(glm::vec3(0.0f, roomHeight / 2, roomDepth / 2),
@@ -55,25 +55,30 @@ void Level2::createCavern() {
 }
 
 void Level2::createStalactites() {
-  // Create stalactites hanging from ceiling - More of them for larger space
-  // Original stalactites + additional ones along the path to gem
+  // Create stalactites hanging from ceiling - Many more for 60x60 space
   std::vector<glm::vec3> stalactitePositions = {
-      // Original stalactites
-      glm::vec3(-8.0f, 13.0f, -5.0f), glm::vec3(8.0f, 13.0f, 5.0f),
-      glm::vec3(-5.0f, 13.0f, 8.0f), glm::vec3(5.0f, 13.0f, 10.0f),
-      glm::vec3(-9.0f, 13.0f, 12.0f), glm::vec3(0.0f, 13.0f, 0.0f),
-      glm::vec3(6.0f, 13.0f, -8.0f), glm::vec3(-6.0f, 13.0f, -10.0f),
+      // Northwest quadrant
+      glm::vec3(-20.0f, 13.0f, -20.0f), glm::vec3(-15.0f, 13.0f, -25.0f),
+      glm::vec3(-25.0f, 13.0f, -15.0f), glm::vec3(-18.0f, 13.0f, -18.0f),
 
-      // Additional stalactites along the hallway path
-      glm::vec3(-3.0f, 13.0f, 15.0f), // Near gem area
-      glm::vec3(3.0f, 13.0f, 16.0f),  // Near gem area
-      glm::vec3(-7.0f, 13.0f, 18.0f), // Flanking gem path
-      glm::vec3(7.0f, 13.0f, 20.0f),  // Flanking gem path
-      glm::vec3(0.0f, 13.0f, 22.0f),  // Behind gem
-      glm::vec3(-4.0f, 13.0f, 3.0f),  // Mid hallway left
-      glm::vec3(4.0f, 13.0f, 6.0f),   // Mid hallway right
-      glm::vec3(2.0f, 13.0f, -3.0f)   // Early hallway
-  };
+      // Northeast quadrant
+      glm::vec3(20.0f, 13.0f, -20.0f), glm::vec3(15.0f, 13.0f, -25.0f),
+      glm::vec3(25.0f, 13.0f, -15.0f), glm::vec3(18.0f, 13.0f, -18.0f),
+
+      // Southwest quadrant
+      glm::vec3(-20.0f, 13.0f, 20.0f), glm::vec3(-15.0f, 13.0f, 25.0f),
+      glm::vec3(-25.0f, 13.0f, 15.0f), glm::vec3(-18.0f, 13.0f, 18.0f),
+
+      // Southeast quadrant
+      glm::vec3(20.0f, 13.0f, 20.0f), glm::vec3(15.0f, 13.0f, 25.0f),
+      glm::vec3(25.0f, 13.0f, 15.0f), glm::vec3(18.0f, 13.0f, 18.0f),
+
+      // Central area
+      glm::vec3(0.0f, 13.0f, 0.0f), glm::vec3(-8.0f, 13.0f, 8.0f),
+      glm::vec3(8.0f, 13.0f, -8.0f), glm::vec3(-5.0f, 13.0f, 5.0f),
+      glm::vec3(5.0f, 13.0f, -5.0f), glm::vec3(0.0f, 13.0f, 10.0f),
+      glm::vec3(0.0f, 13.0f, -10.0f), glm::vec3(10.0f, 13.0f, 0.0f),
+      glm::vec3(-10.0f, 13.0f, 0.0f)};
 
   for (const auto &pos : stalactitePositions) {
     auto stalactite = std::make_unique<Stalactite>(pos);
@@ -82,19 +87,24 @@ void Level2::createStalactites() {
 }
 
 void Level2::createGeysers() {
-  // Create geyser vents in the floor - Spread out + additional ones for
-  // challenge
+  // Create geyser vents in the floor - Many more for 60x60 space
   std::vector<glm::vec3> geyserPositions = {
-      // Original geysers
-      glm::vec3(-6.0f, 0.0f, -2.0f), glm::vec3(6.0f, 0.0f, 4.0f),
-      glm::vec3(-2.0f, 0.0f, 9.0f), glm::vec3(5.0f, 0.0f, -5.0f),
+      // Outer ring
+      glm::vec3(-22.0f, 0.0f, -22.0f), glm::vec3(22.0f, 0.0f, -22.0f),
+      glm::vec3(-22.0f, 0.0f, 22.0f), glm::vec3(22.0f, 0.0f, 22.0f),
 
-      // Additional geysers along the path to gem
-      glm::vec3(-4.0f, 0.0f, 14.0f), // Near gem approach
-      glm::vec3(3.0f, 0.0f, 18.0f),  // Closer to gem
-      glm::vec3(-7.0f, 0.0f, 7.0f),  // Mid hallway
-      glm::vec3(0.0f, 0.0f, 2.0f)    // Early hallway center
-  };
+      // Mid ring
+      glm::vec3(-15.0f, 0.0f, -15.0f), glm::vec3(15.0f, 0.0f, -15.0f),
+      glm::vec3(-15.0f, 0.0f, 15.0f), glm::vec3(15.0f, 0.0f, 15.0f),
+
+      // Cardinal directions
+      glm::vec3(0.0f, 0.0f, -20.0f), glm::vec3(0.0f, 0.0f, 20.0f),
+      glm::vec3(-20.0f, 0.0f, 0.0f), glm::vec3(20.0f, 0.0f, 0.0f),
+
+      // Inner area
+      glm::vec3(-8.0f, 0.0f, -8.0f), glm::vec3(8.0f, 0.0f, -8.0f),
+      glm::vec3(-8.0f, 0.0f, 8.0f), glm::vec3(8.0f, 0.0f, 8.0f),
+      glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 5.0f)};
 
   for (const auto &pos : geyserPositions) {
     auto geyser = std::make_unique<Geyser>(pos);
@@ -136,11 +146,20 @@ void Level2::createPedestal() {
 }
 
 void Level2::setupLighting() {
-  // Multiple warm orange torches on walls - Adjusted for new size
+  // Multiple warm orange torches on walls - Adjusted for 60x60 size
   std::vector<glm::vec3> torchPositions = {
-      glm::vec3(-11.0f, 6.0f, -12.0f), glm::vec3(11.0f, 6.0f, -12.0f),
-      glm::vec3(-11.0f, 6.0f, 0.0f),   glm::vec3(11.0f, 6.0f, 0.0f),
-      glm::vec3(-11.0f, 6.0f, 12.0f),  glm::vec3(11.0f, 6.0f, 12.0f)};
+      // North wall
+      glm::vec3(-25.0f, 6.0f, -28.0f), glm::vec3(0.0f, 6.0f, -28.0f),
+      glm::vec3(25.0f, 6.0f, -28.0f),
+      // South wall
+      glm::vec3(-25.0f, 6.0f, 28.0f), glm::vec3(0.0f, 6.0f, 28.0f),
+      glm::vec3(25.0f, 6.0f, 28.0f),
+      // West wall
+      glm::vec3(-28.0f, 6.0f, -20.0f), glm::vec3(-28.0f, 6.0f, 0.0f),
+      glm::vec3(-28.0f, 6.0f, 20.0f),
+      // East wall
+      glm::vec3(28.0f, 6.0f, -20.0f), glm::vec3(28.0f, 6.0f, 0.0f),
+      glm::vec3(28.0f, 6.0f, 20.0f)};
 
   for (const auto &pos : torchPositions) {
     // Create visual torch model

@@ -39,7 +39,8 @@ public:
 
   float fragmentRotationSpeed;
   float currentBobOffset;
-  float cameraYaw; // Track camera yaw for player model rotation
+  float walkBobOffset; // Vertical offset for walking animation
+  float cameraYaw;     // Track camera yaw for player model rotation
 
   Player();
   ~Player();
