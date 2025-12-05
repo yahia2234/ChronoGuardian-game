@@ -1101,4 +1101,9 @@ CMakeFiles/ChronoGuardian.dir/src/Level2.cpp.o: \
   /opt/homebrew/include/assimp/material.h \
   /opt/homebrew/include/assimp/material.inl \
   /opt/homebrew/include/assimp/anim.h \
-  /opt/homebrew/include/assimp/metadata.h
+  /opt/homebrew/include/assimp/metadata.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/AudioManager.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/al.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/alc.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree

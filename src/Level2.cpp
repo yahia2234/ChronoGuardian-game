@@ -1,6 +1,10 @@
 #include "Level2.h"
+#include "AudioManager.h"
 
-Level2::Level2() : pedestal(nullptr), gemPlaced(false) {
+Level2::Level2()
+    : pedestal(nullptr), gemCollectible(nullptr), gemPlaced(false),
+      stalactiteHits(0), endingCutscene(false), cutsceneTimer(0.0f),
+      gemOriginalPos(0.0f), gemShakeOffset(0.0f), pedestalRiseAmount(0.0f) {
   playerStartPosition = glm::vec3(0.0f, 1.0f, -8.0f);
 }
 
@@ -55,33 +59,21 @@ void Level2::createCavern() {
 }
 
 void Level2::createStalactites() {
-  // Create stalactites hanging from ceiling - Many more for 60x60 space
-  std::vector<glm::vec3> stalactitePositions = {
-      // Northwest quadrant
-      glm::vec3(-20.0f, 13.0f, -20.0f), glm::vec3(-15.0f, 13.0f, -25.0f),
-      glm::vec3(-25.0f, 13.0f, -15.0f), glm::vec3(-18.0f, 13.0f, -18.0f),
+  // Create 50 stalactites - distributed across 60x60 space
+  std::vector<glm::vec3> stalactitePositions;
 
-      // Northeast quadrant
-      glm::vec3(20.0f, 13.0f, -20.0f), glm::vec3(15.0f, 13.0f, -25.0f),
-      glm::vec3(25.0f, 13.0f, -15.0f), glm::vec3(18.0f, 13.0f, -18.0f),
-
-      // Southwest quadrant
-      glm::vec3(-20.0f, 13.0f, 20.0f), glm::vec3(-15.0f, 13.0f, 25.0f),
-      glm::vec3(-25.0f, 13.0f, 15.0f), glm::vec3(-18.0f, 13.0f, 18.0f),
-
-      // Southeast quadrant
-      glm::vec3(20.0f, 13.0f, 20.0f), glm::vec3(15.0f, 13.0f, 25.0f),
-      glm::vec3(25.0f, 13.0f, 15.0f), glm::vec3(18.0f, 13.0f, 18.0f),
-
-      // Central area
-      glm::vec3(0.0f, 13.0f, 0.0f), glm::vec3(-8.0f, 13.0f, 8.0f),
-      glm::vec3(8.0f, 13.0f, -8.0f), glm::vec3(-5.0f, 13.0f, 5.0f),
-      glm::vec3(5.0f, 13.0f, -5.0f), glm::vec3(0.0f, 13.0f, 10.0f),
-      glm::vec3(0.0f, 13.0f, -10.0f), glm::vec3(10.0f, 13.0f, 0.0f),
-      glm::vec3(-10.0f, 13.0f, 0.0f)};
+  // Generate 50 stalactites in a grid pattern with some randomness
+  for (int i = 0; i < 50; i++) {
+    float x = -25.0f + (i % 10) * 5.5f + (rand() % 100 - 50) / 50.0f;
+    float z = -25.0f + (i / 10) * 11.0f + (rand() % 100 - 50) / 50.0f;
+    stalactitePositions.push_back(glm::vec3(x, 13.0f, z));
+  }
 
   for (const auto &pos : stalactitePositions) {
     auto stalactite = std::make_unique<Stalactite>(pos);
+    // Make them much bigger - 2x scale
+    stalactite->transform.scale = glm::vec3(0.8f, 4.0f, 0.8f); // Twice as big
+    stalactite->updateBoundingBox();
     objects.push_back(std::move(stalactite));
   }
 }
@@ -113,16 +105,18 @@ void Level2::createGeysers() {
 }
 
 void Level2::createCollectible() {
-  // Glowing Gemstone - rough-cut red gem
+  // Glowing Gemstone - placed far from pedestal in corner
   auto gemstone = std::make_unique<Collectible>(
-      glm::vec3(0.0f, 2.0f, 12.0f), // Moved further back
-      glm::vec3(0.9f, 0.2f, 0.2f)   // Red
+      glm::vec3(-20.0f, 2.0f, -20.0f), // Far northwest corner
+      glm::vec3(0.9f, 0.2f, 0.2f)      // Red
   );
+  gemCollectible = gemstone.get();               // Store reference for cutscene
+  gemOriginalPos = gemstone->transform.position; // Store original position
   objects.push_back(std::move(gemstone));
 
   // Rock base for the gem (embedded look)
   auto rockBase = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
-  rockBase->transform.position = glm::vec3(0.0f, 1.5f, 12.0f);
+  rockBase->transform.position = glm::vec3(-20.0f, 1.5f, -20.0f);
   rockBase->transform.scale = glm::vec3(0.6f, 0.4f, 0.6f);
   rockBase->mesh.reset(Mesh::createCube(1.0f));
   rockBase->color = glm::vec3(0.3f, 0.25f, 0.2f); // Rock color
@@ -191,22 +185,66 @@ void Level2::update(float deltaTime, Player *player,
                     ParticleSystem *particles) {
   Level::update(deltaTime, player, particles);
 
-  // Check stalactite triggers (proximity)
+  // Check stalactite triggers (proximity) and collisions
   for (auto &obj : objects) {
     if (obj->type == GameObjectType::STALACTITE && obj->isActive) {
       Stalactite *stal = dynamic_cast<Stalactite *>(obj.get());
-      if (stal && !stal->isFalling) {
-        // Check horizontal distance (XZ plane) since stalactite is high up
+      if (stal) {
         glm::vec2 playerPosXZ(player->getPosition().x, player->getPosition().z);
         glm::vec2 stalPosXZ(stal->transform.position.x,
                             stal->transform.position.z);
-
         float dist = glm::length(playerPosXZ - stalPosXZ);
 
-        // Trigger if player is under the stalactite (within 2 units
-        // horizontally)
-        if (dist < 2.0f) {
-          stal->onTrigger();
+        if (!stal->isFalling) {
+          // Only trigger if player is BELOW the stalactite (not just nearby)
+          // Check horizontal distance AND vertical position
+          // Bigger trigger radius: 3.5 units
+          if (dist < 3.5f) {
+            // Player must be below the stalactite
+            float playerY = player->getPosition().y;
+            float stalY = stal->transform.position.y;
+
+            // Only fall if player is below (stalactite is higher than player)
+            if (stalY > playerY + 1.0f) { // At least 1 unit above player
+              stal->onTrigger();
+            }
+          }
+        } else {
+          // Check collision with falling stalactite (bigger hitbox: 2.0 units)
+          if (dist < 2.0f) {
+            // Check if stalactite is at player height
+            float heightDiff =
+                std::abs(stal->transform.position.y - player->getPosition().y);
+            if (heightDiff < 2.0f) {
+              // Hit detected!
+              stalactiteHits++;
+
+              // Play impact sound
+              AudioManager::getInstance().playSound(SoundEffect::OBSTACLE_HIT,
+                                                    0.8f);
+
+              // Strong pushback
+              glm::vec3 pushDir =
+                  glm::normalize(glm::vec3(playerPosXZ.x - stalPosXZ.x, 0.0f,
+                                           playerPosXZ.y - stalPosXZ.y));
+              player->transform.position += pushDir * 8.0f; // Strong pushback
+
+              // Emit impact particles
+              particles->emitExplosion(
+                  stal->transform.position,
+                  glm::vec3(0.6f, 0.4f, 0.3f), // Rock color
+                  25);
+
+              // Deactivate stalactite
+              stal->isActive = false;
+
+              // Check if player has been hit 3 times - reset to Level 1
+              if (stalactiteHits >= 3) {
+                shouldResetToLevel1 = true;
+                return;
+              }
+            }
+          }
         }
       }
     }
@@ -270,24 +308,65 @@ void Level2::update(float deltaTime, Player *player,
   }
 
   // Check if gem was collected and player reached pedestal
-  if (hasCollectible && pedestal) {
+  if (hasCollectible && pedestal && !endingCutscene) {
     if (Physics::checkSphereAABBCollision(player->collisionSphere,
                                           pedestal->boundingBox)) {
       if (!gemPlaced) {
         gemPlaced = true;
+        endingCutscene = true;
+        cutsceneTimer = 0.0f;
 
-        // Add pulsing light to gemstone on pedestal
+        // Disable player controls during cutscene
+        player->controlsEnabled = false;
+
+        // Make gem reappear on pedestal
+        if (gemCollectible) {
+          gemCollectible->isActive = true;
+          gemCollectible->transform.position =
+              pedestal->transform.position + glm::vec3(0.0f, 1.5f, 0.0f);
+        }
+      }
+    }
+  }
+
+  // Handle ending cutscene animation
+  if (endingCutscene) {
+    cutsceneTimer += deltaTime;
+
+    if (cutsceneTimer < 2.0f) {
+      // Phase 1: Gem shakes and bobs for 2 seconds
+      if (gemCollectible) {
+        float shake = sin(cutsceneTimer * 30.0f) * 0.1f; // Fast shake
+        float bob = sin(cutsceneTimer * 5.0f) * 0.3f;    // Slow bob
+        gemCollectible->transform.position =
+            pedestal->transform.position + glm::vec3(shake, 1.5f + bob, shake);
+      }
+    } else if (cutsceneTimer < 4.0f) {
+      // Phase 2: Pedestal rises (2-4 seconds)
+      float riseProgress = (cutsceneTimer - 2.0f) / 2.0f; // 0 to 1
+      pedestalRiseAmount = riseProgress * 3.0f;           // Rise 3 units
+      pedestal->transform.position.y = 0.5f + pedestalRiseAmount;
+
+      // Gem rises with pedestal
+      if (gemCollectible) {
+        gemCollectible->transform.position =
+            pedestal->transform.position + glm::vec3(0.0f, 1.5f, 0.0f);
+      }
+
+      // Add pulsing light
+      if (cutsceneTimer > 2.1f && lights.size() < 20) { // Only add once
         Light gemLight;
         gemLight.position =
-            pedestal->transform.position + glm::vec3(0.0f, 1.0f, 0.0f);
+            pedestal->transform.position + glm::vec3(0.0f, 2.0f, 0.0f);
         gemLight.color = glm::vec3(0.9f, 0.2f, 0.2f);
-        gemLight.intensity = 20.0f;
-        gemLight.flickerSpeed = 3.0f;
-        gemLight.flickerAmount = 0.5f;
+        gemLight.intensity = 30.0f;
+        gemLight.flickerSpeed = 5.0f;
+        gemLight.flickerAmount = 0.8f;
         lights.push_back(gemLight);
-
-        levelComplete = true;
       }
+    } else {
+      // Phase 3: Fade to black and complete level
+      levelComplete = true;
     }
   }
 }

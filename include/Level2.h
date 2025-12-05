@@ -19,7 +19,16 @@ private:
   void setupLighting();
 
   GameObject *pedestal;
+  GameObject *gemCollectible; // Reference to the gem for cutscene
   bool gemPlaced;
+  int stalactiteHits; // Track number of stalactite hits
+
+  // Ending cutscene variables
+  bool endingCutscene;
+  float cutsceneTimer;
+  glm::vec3 gemOriginalPos;
+  float gemShakeOffset;
+  float pedestalRiseAmount;
 };
 
 #endif

@@ -20,7 +20,9 @@ private:
   void createCheckeredFloor();
 
   GameObject *forceFieldDoor;
-  int coinsCollected;            // Track number of coins collected
+  GameObject *energyCrystal; // Blue energy crystal that appears after 6 coins
+  int coinsCollected;        // Track number of coins collected
+  bool crystalCollected;     // Track if energy crystal was collected
   Texture *crumblingTileTexture; // Texture for crumbling tiles
 };
 

@@ -185,6 +185,13 @@ void Game::update() {
     if (currentLevel) {
       currentLevel->update(deltaTime, player.get(), particles.get());
 
+      // Check if should reset to Level 1 (e.g., 3 stalactite hits in Level 2)
+      if (currentLevel->shouldResetToLevel1) {
+        AudioManager::getInstance().playSound(SoundEffect::TILE_CRACK, 0.7f);
+        loadLevel(0); // Reset to Level 1
+        return;
+      }
+
       // Check if level should restart (e.g., player on disappeared tile)
       if (currentLevel->shouldRestart) {
         restartLevel();
@@ -293,7 +300,11 @@ void Game::loadLevel(int levelIndex) {
   particles->clear();
 }
 
-void Game::restartLevel() { loadLevel(currentLevelIndex); }
+void Game::restartLevel() {
+  // Play restart sound
+  AudioManager::getInstance().playSound(SoundEffect::TILE_CRACK, 0.7f);
+  loadLevel(currentLevelIndex);
+}
 
 void Game::nextLevel() {
   // Play level complete sound

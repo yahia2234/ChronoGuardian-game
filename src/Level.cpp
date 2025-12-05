@@ -5,7 +5,8 @@
 
 Level::Level()
     : ambientLight(0.2f), playerStartPosition(0.0f, 1.0f, 0.0f),
-      levelComplete(false), hasCollectible(false), shouldRestart(false) {}
+      levelComplete(false), hasCollectible(false), shouldRestart(false),
+      shouldResetToLevel1(false) {}
 
 void Level::update(float deltaTime, Player *player, ParticleSystem *particles) {
   // Update all game objects

@@ -2,8 +2,8 @@
 #include <iostream>
 
 Level1::Level1()
-    : forceFieldDoor(nullptr), coinsCollected(0),
-      crumblingTileTexture(nullptr) {
+    : forceFieldDoor(nullptr), energyCrystal(nullptr), coinsCollected(0),
+      crystalCollected(false), crumblingTileTexture(nullptr) {
   levelComplete = false;
   // Spawn in corner opposite to door (Door is at z=28)
   // Level is 90x90, so corners are at +/- 30
@@ -22,7 +22,19 @@ void Level1::init() {
   createCrumblingTiles();
   createForceFieldDoor();
   createCheckeredFloor(); // New checkered floor
-  createCollectible();    // Creates 6 coins AND main gem
+  createCollectible();    // Creates 10 coins
+
+  // Create energy crystal (initially hidden, appears after 6 coins)
+  auto crystal = std::make_unique<Collectible>(
+      glm::vec3(0.0f, 2.0f, 15.0f), // Central location near exit
+      glm::vec3(0.2f, 0.6f, 1.0f)   // Blue color
+  );
+  crystal->transform.scale = glm::vec3(1.2f, 1.2f, 0.15f); // Larger than coins
+  crystal->rotationSpeed = 4.0f;                           // Slower rotation
+  crystal->isActive = false;                               // Hidden initially
+  crystal->isTrigger = true;
+  energyCrystal = crystal.get();
+  objects.push_back(std::move(crystal));
 
   // Setup lights - 8 evenly distributed static lights
   lights.clear();
@@ -396,7 +408,7 @@ void Level1::createForceFieldDoor() {
 
 void Level1::update(float deltaTime, Player *player,
                     ParticleSystem *particles) {
-  // Custom update logic to track coins
+  // Custom update logic to track coins and crystal
   for (auto &obj : objects) {
     if (!obj->isActive || !obj->isTrigger)
       continue;
@@ -407,16 +419,38 @@ void Level1::update(float deltaTime, Player *player,
         auto collectible = static_cast<Collectible *>(obj.get());
         if (!collectible->isCollected) {
           collectible->collect();
-          coinsCollected++;
 
-          // Emit particle effect
-          particles->emitExplosion(collectible->transform.position,
-                                   glm::vec3(1.0f, 0.8f, 0.2f), 20);
+          // Check if this is the energy crystal
+          if (obj.get() == energyCrystal) {
+            // Collected the energy crystal!
+            crystalCollected = true;
 
-          // Check if we've collected 6 coins to unlock the door
-          if (coinsCollected >= 6 && forceFieldDoor) {
-            forceFieldDoor->isActive = false;    // Unlock the door
-            forceFieldDoor->transparency = 0.2f; // Make it more transparent
+            // Unlock the door
+            if (forceFieldDoor) {
+              forceFieldDoor->isActive = false;
+              forceFieldDoor->transparency = 0.2f;
+            }
+
+            // Blue particle explosion
+            particles->emitExplosion(collectible->transform.position,
+                                     glm::vec3(0.2f, 0.6f, 1.0f), 30);
+          } else {
+            // Regular coin collected
+            coinsCollected++;
+
+            // Emit particle effect
+            particles->emitExplosion(collectible->transform.position,
+                                     glm::vec3(1.0f, 0.8f, 0.2f), 20);
+
+            // Spawn energy crystal after 6 coins
+            if (coinsCollected >= 6 && energyCrystal &&
+                !energyCrystal->isActive) {
+              energyCrystal->isActive = true;
+
+              // Spawn effect for crystal appearing
+              particles->emitExplosion(energyCrystal->transform.position,
+                                       glm::vec3(0.2f, 0.6f, 1.0f), 40);
+            }
           }
         }
       }

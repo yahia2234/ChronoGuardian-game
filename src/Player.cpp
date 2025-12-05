@@ -10,7 +10,7 @@ Player::Player()
     : moveSpeed(8.0f), hoverHeight(1.0f), bobSpeed(2.0f), bobAmount(0.1f),
       velocity(0.0f), isFlashing(false), flashTimer(0.0f),
       fragmentRotationSpeed(1.0f), currentBobOffset(0.0f), walkBobOffset(0.0f),
-      cameraYaw(0.0f) {
+      cameraYaw(0.0f), controlsEnabled(true) {
 
   // Create core mesh (ornate sphere - Ancient Gold)
   coreMesh.reset(Mesh::createSphere(0.5f, 36, 18));
@@ -72,15 +72,17 @@ void Player::update(float deltaTime, const glm::vec3 &moveInput) {
   }
 
   // Horizontal Movement (Smooth Gliding)
-  glm::vec3 targetVelocity =
-      glm::vec3(moveInput.x, 0.0f, moveInput.z) * moveSpeed;
+  glm::vec3 targetVelocity = glm::vec3(0.0f);
+  if (controlsEnabled) {
+    targetVelocity = glm::vec3(moveInput.x, 0.0f, moveInput.z) * moveSpeed;
+  }
 
   // Acceleration/Deceleration parameters
   float acceleration = 15.0f;
   float friction = 10.0f;
 
   // Smoothly interpolate current velocity towards target velocity
-  if (glm::length(moveInput) > 0.0f) {
+  if (glm::length(moveInput) > 0.0f && controlsEnabled) {
     // Accelerate
     velocity.x =
         glm::mix(velocity.x, targetVelocity.x, acceleration * deltaTime);
@@ -101,8 +103,9 @@ void Player::update(float deltaTime, const glm::vec3 &moveInput) {
   bool isGrounded =
       (std::abs(velocity.y) < 0.1f && transform.position.y >= groundLevel);
 
-  // Jump input (SPACE key)
-  if (Input::getInstance().isKeyJustPressed(KEY_SPACE) && isGrounded) {
+  // Jump input (SPACE key) - only if controls enabled
+  if (controlsEnabled && Input::getInstance().isKeyJustPressed(KEY_SPACE) &&
+      isGrounded) {
     velocity.y = 8.0f; // Jump force
   }
 
@@ -137,9 +140,9 @@ void Player::update(float deltaTime, const glm::vec3 &moveInput) {
     }
   }
 
-  // Play movement sound when moving
+  // Movement sound
+  static float movementSoundTimer = 0.0f;
   if (movementMagnitude > 0.1f) {
-    static float movementSoundTimer = 0.0f;
     movementSoundTimer += deltaTime;
     if (movementSoundTimer > 0.5f) {
       AudioManager::getInstance().playSound(SoundEffect::MOVEMENT, 0.3f);
