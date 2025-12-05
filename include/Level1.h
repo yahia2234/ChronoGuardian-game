@@ -20,6 +20,7 @@ private:
   void createCheckeredFloor();
 
   GameObject *forceFieldDoor;
+  int coinsCollected; // Track number of coins collected
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "Level1.h"
 
-Level1::Level1() : forceFieldDoor(nullptr) {
+Level1::Level1() : forceFieldDoor(nullptr), coinsCollected(0) {
   levelComplete = false;
   // Spawn in corner opposite to door (Door is at z=28)
   // Level is 90x90, so corners are at +/- 30
@@ -93,131 +93,167 @@ void Level1::createChamber() {
 }
 
 void Level1::createMazeWalls() {
-  // EXPANDED MAZE - BRICK TEXTURE (Scaled for 90x90)
+  // MAZE LAYOUT - Structured pathways with walls
   glm::vec3 brickColor(0.7f, 0.3f, 0.2f); // Reddish brick
   float h = 6.0f;                         // Wall height
 
-  // === ZONE 1: NORTHWEST (Spawn Area) - Expanded ===
-  createWall(glm::vec3(-30.0f, h / 2, -30.0f), glm::vec3(1.0f, h, 30.0f),
+  // Outer perimeter decorative walls (corners)
+  // Northwest corner
+  createWall(glm::vec3(-40.0f, h / 2, -35.0f), glm::vec3(1.0f, h, 10.0f),
              brickColor, 1);
-  createWall(glm::vec3(-15.0f, h / 2, -37.0f), glm::vec3(30.0f, h, 1.0f),
-             brickColor, 1);
-  createWall(glm::vec3(-22.0f, h / 2, -22.0f), glm::vec3(15.0f, h, 1.0f),
-             brickColor, 1);
-  createWall(glm::vec3(-37.0f, h / 2, -15.0f), glm::vec3(1.0f, h, 15.0f),
+  createWall(glm::vec3(-35.0f, h / 2, -40.0f), glm::vec3(10.0f, h, 1.0f),
              brickColor, 1);
 
-  // === ZONE 2: NORTHEAST - Expanded ===
-  createWall(glm::vec3(30.0f, h / 2, -30.0f), glm::vec3(1.0f, h, 30.0f),
+  // Northeast corner
+  createWall(glm::vec3(40.0f, h / 2, -35.0f), glm::vec3(1.0f, h, 10.0f),
              brickColor, 1);
-  createWall(glm::vec3(15.0f, h / 2, -37.0f), glm::vec3(30.0f, h, 1.0f),
-             brickColor, 1);
-  createWall(glm::vec3(22.0f, h / 2, -22.0f), glm::vec3(15.0f, h, 1.0f),
-             brickColor, 1);
-  createWall(glm::vec3(37.0f, h / 2, -15.0f), glm::vec3(1.0f, h, 15.0f),
+  createWall(glm::vec3(35.0f, h / 2, -40.0f), glm::vec3(10.0f, h, 1.0f),
              brickColor, 1);
 
-  // === CENTRAL GAUNTLET (Main Corridor) - Extended ===
-  // === CENTRAL GAUNTLET (Main Corridor) - Modified for Access ===
-  // Split walls to create entry gaps near spawn (z = -25 to -15)
-
-  // Left side (West)
-  // Segment 1: Back
-  createWall(glm::vec3(-9.0f, h / 2, -35.0f), glm::vec3(1.0f, h, 20.0f),
+  // Southwest corner
+  createWall(glm::vec3(-40.0f, h / 2, 35.0f), glm::vec3(1.0f, h, 10.0f),
              brickColor, 1);
-  // Segment 2: Front (Gap from -25 to -15)
-  createWall(glm::vec3(-9.0f, h / 2, 0.0f), glm::vec3(1.0f, h, 30.0f),
+  createWall(glm::vec3(-35.0f, h / 2, 40.0f), glm::vec3(10.0f, h, 1.0f),
              brickColor, 1);
 
-  // Right side (East)
-  // Segment 1: Back
-  createWall(glm::vec3(9.0f, h / 2, -35.0f), glm::vec3(1.0f, h, 20.0f),
+  // Southeast corner
+  createWall(glm::vec3(40.0f, h / 2, 35.0f), glm::vec3(1.0f, h, 10.0f),
              brickColor, 1);
-  // Segment 2: Front (Gap from -25 to -15)
-  createWall(glm::vec3(9.0f, h / 2, 0.0f), glm::vec3(1.0f, h, 30.0f),
+  createWall(glm::vec3(35.0f, h / 2, 40.0f), glm::vec3(10.0f, h, 1.0f),
              brickColor, 1);
 
-  // === ZONE 3: WEST WING - Expanded ===
-  createWall(glm::vec3(-22.0f, h / 2, 0.0f), glm::vec3(27.0f, h, 1.0f),
+  // Create maze pathways - vertical walls
+  createWall(glm::vec3(-25.0f, h / 2, -20.0f), glm::vec3(1.0f, h, 20.0f),
              brickColor, 1);
-  createWall(glm::vec3(-22.0f, h / 2, 15.0f), glm::vec3(1.0f, h, 30.0f),
-             brickColor, 1);
-  createWall(glm::vec3(-37.0f, h / 2, 22.0f), glm::vec3(1.0f, h, 15.0f),
-             brickColor, 1);
-  createWall(glm::vec3(-30.0f, h / 2, 30.0f), glm::vec3(15.0f, h, 1.0f),
-             brickColor, 1);
-  // Additional west maze complexity
-  createWall(glm::vec3(-30.0f, h / 2, 10.0f), glm::vec3(1.0f, h, 10.0f),
+  createWall(glm::vec3(-25.0f, h / 2, 10.0f), glm::vec3(1.0f, h, 20.0f),
              brickColor, 1);
 
-  // === ZONE 4: EAST WING - Expanded ===
-  createWall(glm::vec3(22.0f, h / 2, 0.0f), glm::vec3(27.0f, h, 1.0f),
+  createWall(glm::vec3(25.0f, h / 2, -20.0f), glm::vec3(1.0f, h, 20.0f),
              brickColor, 1);
-  createWall(glm::vec3(22.0f, h / 2, 15.0f), glm::vec3(1.0f, h, 30.0f),
-             brickColor, 1);
-  createWall(glm::vec3(37.0f, h / 2, 22.0f), glm::vec3(1.0f, h, 15.0f),
-             brickColor, 1);
-  createWall(glm::vec3(30.0f, h / 2, 30.0f), glm::vec3(15.0f, h, 1.0f),
-             brickColor, 1);
-  // Additional east maze complexity
-  createWall(glm::vec3(30.0f, h / 2, 10.0f), glm::vec3(1.0f, h, 10.0f),
+  createWall(glm::vec3(25.0f, h / 2, 10.0f), glm::vec3(1.0f, h, 20.0f),
              brickColor, 1);
 
-  // === ZONE 5: SOUTH (Exit Area) - Expanded ===
-  createWall(glm::vec3(-15.0f, h / 2, 33.0f), glm::vec3(12.0f, h, 1.0f),
+  createWall(glm::vec3(-10.0f, h / 2, -30.0f), glm::vec3(1.0f, h, 15.0f),
              brickColor, 1);
-  createWall(glm::vec3(15.0f, h / 2, 33.0f), glm::vec3(12.0f, h, 1.0f),
+  createWall(glm::vec3(-10.0f, h / 2, 5.0f), glm::vec3(1.0f, h, 20.0f),
              brickColor, 1);
 
-  // Additional maze complexity - more walls for challenge
-  // REMOVED BLOCKING WALL at (0, -7) to allow path
-  // createWall(glm::vec3(0.0f, h / 2, -7.0f), glm::vec3(12.0f, h, 1.0f),
-  //            brickColor, 1);
-  createWall(glm::vec3(-15.0f, h / 2, 7.0f), glm::vec3(1.0f, h, 15.0f),
+  createWall(glm::vec3(10.0f, h / 2, -30.0f), glm::vec3(1.0f, h, 15.0f),
              brickColor, 1);
-  createWall(glm::vec3(15.0f, h / 2, 7.0f), glm::vec3(1.0f, h, 15.0f),
+  createWall(glm::vec3(10.0f, h / 2, 5.0f), glm::vec3(1.0f, h, 20.0f),
              brickColor, 1);
-  // Cross passages
-  createWall(glm::vec3(-30.0f, h / 2, -7.0f), glm::vec3(1.0f, h, 15.0f),
+
+  // Horizontal walls to create maze paths
+  createWall(glm::vec3(-35.0f, h / 2, -15.0f), glm::vec3(15.0f, h, 1.0f),
              brickColor, 1);
-  createWall(glm::vec3(30.0f, h / 2, -7.0f), glm::vec3(1.0f, h, 15.0f),
+  createWall(glm::vec3(-35.0f, h / 2, 15.0f), glm::vec3(15.0f, h, 1.0f),
+             brickColor, 1);
+
+  createWall(glm::vec3(35.0f, h / 2, -15.0f), glm::vec3(15.0f, h, 1.0f),
+             brickColor, 1);
+  createWall(glm::vec3(35.0f, h / 2, 15.0f), glm::vec3(15.0f, h, 1.0f),
+             brickColor, 1);
+
+  createWall(glm::vec3(-17.5f, h / 2, 0.0f), glm::vec3(15.0f, h, 1.0f),
+             brickColor, 1);
+  createWall(glm::vec3(17.5f, h / 2, 0.0f), glm::vec3(15.0f, h, 1.0f),
+             brickColor, 1);
+
+  createWall(glm::vec3(0.0f, h / 2, -22.5f), glm::vec3(15.0f, h, 1.0f),
+             brickColor, 1);
+
+  // Exit area walls (flanking the door)
+  createWall(glm::vec3(-10.0f, h / 2, 35.0f), glm::vec3(8.0f, h, 1.0f),
+             brickColor, 1);
+  createWall(glm::vec3(10.0f, h / 2, 35.0f), glm::vec3(8.0f, h, 1.0f),
              brickColor, 1);
 }
 
 void Level1::createPendulums() {
-  // SWINGING BLOCK PENDULUMS - Significantly increased count
+  // SPREAD OUT PENDULUMS - Distributed across different areas
 
-  // 1. The Gauntlet (Central Corridor) - 12 pendulums (increased from 8)
-  for (int i = 0; i < 12; i++) {
-    float zPos = -18.0f + (i * 4.5f); // Tighter spacing
-    auto p = std::make_unique<Pendulum>(glm::vec3(0.0f, 8.0f, zPos), 6.0f);
-    p->swingSpeed = 2.0f + (i % 4) * 0.5f;
-    p->swingAngle = i * 0.8f;
-    p->transform.scale = glm::vec3(6.0f, 4.0f, 0.5f);
-    p->updateBoundingBox();
-    objects.push_back(std::move(p));
-  }
+  // Northwest area - 3 pendulums
+  auto p1 = std::make_unique<Pendulum>(glm::vec3(-32.0f, 8.0f, -25.0f), 6.0f);
+  p1->swingSpeed = 2.0f;
+  p1->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+  p1->updateBoundingBox();
+  objects.push_back(std::move(p1));
 
-  // 2. West Wing Guards - 6 pendulums
-  for (int i = 0; i < 6; i++) {
-    float zPos = -15.0f + (i * 8.0f);
-    auto p = std::make_unique<Pendulum>(glm::vec3(-26.0f, 8.0f, zPos), 5.0f);
-    p->swingSpeed = 2.5f + (i % 2) * 0.5f;
-    p->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
-    p->updateBoundingBox();
-    objects.push_back(std::move(p));
-  }
+  auto p2 = std::make_unique<Pendulum>(glm::vec3(-32.0f, 8.0f, -10.0f), 6.0f);
+  p2->swingSpeed = 2.3f;
+  p2->swingAngle = 1.5f;
+  p2->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+  p2->updateBoundingBox();
+  objects.push_back(std::move(p2));
 
-  // 3. East Wing Guards - 6 pendulums
-  for (int i = 0; i < 6; i++) {
-    float zPos = -15.0f + (i * 8.0f);
-    auto p = std::make_unique<Pendulum>(glm::vec3(26.0f, 8.0f, zPos), 5.0f);
-    p->swingSpeed = 2.5f + (i % 2) * 0.5f;
-    p->swingAngle = 3.14f;
-    p->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
-    p->updateBoundingBox();
-    objects.push_back(std::move(p));
-  }
+  auto p3 = std::make_unique<Pendulum>(glm::vec3(-32.0f, 8.0f, 5.0f), 6.0f);
+  p3->swingSpeed = 2.5f;
+  p3->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+  p3->updateBoundingBox();
+  objects.push_back(std::move(p3));
+
+  // Northeast area - 3 pendulums
+  auto p4 = std::make_unique<Pendulum>(glm::vec3(32.0f, 8.0f, -25.0f), 6.0f);
+  p4->swingSpeed = 2.2f;
+  p4->swingAngle = 3.0f;
+  p4->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+  p4->updateBoundingBox();
+  objects.push_back(std::move(p4));
+
+  auto p5 = std::make_unique<Pendulum>(glm::vec3(32.0f, 8.0f, -10.0f), 6.0f);
+  p5->swingSpeed = 2.4f;
+  p5->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+  p5->updateBoundingBox();
+  objects.push_back(std::move(p5));
+
+  auto p6 = std::make_unique<Pendulum>(glm::vec3(32.0f, 8.0f, 5.0f), 6.0f);
+  p6->swingSpeed = 2.1f;
+  p6->swingAngle = 2.0f;
+  p6->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+  p6->updateBoundingBox();
+  objects.push_back(std::move(p6));
+
+  // Central corridor - 4 pendulums
+  auto p7 = std::make_unique<Pendulum>(glm::vec3(-17.0f, 8.0f, -7.0f), 6.0f);
+  p7->swingSpeed = 2.3f;
+  p7->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+  p7->updateBoundingBox();
+  objects.push_back(std::move(p7));
+
+  auto p8 = std::make_unique<Pendulum>(glm::vec3(17.0f, 8.0f, -7.0f), 6.0f);
+  p8->swingSpeed = 2.2f;
+  p8->swingAngle = 1.0f;
+  p8->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+  p8->updateBoundingBox();
+  objects.push_back(std::move(p8));
+
+  auto p9 = std::make_unique<Pendulum>(glm::vec3(0.0f, 8.0f, 10.0f), 6.0f);
+  p9->swingSpeed = 2.5f;
+  p9->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+  p9->updateBoundingBox();
+  objects.push_back(std::move(p9));
+
+  auto p10 = std::make_unique<Pendulum>(glm::vec3(0.0f, 8.0f, 25.0f), 6.0f);
+  p10->swingSpeed = 2.0f;
+  p10->swingAngle = 2.5f;
+  p10->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+  p10->updateBoundingBox();
+  objects.push_back(std::move(p10));
+
+  // Southwest area - 2 pendulums
+  auto p11 = std::make_unique<Pendulum>(glm::vec3(-32.0f, 8.0f, 22.0f), 6.0f);
+  p11->swingSpeed = 2.4f;
+  p11->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+  p11->updateBoundingBox();
+  objects.push_back(std::move(p11));
+
+  // Southeast area - 2 pendulums
+  auto p12 = std::make_unique<Pendulum>(glm::vec3(32.0f, 8.0f, 22.0f), 6.0f);
+  p12->swingSpeed = 2.3f;
+  p12->swingAngle = 1.8f;
+  p12->transform.scale = glm::vec3(5.0f, 3.0f, 0.5f);
+  p12->updateBoundingBox();
+  objects.push_back(std::move(p12));
 }
 
 void Level1::createCrumblingTiles() {
@@ -245,49 +281,77 @@ void Level1::createCrumblingTiles() {
 }
 
 void Level1::createCollectible() {
-  // 6 Coins placed throughout the level
+  // 10 Coins placed in open areas throughout the level (not inside walls)
 
-  // 1. Hidden behind Northwest corner wall
-  auto c1 = std::make_unique<Collectible>(glm::vec3(-40.0f, 1.0f, -40.0f),
+  // 1. Northwest area (open space)
+  auto c1 = std::make_unique<Collectible>(glm::vec3(-32.0f, 1.5f, -32.0f),
                                           glm::vec3(1.0f, 0.84f, 0.0f));
   c1->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
   c1->rotationSpeed = 6.0f;
   objects.push_back(std::move(c1));
 
-  // 2. Hidden in Northeast alcove
-  auto c2 = std::make_unique<Collectible>(glm::vec3(40.0f, 1.0f, -40.0f),
+  // 2. Northeast area (open space)
+  auto c2 = std::make_unique<Collectible>(glm::vec3(32.0f, 1.5f, -32.0f),
                                           glm::vec3(1.0f, 0.84f, 0.0f));
   c2->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
   c2->rotationSpeed = 6.0f;
   objects.push_back(std::move(c2));
 
-  // 3. Hidden in West Wing dead end
-  auto c3 = std::make_unique<Collectible>(glm::vec3(-40.0f, 1.0f, 10.0f),
+  // 3. Southwest area (open space)
+  auto c3 = std::make_unique<Collectible>(glm::vec3(-32.0f, 1.5f, 32.0f),
                                           glm::vec3(1.0f, 0.84f, 0.0f));
   c3->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
   c3->rotationSpeed = 6.0f;
   objects.push_back(std::move(c3));
 
-  // 4. Hidden in East Wing dead end
-  auto c4 = std::make_unique<Collectible>(glm::vec3(40.0f, 1.0f, 10.0f),
+  // 4. Southeast area (open space)
+  auto c4 = std::make_unique<Collectible>(glm::vec3(32.0f, 1.5f, 32.0f),
                                           glm::vec3(1.0f, 0.84f, 0.0f));
   c4->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
   c4->rotationSpeed = 6.0f;
   objects.push_back(std::move(c4));
 
-  // 5. Hidden behind a pillar in the South
-  auto c5 = std::make_unique<Collectible>(glm::vec3(-20.0f, 1.0f, 35.0f),
+  // 5. West corridor
+  auto c5 = std::make_unique<Collectible>(glm::vec3(-17.0f, 1.5f, -25.0f),
                                           glm::vec3(1.0f, 0.84f, 0.0f));
   c5->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
   c5->rotationSpeed = 6.0f;
   objects.push_back(std::move(c5));
 
-  // 6. Hidden in the opposite South corner
-  auto c6 = std::make_unique<Collectible>(glm::vec3(20.0f, 1.0f, 35.0f),
+  // 6. East corridor
+  auto c6 = std::make_unique<Collectible>(glm::vec3(17.0f, 1.5f, -25.0f),
                                           glm::vec3(1.0f, 0.84f, 0.0f));
   c6->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
   c6->rotationSpeed = 6.0f;
   objects.push_back(std::move(c6));
+
+  // 7. Central north area
+  auto c7 = std::make_unique<Collectible>(glm::vec3(0.0f, 1.5f, -32.0f),
+                                          glm::vec3(1.0f, 0.84f, 0.0f));
+  c7->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
+  c7->rotationSpeed = 6.0f;
+  objects.push_back(std::move(c7));
+
+  // 8. Central area
+  auto c8 = std::make_unique<Collectible>(glm::vec3(0.0f, 1.5f, -7.0f),
+                                          glm::vec3(1.0f, 0.84f, 0.0f));
+  c8->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
+  c8->rotationSpeed = 6.0f;
+  objects.push_back(std::move(c8));
+
+  // 9. South central area
+  auto c9 = std::make_unique<Collectible>(glm::vec3(-17.0f, 1.5f, 17.0f),
+                                          glm::vec3(1.0f, 0.84f, 0.0f));
+  c9->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
+  c9->rotationSpeed = 6.0f;
+  objects.push_back(std::move(c9));
+
+  // 10. Near exit (but not too close)
+  auto c10 = std::make_unique<Collectible>(glm::vec3(17.0f, 1.5f, 17.0f),
+                                           glm::vec3(1.0f, 0.84f, 0.0f));
+  c10->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
+  c10->rotationSpeed = 6.0f;
+  objects.push_back(std::move(c10));
 }
 
 void Level1::createForceFieldDoor() {
@@ -314,8 +378,8 @@ void Level1::createForceFieldDoor() {
       glm::vec3(2.5f, 5.0f, 0.1f); // Slightly thinner than frame
   door->mesh.reset(Mesh::createCube(1.0f));
   door->color = glm::vec3(0.2f, 0.6f, 1.0f); // Glowing blue force field
-  door->transparency = 0.2f; // More transparent to show it's open
-  door->isActive = false;    // ALWAYS OPEN
+  door->transparency = 0.7f;                 // Semi-transparent force field
+  door->isActive = true; // ENABLED - blocks until 6 coins collected
   door->updateBoundingBox();
 
   forceFieldDoor = door.get();
@@ -335,11 +399,17 @@ void Level1::update(float deltaTime, Player *player,
         auto collectible = static_cast<Collectible *>(obj.get());
         if (!collectible->isCollected) {
           collectible->collect();
-          hasCollectible = true;
+          coinsCollected++;
 
           // Emit particle effect
           particles->emitExplosion(collectible->transform.position,
                                    glm::vec3(1.0f, 0.8f, 0.2f), 20);
+
+          // Check if we've collected 6 coins to unlock the door
+          if (coinsCollected >= 6 && forceFieldDoor) {
+            forceFieldDoor->isActive = false;    // Unlock the door
+            forceFieldDoor->transparency = 0.2f; // Make it more transparent
+          }
         }
       }
     }
@@ -374,9 +444,29 @@ void Level1::update(float deltaTime, Player *player,
     }
   }
 
-  // Check if player reached the exit (Door is always open)
-  if (player->getPosition().z > 28.5f) {
-    levelComplete = true;
+  // Check if player passed through the door (precise collision with door
+  // dimensions)
+  if (forceFieldDoor && !forceFieldDoor->isActive) {
+    // Door is at z=28, dimensions are 2.5 wide x 5.0 tall
+    // Check if player is within door bounds and has passed through
+    glm::vec3 doorPos = forceFieldDoor->transform.position;
+    glm::vec3 doorScale = forceFieldDoor->transform.scale;
+
+    float doorLeft = doorPos.x - (doorScale.x / 2.0f);
+    float doorRight = doorPos.x + (doorScale.x / 2.0f);
+    float doorBottom = doorPos.y - (doorScale.y / 2.0f);
+    float doorTop = doorPos.y + (doorScale.y / 2.0f);
+
+    // Check if player is within door's X and Y bounds and has passed the Z
+    // threshold
+    bool withinDoorX = (playerPos.x >= doorLeft && playerPos.x <= doorRight);
+    bool withinDoorY = (playerPos.y >= doorBottom && playerPos.y <= doorTop);
+    bool passedDoor =
+        (playerPos.z > doorPos.z + 0.5f); // Passed through the door
+
+    if (withinDoorX && withinDoorY && passedDoor) {
+      levelComplete = true;
+    }
   }
 }
 
