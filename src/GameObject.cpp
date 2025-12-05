@@ -4,8 +4,9 @@
 #include <cmath>
 
 GameObject::GameObject(GameObjectType t)
-    : type(t), color(1.0f), transparency(1.0f), materialType(0), isActive(true),
-      isTrigger(false), useSphereCollision(false) {}
+    : type(t), color(1.0f), transparency(1.0f), materialType(0),
+      texture(nullptr), isActive(true), isTrigger(false),
+      useSphereCollision(false) {}
 
 void GameObject::draw(Shader *shader) {
   if (!isActive || !mesh)
@@ -20,9 +21,23 @@ void GameObject::draw(Shader *shader) {
   shader->setVec3("objectColor", color);
   shader->setFloat("transparency", transparency);
   shader->setInt("materialType", materialType); // Pass material type
-  shader->setBool("useTexture", false);
+
+  // Use texture if available
+  if (texture) {
+    texture->bind(0);
+    shader->setBool("useTexture", true);
+    shader->setInt("textureSampler", 0); // Texture is bound to slot 0
+  } else {
+    shader->setBool("useTexture", false);
+  }
+
   shader->setFloat("shininess", 32.0f);
   mesh->draw();
+
+  // Unbind texture
+  if (texture) {
+    texture->unbind();
+  }
 }
 
 void GameObject::update(float deltaTime) {

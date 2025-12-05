@@ -20,7 +20,8 @@ private:
   void createCheckeredFloor();
 
   GameObject *forceFieldDoor;
-  int coinsCollected; // Track number of coins collected
+  int coinsCollected;            // Track number of coins collected
+  Texture *crumblingTileTexture; // Texture for crumbling tiles
 };
 
 #endif

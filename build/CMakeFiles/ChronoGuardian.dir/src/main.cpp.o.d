@@ -1010,6 +1010,7 @@ CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/availability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Physics.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Texture.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Transform.h \
   /opt/homebrew/include/glm/gtc/quaternion.hpp \
   /opt/homebrew/include/glm/gtc/../gtc/constants.hpp \
@@ -1102,7 +1103,6 @@ CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: \
   /opt/homebrew/include/assimp/material.inl \
   /opt/homebrew/include/assimp/anim.h \
   /opt/homebrew/include/assimp/metadata.h \
-  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Texture.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Shader.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/fstream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/filesystem \

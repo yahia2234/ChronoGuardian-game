@@ -1,6 +1,9 @@
 #include "Level1.h"
+#include <iostream>
 
-Level1::Level1() : forceFieldDoor(nullptr), coinsCollected(0) {
+Level1::Level1()
+    : forceFieldDoor(nullptr), coinsCollected(0),
+      crumblingTileTexture(nullptr) {
   levelComplete = false;
   // Spawn in corner opposite to door (Door is at z=28)
   // Level is 90x90, so corners are at +/- 30
@@ -8,6 +11,11 @@ Level1::Level1() : forceFieldDoor(nullptr), coinsCollected(0) {
 }
 
 void Level1::init() {
+  // Create cracked tile texture for crumbling tiles
+  crumblingTileTexture = Texture::createCrackedTile(256);
+  std::cout << "Created cracked tile texture with ID: "
+            << crumblingTileTexture->ID << std::endl;
+
   createChamber();
   createMazeWalls();
   createPendulums();
@@ -435,7 +443,12 @@ void Level1::update(float deltaTime, Player *player,
         bool xOverlap = std::abs(playerPos.x - tilePos.x) < (tileSize / 2.0f);
         bool zOverlap = std::abs(playerPos.z - tilePos.z) < (tileSize / 2.0f);
 
-        if (isAboveTile && xOverlap && zOverlap) {
+        // Only restart if player is grounded (not jumping)
+        // Check if vertical velocity is near zero (player is standing, not
+        // jumping)
+        bool isGrounded = std::abs(player->velocity.y) < 0.5f;
+
+        if (isAboveTile && xOverlap && zOverlap && isGrounded) {
           // Player is standing where a tile disappeared - restart level
           shouldRestart = true;
           return;
@@ -492,6 +505,17 @@ void Level1::createCheckeredFloor() {
         crumblingTile->transform.scale = glm::vec3(tileSize, 1.0f, tileSize);
         crumblingTile->color =
             glm::vec3(0.9f, 0.5f, 0.2f); // Bright orange for crumbling tiles
+        crumblingTile->texture = crumblingTileTexture; // Assign cracked texture
+
+        // Debug: Print first tile assignment
+        static bool printed = false;
+        if (!printed && crumblingTileTexture) {
+          std::cout << "Assigned texture ID " << crumblingTileTexture->ID
+                    << " to crumbling tile at (" << x << ", " << z << ")"
+                    << std::endl;
+          printed = true;
+        }
+
         crumblingTile->originalPosition = glm::vec3(x, -0.5f, z);
         crumblingTile->fallTimer = 2.0f; // 2 seconds before falling
         crumblingTile->updateBoundingBox();

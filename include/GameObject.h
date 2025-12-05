@@ -3,6 +3,7 @@
 
 #include "Mesh.h"
 #include "Physics.h"
+#include "Texture.h"
 #include "Transform.h"
 #include <memory>
 #include <string>
@@ -29,6 +30,7 @@ public:
   glm::vec3 color;
   float transparency;
   int materialType; // 0=None, 1=Brick, 2=Checkered, 3=Rock
+  Texture *texture; // Optional texture for the object
   bool isActive;
   bool isTrigger;
 

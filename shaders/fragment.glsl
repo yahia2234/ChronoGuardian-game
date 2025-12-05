@@ -23,6 +23,8 @@ uniform vec3 ambientLight;
 uniform float transparency;
 uniform int materialType; // 0=None, 1=Brick, 2=Checkered, 3=Rock, 4=Organic
 uniform float time; // For animations
+uniform bool useTexture; // Whether to use texture
+uniform sampler2D textureSampler; // Texture sampler
 
 // Pseudo-random function
 float random(vec2 st) {
@@ -49,39 +51,48 @@ void main() {
         if (px == py) discard;
     }
 
-    // Procedural Textures
+    // Start with base object color
     vec3 finalObjectColor = objectColor;
     
-    if (materialType == 1) { // Brick Wall - ENHANCED VISIBILITY
-        float x = FragPos.x;
-        float y = FragPos.y;
-        
-        // Offset every other row for brick pattern
-        if (mod(floor(y * 2.0), 2.0) > 0.5) x += 0.5;
-        
-        float bx = fract(x);
-        float by = fract(y * 2.0);
-        
-        // THICKER mortar lines for better visibility
-        float mortarThickness = 0.12;
-        
-        if (bx < mortarThickness || by < mortarThickness) {
-            // DARK mortar for strong contrast
-            finalObjectColor = vec3(0.3, 0.3, 0.35);
-        } else {
-            // Brick color with MORE variation
-            float n = noise(vec2(floor(x), floor(y * 2.0)));
-            vec3 brickBase = objectColor;
-            // Add significant color variation to each brick
-            finalObjectColor = brickBase * (0.7 + 0.5 * n);
+    // If texture is enabled, sample it and multiply with object color
+    if (useTexture) {
+        vec3 texColor = texture(textureSampler, TexCoord).rgb;
+        finalObjectColor = texColor * objectColor;
+    }
+    
+    // Procedural Textures (only if not using texture)
+    if (!useTexture) {
+        if (materialType == 1) { // Brick Wall - ENHANCED VISIBILITY
+            float x = FragPos.x;
+            float y = FragPos.y;
+            
+            // Offset every other row for brick pattern
+            if (mod(floor(y * 2.0), 2.0) > 0.5) x += 0.5;
+            
+            float bx = fract(x);
+            float by = fract(y * 2.0);
+            
+            // THICKER mortar lines for better visibility
+            float mortarThickness = 0.12;
+            
+            if (bx < mortarThickness || by < mortarThickness) {
+                // DARK mortar for strong contrast
+                finalObjectColor = vec3(0.3, 0.3, 0.35);
+            } else {
+                // Brick color with MORE variation
+                float n = noise(vec2(floor(x), floor(y * 2.0)));
+                vec3 brickBase = objectColor;
+                // Add significant color variation to each brick
+                finalObjectColor = brickBase * (0.7 + 0.5 * n);
+            }
+        } else if (materialType == 2) { // Checkered Floor
+            // Enhanced checkered pattern
+            float n = noise(FragPos.xz * 5.0);
+            finalObjectColor *= (0.85 + 0.15 * n);
+        } else if (materialType == 3) { // Rock/Cave
+            float n = noise(FragPos.xz * 2.0 + FragPos.y);
+            finalObjectColor *= (0.5 + 0.5 * n); // More pronounced rock texture
         }
-    } else if (materialType == 2) { // Checkered Floor
-        // Enhanced checkered pattern
-        float n = noise(FragPos.xz * 5.0);
-        finalObjectColor *= (0.85 + 0.15 * n);
-    } else if (materialType == 3) { // Rock/Cave
-        float n = noise(FragPos.xz * 2.0 + FragPos.y);
-        finalObjectColor *= (0.5 + 0.5 * n); // More pronounced rock texture
     }
 
     // Ambient

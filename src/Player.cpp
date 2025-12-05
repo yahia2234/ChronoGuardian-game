@@ -265,8 +265,8 @@ void Player::onWallCollision(const glm::vec3 &normal,
 
 void Player::onObstacleHit(const glm::vec3 &knockbackDir,
                            ParticleSystem *particles) {
-  // Strong knockback
-  transform.position += knockbackDir * 2.0f;
+  // Strong knockback - increased for better effect
+  transform.position += knockbackDir * 5.0f;
 
   // Flash red
   isFlashing = true;
@@ -274,7 +274,7 @@ void Player::onObstacleHit(const glm::vec3 &knockbackDir,
 
   // Emit impact particles
   if (particles) {
-    particles->emit(transform.position, knockbackDir * 5.0f,
+    particles->emit(transform.position, knockbackDir * 8.0f,
                     glm::vec4(1.0f, 0.3f, 0.3f, 1.0f), 8.0f, 0.7f, 20);
   }
 

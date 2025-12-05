@@ -239,6 +239,9 @@ void Game::render() {
     // Set up main shader
     mainShader->use();
 
+    // Initialize texture sampler to use texture unit 0
+    mainShader->setInt("textureSampler", 0);
+
     glm::mat4 projection =
         camera->getProjectionMatrix((float)screenWidth / screenHeight);
     glm::mat4 view = camera->getViewMatrix();
