@@ -319,11 +319,16 @@ void Level2::update(float deltaTime, Player *player,
         // Disable player controls during cutscene
         player->controlsEnabled = false;
 
-        // Make gem reappear on pedestal
+        // Make gem reappear on pedestal - reset its collected state
         if (gemCollectible) {
-          gemCollectible->isActive = true;
-          gemCollectible->transform.position =
+          auto collectible = static_cast<Collectible *>(gemCollectible);
+          collectible->isCollected = false; // Un-collect it
+          collectible->isActive = true;     // Make it active
+          collectible->isTrigger = false;   // Don't trigger collection
+          collectible->transform.position =
               pedestal->transform.position + glm::vec3(0.0f, 1.5f, 0.0f);
+          collectible->transform.scale =
+              glm::vec3(1.2f, 1.2f, 0.2f); // Make it visible
         }
       }
     }
