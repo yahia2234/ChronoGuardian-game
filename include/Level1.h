@@ -23,6 +23,8 @@ private:
   GameObject *energyCrystal; // Blue energy crystal that appears after 6 coins
   int coinsCollected;        // Track number of coins collected
   bool crystalCollected;     // Track if energy crystal was collected
+  bool forceFieldFading;     // Track if force field is fading
+  float fadeTimer;           // Timer for fade effect
   Texture *crumblingTileTexture; // Texture for crumbling tiles
 };
 

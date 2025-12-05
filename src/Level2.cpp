@@ -172,13 +172,13 @@ void Level2::setupLighting() {
     Light torch;
     torch.position = pos;
     torch.color = glm::vec3(1.0f, 0.6f, 0.3f); // Warm orange
-    torch.intensity = 4.0f;                    // Reduced further
+    torch.intensity = 5.0f;                    // Reduced further
     torch.flickerSpeed = 5.0f + (rand() % 100) / 100.0f;
     torch.flickerAmount = 0.3f;
     lights.push_back(torch);
   }
 
-  ambientLight = glm::vec3(0.15f); // Dimmer ambient light
+  ambientLight = glm::vec3(0.25f); // Dimmer ambient light
 }
 
 void Level2::update(float deltaTime, Player *player,
@@ -345,6 +345,22 @@ void Level2::update(float deltaTime, Player *player,
         float bob = sin(cutsceneTimer * 5.0f) * 0.3f;    // Slow bob
         gemCollectible->transform.position =
             pedestal->transform.position + glm::vec3(shake, 1.5f + bob, shake);
+
+        // Add pulsing red light from the gem
+        float pulseIntensity =
+            10.0f + sin(cutsceneTimer * 8.0f) * 5.0f; // Pulse 5-15
+        Light gemLight;
+        gemLight.position = gemCollectible->transform.position;
+        gemLight.color = glm::vec3(1.0f, 0.1f, 0.1f); // Bright red
+        gemLight.intensity = pulseIntensity;
+        gemLight.flickerSpeed = 0.0f;
+        gemLight.flickerAmount = 0.0f;
+        // Update or add light (replace last light if it exists)
+        if (lights.size() > 15) {
+          lights.back() = gemLight;
+        } else {
+          lights.push_back(gemLight);
+        }
       }
     } else if (cutsceneTimer < 4.0f) {
       // Phase 2: Pedestal rises (2-4 seconds)
@@ -358,15 +374,23 @@ void Level2::update(float deltaTime, Player *player,
             pedestal->transform.position + glm::vec3(0.0f, 1.5f, 0.0f);
       }
 
-      // Add pulsing light
-      if (cutsceneTimer > 2.1f && lights.size() < 20) { // Only add once
-        Light gemLight;
-        gemLight.position =
-            pedestal->transform.position + glm::vec3(0.0f, 2.0f, 0.0f);
-        gemLight.color = glm::vec3(0.9f, 0.2f, 0.2f);
-        gemLight.intensity = 30.0f;
-        gemLight.flickerSpeed = 5.0f;
-        gemLight.flickerAmount = 0.8f;
+      // Intensifying pulsing light - gets brighter as pedestal rises
+      float baseIntensity = 20.0f + riseProgress * 30.0f; // 20 to 50
+      float pulse = sin(cutsceneTimer * 10.0f) * 10.0f;   // Faster pulse
+      float totalIntensity = baseIntensity + pulse;
+
+      Light gemLight;
+      gemLight.position =
+          pedestal->transform.position + glm::vec3(0.0f, 2.0f, 0.0f);
+      gemLight.color = glm::vec3(1.0f, 0.05f, 0.05f); // Very bright red
+      gemLight.intensity = totalIntensity;
+      gemLight.flickerSpeed = 0.0f;
+      gemLight.flickerAmount = 0.0f;
+
+      // Update light
+      if (lights.size() > 15) {
+        lights.back() = gemLight;
+      } else {
         lights.push_back(gemLight);
       }
     } else {

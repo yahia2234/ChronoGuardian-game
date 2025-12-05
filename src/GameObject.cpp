@@ -169,7 +169,7 @@ void Stalactite::update(float deltaTime) {
     return;
   }
 
-  fallSpeed += 19.6f * deltaTime; // Gravity (2x faster)
+  fallSpeed += 12.0f * deltaTime; // Gravity (slower fall for dramatic effect)
   transform.position.y -= fallSpeed * deltaTime;
 
   if (transform.position.y < -10.0f) {

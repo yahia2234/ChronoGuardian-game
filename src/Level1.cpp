@@ -3,7 +3,8 @@
 
 Level1::Level1()
     : forceFieldDoor(nullptr), energyCrystal(nullptr), coinsCollected(0),
-      crystalCollected(false), crumblingTileTexture(nullptr) {
+      crystalCollected(false), forceFieldFading(false), fadeTimer(0.0f),
+      crumblingTileTexture(nullptr) {
   levelComplete = false;
   // Spawn in corner opposite to door (Door is at z=28)
   // Level is 90x90, so corners are at +/- 30
@@ -375,35 +376,61 @@ void Level1::createCollectible() {
 }
 
 void Level1::createForceFieldDoor() {
-  // Create stone archway frame
-  glm::vec3 frameColor(0.5f, 0.5f, 0.55f); // Stone color
+  // Create textured stone archway frame - ALWAYS VISIBLE, NON-BLOCKING
+  glm::vec3 frameColor(0.6f, 0.55f, 0.5f); // Warm stone color
 
-  // Door moved to z=28.0 (Room depth is 60, so wall is at 30. 28 gives space)
+  // Door at z=28.0
   float doorZ = 28.0f;
 
-  // Left pillar
-  createWall(glm::vec3(-1.5f, 2.5f, doorZ), glm::vec3(0.5f, 5.0f, 0.5f),
-             frameColor);
-  // Right pillar
-  createWall(glm::vec3(1.5f, 2.5f, doorZ), glm::vec3(0.5f, 5.0f, 0.5f),
-             frameColor);
-  // Top arch
-  createWall(glm::vec3(0.0f, 5.25f, doorZ), glm::vec3(3.5f, 0.5f, 0.5f),
-             frameColor);
+  // Left pillar - textured stone (non-blocking decoration)
+  auto leftPillar =
+      std::make_unique<GameObject>(GameObjectType::COLLECTIBLE); // Non-blocking
+  leftPillar->transform.position = glm::vec3(-2.0f, 2.5f, doorZ);
+  leftPillar->transform.scale = glm::vec3(0.6f, 5.0f, 0.6f);
+  leftPillar->mesh.reset(Mesh::createCube(1.0f));
+  leftPillar->color = frameColor;
+  leftPillar->materialType = 3;  // Stone texture
+  leftPillar->isTrigger = false; // Not collectible
+  leftPillar->isActive = true;
+  leftPillar->updateBoundingBox();
+  objects.push_back(std::move(leftPillar));
 
-  // The force field itself
+  // Right pillar - textured stone (non-blocking decoration)
+  auto rightPillar = std::make_unique<GameObject>(GameObjectType::COLLECTIBLE);
+  rightPillar->transform.position = glm::vec3(2.0f, 2.5f, doorZ);
+  rightPillar->transform.scale = glm::vec3(0.6f, 5.0f, 0.6f);
+  rightPillar->mesh.reset(Mesh::createCube(1.0f));
+  rightPillar->color = frameColor;
+  rightPillar->materialType = 3; // Stone texture
+  rightPillar->isTrigger = false;
+  rightPillar->isActive = true;
+  rightPillar->updateBoundingBox();
+  objects.push_back(std::move(rightPillar));
+
+  // Top arch - textured stone (non-blocking decoration)
+  auto topArch = std::make_unique<GameObject>(GameObjectType::COLLECTIBLE);
+  topArch->transform.position = glm::vec3(0.0f, 5.5f, doorZ);
+  topArch->transform.scale = glm::vec3(4.5f, 0.6f, 0.6f);
+  topArch->mesh.reset(Mesh::createCube(1.0f));
+  topArch->color = frameColor;
+  topArch->materialType = 3; // Stone texture
+  topArch->isTrigger = false;
+  topArch->isActive = true;
+  topArch->updateBoundingBox();
+  objects.push_back(std::move(topArch));
+
+  // The BLOCKING force field - this is what fades
   auto door = std::make_unique<GameObject>(GameObjectType::DOOR);
   door->transform.position = glm::vec3(0.0f, 2.5f, doorZ);
-  door->transform.scale =
-      glm::vec3(2.5f, 5.0f, 0.1f); // Slightly thinner than frame
+  door->transform.scale = glm::vec3(3.5f, 5.0f, 0.1f); // Fills archway
   door->mesh.reset(Mesh::createCube(1.0f));
-  door->color = glm::vec3(0.2f, 0.6f, 1.0f); // Glowing blue force field
-  door->transparency = 0.7f;                 // Semi-transparent force field
-  door->isActive = true; // ENABLED - blocks until 6 coins collected
+  door->color = glm::vec3(0.2f, 0.6f, 1.0f); // Glowing blue
+  door->transparency = 0.8f;                 // Start opaque for fade effect
+  door->isActive = true;                     // BLOCKS until crystal collected
   door->updateBoundingBox();
 
   forceFieldDoor = door.get();
-  walls.push_back(std::move(door));
+  walls.push_back(std::move(door)); // In walls so it blocks
 }
 
 void Level1::update(float deltaTime, Player *player,
@@ -425,10 +452,10 @@ void Level1::update(float deltaTime, Player *player,
             // Collected the energy crystal!
             crystalCollected = true;
 
-            // Unlock the door
+            // Start fading the force field
             if (forceFieldDoor) {
-              forceFieldDoor->isActive = false;
-              forceFieldDoor->transparency = 0.2f;
+              forceFieldFading = true;
+              fadeTimer = 0.0f;
             }
 
             // Blue particle explosion
@@ -454,6 +481,23 @@ void Level1::update(float deltaTime, Player *player,
           }
         }
       }
+    }
+  }
+
+  // Handle force field fade-out animation
+  if (forceFieldFading && forceFieldDoor) {
+    fadeTimer += deltaTime;
+    float fadeDuration = 2.0f; // 2 seconds to fade out
+
+    if (fadeTimer < fadeDuration) {
+      // Gradually reduce transparency (0.8 to 0.0)
+      float fadeProgress = fadeTimer / fadeDuration;
+      forceFieldDoor->transparency = 0.8f * (1.0f - fadeProgress);
+    } else {
+      // Fade complete - disable force field
+      forceFieldDoor->isActive = false;
+      forceFieldDoor->transparency = 0.0f;
+      forceFieldFading = false;
     }
   }
 
