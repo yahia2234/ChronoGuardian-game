@@ -4,22 +4,36 @@
 #include <cmath>
 
 GameObject::GameObject(GameObjectType t)
-    : type(t), color(1.0f), transparency(1.0f), materialType(0),
+    : type(t), color(1.0f), transparency(1.0f), emissive(0.0f), materialType(0),
       texture(nullptr), isActive(true), isTrigger(false),
       useSphereCollision(false) {}
 
+void GameObject::loadModel(const std::string& path) {
+  try {
+    model = std::make_unique<Model>(path.c_str());
+  } catch (...) {
+    std::cout << "Failed to load model: " << path << std::endl;
+    model = nullptr;
+  }
+}
+
 void GameObject::draw(Shader *shader) {
-  if (!isActive || !mesh)
+  if (!isActive)
+    return;
+    
+  // If we have neither mesh nor model, nothing to draw
+  if (!mesh && !model)
     return;
 
-  glm::mat4 model = transform.getModelMatrix();
-  shader->setMat4("model", model);
+  glm::mat4 modelMat = transform.getModelMatrix();
+  shader->setMat4("model", modelMat);
 
   // Calculate normal matrix for correct lighting with non-uniform scaling
-  glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(model)));
+  glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(modelMat)));
   shader->setMat3("normalMatrix", normalMatrix);
   shader->setVec3("objectColor", color);
   shader->setFloat("transparency", transparency);
+  shader->setFloat("emissive", emissive);  // For glowing objects like lights
   shader->setInt("materialType", materialType); // Pass material type
 
   // Use texture if available
@@ -32,7 +46,14 @@ void GameObject::draw(Shader *shader) {
   }
 
   shader->setFloat("shininess", 32.0f);
-  mesh->draw();
+  
+  if (model) {
+      glDisable(GL_CULL_FACE); // Many models need this
+      model->draw(shader);
+      glEnable(GL_CULL_FACE);
+  } else if (mesh) {
+      mesh->draw();
+  }
 
   // Unbind texture
   if (texture) {
@@ -282,15 +303,17 @@ void Collectible::update(float deltaTime) {
       1.2f * transform.scale.x); // Much larger hitbox for reliable collection
 }
 
+
+
 void Collectible::draw(Shader *shader) {
   if (!isActive)
     return;
 
-  glm::mat4 model = transform.getModelMatrix();
-  shader->setMat4("model", model);
+  glm::mat4 modelMat = transform.getModelMatrix();
+  shader->setMat4("model", modelMat);
 
   // Calculate normal matrix for proper lighting
-  glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(model)));
+  glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(modelMat)));
   shader->setMat3("normalMatrix", normalMatrix);
 
   shader->setVec3("objectColor", color);
@@ -298,7 +321,20 @@ void Collectible::draw(Shader *shader) {
   shader->setFloat("transparency", 1.0f);
   shader->setInt("materialType", 0);
   shader->setFloat("shininess", 256.0f); // EXTRA SHINY for glow
-  mesh->draw();
+  shader->setFloat("emissive", 0.0f);    // Reset emissive by default
+
+  if (model) {
+    // Draw external model
+    // Disable culling as some models might be inside out or single sided
+    glDisable(GL_CULL_FACE);
+    model->draw(shader);
+    glEnable(GL_CULL_FACE);
+  } else {
+    // Draw procedural mesh
+    if (mesh) {
+        mesh->draw();
+    }
+  }
 }
 
 void Collectible::collect() {
@@ -310,5 +346,66 @@ void Collectible::collect() {
     // Play collectible pickup sound
     AudioManager::getInstance().playSound(SoundEffect::COLLECTIBLE_PICKUP,
                                           0.9f);
+  }
+}
+
+// HealthPickup Implementation
+HealthPickup::HealthPickup(const glm::vec3 &position)
+    : GameObject(GameObjectType::HEALTH_PICKUP), rotationSpeed(1.5f),
+      floatOffset(0.0f), floatSpeed(2.5f), isCollected(false), basePosition(position) {
+  transform.position = position;
+  transform.scale = glm::vec3(0.02f); // Very small - similar to other pickups
+  color = glm::vec3(1.0f, 0.3f, 0.5f); // Pink/magenta for gem
+  
+  // Load the spinels gem model
+  loadModel("assets/models/spinels_gem.glb");
+  
+  isTrigger = true;
+  useSphereCollision = true;
+  boundingSphere = Sphere(position, 1.5f); // Pickup radius
+}
+
+void HealthPickup::update(float deltaTime) {
+  if (isCollected) {
+    isActive = false;
+    return;
+  }
+  
+  // Floating up/down animation (bobbing)
+  floatOffset += floatSpeed * deltaTime;
+  transform.position.y = basePosition.y + sin(floatOffset) * 0.4f + 0.5f; // Bob up and down
+  
+  // Rotation animation
+  transform.rotate(rotationSpeed * deltaTime, glm::vec3(0.0f, 1.0f, 0.0f));
+  
+  // Update bounding sphere position
+  boundingSphere.center = transform.position;
+}
+
+void HealthPickup::draw(Shader *shader) {
+  if (!isActive || isCollected) return;
+  
+  shader->setMat4("model", transform.getModelMatrix());
+  shader->setVec3("objectColor", color);
+  
+  // Pulsing glow effect
+  float pulse = (sin(floatOffset * 2.0f) + 1.0f) * 0.5f; // 0 to 1
+  float emissive = 0.4f + pulse * 0.6f; // 0.4 to 1.0
+  shader->setFloat("emissive", emissive);
+  
+  if (model) {
+    glDisable(GL_CULL_FACE);
+    model->draw(shader);
+    glEnable(GL_CULL_FACE);
+  }
+  
+  shader->setFloat("emissive", 0.0f);
+}
+
+void HealthPickup::collect() {
+  if (!isCollected) {
+    isCollected = true;
+    isActive = false;
+    AudioManager::getInstance().playSound(SoundEffect::COLLECTIBLE_PICKUP, 0.9f);
   }
 }

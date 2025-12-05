@@ -10,7 +10,8 @@ Player::Player()
     : moveSpeed(8.0f), hoverHeight(1.0f), bobSpeed(2.0f), bobAmount(0.1f),
       velocity(0.0f), isFlashing(false), flashTimer(0.0f),
       fragmentRotationSpeed(1.0f), currentBobOffset(0.0f), walkBobOffset(0.0f),
-      cameraYaw(0.0f), controlsEnabled(true) {
+      cameraYaw(0.0f), controlsEnabled(true), damageFlashIntensity(0.0f),
+      hearts(4), maxHearts(4) {
 
   // Create core mesh (ornate sphere - Ancient Gold)
   coreMesh.reset(Mesh::createSphere(0.5f, 36, 18));
@@ -55,6 +56,12 @@ Player::Player()
 Player::~Player() {}
 
 void Player::update(float deltaTime, const glm::vec3 &moveInput) {
+  // Update damage flash
+  if (damageFlashIntensity > 0.0f) {
+    damageFlashIntensity -= deltaTime * 2.0f; // Fade out over 0.5 seconds
+    if (damageFlashIntensity < 0.0f) damageFlashIntensity = 0.0f;
+  }
+
   // Apply gravity
   const float gravity = -20.0f;
   const float groundLevel = 1.0f;
@@ -289,9 +296,12 @@ void Player::onObstacleHit(const glm::vec3 &knockbackDir,
   // Strong knockback - increased for better effect
   transform.position += knockbackDir * 5.0f;
 
-  // Flash red
+  // Flash red (existing flash)
   isFlashing = true;
   flashTimer = 0.3f;
+  
+  // Take damage (lose a heart)
+  takeDamage();
 
   // Emit impact particles
   if (particles) {
@@ -301,4 +311,18 @@ void Player::onObstacleHit(const glm::vec3 &knockbackDir,
 
   // Play obstacle hit sound
   AudioManager::getInstance().playSound(SoundEffect::OBSTACLE_HIT, 0.8f);
+}
+
+bool Player::takeDamage() {
+  if (hearts > 0) {
+    hearts--;
+    triggerDamageFlash();
+  }
+  return hearts <= 0; // Returns true if player died
+}
+
+void Player::addHeart() {
+  if (hearts < maxHearts) {
+    hearts++;
+  }
 }

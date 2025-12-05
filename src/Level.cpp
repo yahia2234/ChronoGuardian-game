@@ -17,11 +17,14 @@ void Level::update(float deltaTime, Player *player, ParticleSystem *particles) {
   }
 
   // Update lights (flickering)
+  // Update lights (flickering)
   for (auto &light : lights) {
     if (light.flickerSpeed > 0.0f) {
       light.flickerOffset += light.flickerSpeed * deltaTime;
+      // Flicker around baseIntensity
+      // sin varies from -1 to 1, so intensity varies from base - amount to base + amount
       float flicker = sin(light.flickerOffset) * light.flickerAmount;
-      light.intensity = std::max(0.1f, light.intensity + flicker * deltaTime);
+      light.intensity = std::max(0.1f, light.baseIntensity + flicker);
     }
   }
 
@@ -42,6 +45,13 @@ void Level::draw(Shader *shader) {
   for (const auto &obj : objects) {
     if (obj->isActive) {
       obj->draw(shader);
+    }
+  }
+
+  // Draw light fixtures (glowing orbs) - rendered last with additive-like effect
+  for (const auto &fixture : lightFixtures) {
+    if (fixture->isActive) {
+      fixture->draw(shader);
     }
   }
 }
@@ -182,6 +192,12 @@ void Level::checkTriggers(Player *player) {
               collectible->collect();
               hasCollectible = true;
             }
+          } else if (obj->type == GameObjectType::HEALTH_PICKUP) {
+            auto healthPickup = static_cast<HealthPickup *>(obj.get());
+            if (!healthPickup->isCollected) {
+              healthPickup->collect();
+              player->addHeart();
+            }
           }
         }
       } else {
@@ -242,4 +258,85 @@ void Level::createFloor(const glm::vec3 &position, const glm::vec3 &scale,
   floor->color = color;
   floor->updateBoundingBox();
   walls.push_back(std::move(floor));
+}
+
+void Level::loadLightFixtureModel() {
+  // Load the fractured orb model for light fixtures
+  try {
+    lightFixtureModel = std::make_unique<Model>("assets/models/fractured_orb.glb");
+    std::cout << "Loaded fractured orb model for light fixtures" << std::endl;
+  } catch (...) {
+    std::cout << "Warning: Could not load fractured_orb.glb, using fallback spheres" << std::endl;
+    lightFixtureModel = nullptr;
+  }
+}
+
+void Level::drawLightFixtureModels(Shader *shader) {
+  // Draw the fractured orb model at each light fixture position
+  if (!lightFixtureModel || lightFixtureModel->meshes.empty()) {
+    return;
+  }
+
+  // Set emissive mode for the orb - BOOSTED BRIGHTNESS
+  shader->setFloat("emissive", 1.5f);  // Brighter than normal (1.0)
+  shader->setVec3("objectColor", glm::vec3(1.0f, 0.95f, 0.85f));  // Warm white glow
+  shader->setBool("useTexture", false);
+  
+  glDisable(GL_CULL_FACE);  // Model might be inside-out
+  
+  for (const auto& transform : lightFixtureTransforms) {
+    shader->setMat4("model", transform);
+    
+    // Calculate normal matrix
+    glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(transform)));
+    shader->setMat3("normalMatrix", normalMatrix);
+    
+    lightFixtureModel->draw(shader);
+  }
+  
+  glEnable(GL_CULL_FACE);
+  
+  // Reset emissive
+  shader->setFloat("emissive", 0.0f);
+}
+
+void Level::createLightFixture(const glm::vec3 &position, const glm::vec3 &lightColor,
+                               float scale) {
+  // Load model if not already loaded
+  if (!lightFixtureModel) {
+    loadLightFixtureModel();
+  }
+
+  // Raise the fixture slightly as requested
+  glm::vec3 adjustedPos = position + glm::vec3(0.0f, 0.8f, 0.0f);
+
+  // Create transform matrix for this light fixture
+  glm::mat4 transform = glm::mat4(1.0f);
+  transform = glm::translate(transform, adjustedPos);
+  transform = glm::scale(transform, glm::vec3(scale * 2.0f));  // Smaller scale (0.8x of previous 2.5)
+  
+  // Add to transforms list for drawing
+  lightFixtureTransforms.push_back(transform);
+
+  // Create chain/rod to ceiling (not emissive - just decorative)
+  auto rod = std::make_unique<GameObject>(GameObjectType::COLLECTIBLE);
+  rod->transform.position = adjustedPos + glm::vec3(0.0f, scale * 3.5f, 0.0f); // Adjusted for new scale
+  rod->transform.scale = glm::vec3(0.12f, scale * 4.0f, 0.12f); // Thinner and shorter
+  rod->mesh.reset(Mesh::createCube(1.0f));
+  rod->color = glm::vec3(0.4f, 0.35f, 0.25f);  // Bronze color
+  rod->isActive = true;
+  rod->isTrigger = false;
+  rod->updateBoundingBox();
+  lightFixtures.push_back(std::move(rod));
+
+  // Create small mounting bracket
+  auto mount = std::make_unique<GameObject>(GameObjectType::COLLECTIBLE);
+  mount->transform.position = adjustedPos + glm::vec3(0.0f, scale * 1.2f, 0.0f);
+  mount->transform.scale = glm::vec3(scale * 0.4f, scale * 0.25f, scale * 0.4f);
+  mount->mesh.reset(Mesh::createSphere(1.0f, 8, 8));
+  mount->color = glm::vec3(0.5f, 0.4f, 0.3f);  // Bronze color
+  mount->isActive = true;
+  mount->isTrigger = false;
+  mount->updateBoundingBox();
+  lightFixtures.push_back(std::move(mount));
 }

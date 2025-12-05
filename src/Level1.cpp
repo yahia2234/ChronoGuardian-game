@@ -2,7 +2,7 @@
 #include <iostream>
 
 Level1::Level1()
-    : forceFieldDoor(nullptr), energyCrystal(nullptr), coinsCollected(0),
+    : forceFieldDoor(nullptr), forceFieldArch(nullptr), energyCrystal(nullptr), coinsCollected(0),
       crystalCollected(false), forceFieldFading(false), fadeTimer(0.0f),
       crumblingTileTexture(nullptr) {
   levelComplete = false;
@@ -26,16 +26,25 @@ void Level1::init() {
   createCollectible();    // Creates 10 coins
 
   // Create energy crystal (initially hidden, appears after 6 coins)
+  // Create energy crystal (initially hidden, appears after 6 coins)
   auto crystal = std::make_unique<Collectible>(
       glm::vec3(0.0f, 2.0f, 15.0f), // Central location near exit
       glm::vec3(0.2f, 0.6f, 1.0f)   // Blue color
   );
-  crystal->transform.scale = glm::vec3(1.2f, 1.2f, 0.15f); // Larger than coins
-  crystal->rotationSpeed = 4.0f;                           // Slower rotation
+  
+  // Load the enchanted crystal model
+  crystal->loadModel("assets/models/enchanted_crystal.glb");
+  
+  crystal->transform.scale = glm::vec3(0.17f);              // Much smaller size (3x smaller)
+  crystal->rotationSpeed = 2.0f;                           // Gentle rotation
   crystal->isActive = false;                               // Hidden initially
   crystal->isTrigger = true;
   energyCrystal = crystal.get();
   objects.push_back(std::move(crystal));
+
+  // Create health pickup in Level 1 (near center of map)
+  auto healthPickup = std::make_unique<HealthPickup>(glm::vec3(15.0f, 1.5f, -15.0f));
+  objects.push_back(std::move(healthPickup));
 
   // Setup lights - 8 evenly distributed static lights
   lights.clear();
@@ -44,7 +53,7 @@ void Level1::init() {
   // Room spans from -45 to +45 in both x and z
   float lightHeight = 12.0f;              // High up for good coverage
   float lightIntensity = 4.0f;            // Bright intensity for well-lit scene
-  glm::vec3 lightColor(1.0f, 1.0f, 1.0f); // White light
+  glm::vec3 lightColor(1.0f, 0.95f, 0.8f); // Warm white light
 
   // Grid positions: 2 rows (x), 4 columns (z)
   float xPositions[] = {-22.5f, 22.5f}; // 2 positions along x-axis
@@ -58,6 +67,9 @@ void Level1::init() {
       light.color = lightColor;
       light.intensity = lightIntensity;
       lights.push_back(light);
+
+      // Create visible light fixture at this position
+      createLightFixture(light.position, lightColor, 1.0f);
     }
   }
 
@@ -303,134 +315,97 @@ void Level1::createCrumblingTiles() {
 
 void Level1::createCollectible() {
   // 10 Coins placed in open areas throughout the level (not inside walls)
+  std::vector<glm::vec3> positions = {
+      {-32.0f, 1.5f, -32.0f}, // 1. Northwest
+      {32.0f, 1.5f, -32.0f},  // 2. Northeast
+      {-32.0f, 1.5f, 32.0f},  // 3. Southwest
+      {32.0f, 1.5f, 32.0f},   // 4. Southeast
+      {-17.0f, 1.5f, -25.0f}, // 5. West corridor
+      {17.0f, 1.5f, -25.0f},  // 6. East corridor
+      {0.0f, 1.5f, -32.0f},   // 7. Central north
+      {0.0f, 1.5f, -7.0f},    // 8. Central
+      {-17.0f, 1.5f, 17.0f},  // 9. South central
+      {17.0f, 1.5f, 17.0f}    // 10. Near exit
+  };
 
-  // 1. Northwest area (open space)
-  auto c1 = std::make_unique<Collectible>(glm::vec3(-32.0f, 1.5f, -32.0f),
-                                          glm::vec3(1.0f, 0.84f, 0.0f));
-  c1->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
-  c1->rotationSpeed = 6.0f;
-  objects.push_back(std::move(c1));
-
-  // 2. Northeast area (open space)
-  auto c2 = std::make_unique<Collectible>(glm::vec3(32.0f, 1.5f, -32.0f),
-                                          glm::vec3(1.0f, 0.84f, 0.0f));
-  c2->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
-  c2->rotationSpeed = 6.0f;
-  objects.push_back(std::move(c2));
-
-  // 3. Southwest area (open space)
-  auto c3 = std::make_unique<Collectible>(glm::vec3(-32.0f, 1.5f, 32.0f),
-                                          glm::vec3(1.0f, 0.84f, 0.0f));
-  c3->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
-  c3->rotationSpeed = 6.0f;
-  objects.push_back(std::move(c3));
-
-  // 4. Southeast area (open space)
-  auto c4 = std::make_unique<Collectible>(glm::vec3(32.0f, 1.5f, 32.0f),
-                                          glm::vec3(1.0f, 0.84f, 0.0f));
-  c4->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
-  c4->rotationSpeed = 6.0f;
-  objects.push_back(std::move(c4));
-
-  // 5. West corridor
-  auto c5 = std::make_unique<Collectible>(glm::vec3(-17.0f, 1.5f, -25.0f),
-                                          glm::vec3(1.0f, 0.84f, 0.0f));
-  c5->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
-  c5->rotationSpeed = 6.0f;
-  objects.push_back(std::move(c5));
-
-  // 6. East corridor
-  auto c6 = std::make_unique<Collectible>(glm::vec3(17.0f, 1.5f, -25.0f),
-                                          glm::vec3(1.0f, 0.84f, 0.0f));
-  c6->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
-  c6->rotationSpeed = 6.0f;
-  objects.push_back(std::move(c6));
-
-  // 7. Central north area
-  auto c7 = std::make_unique<Collectible>(glm::vec3(0.0f, 1.5f, -32.0f),
-                                          glm::vec3(1.0f, 0.84f, 0.0f));
-  c7->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
-  c7->rotationSpeed = 6.0f;
-  objects.push_back(std::move(c7));
-
-  // 8. Central area
-  auto c8 = std::make_unique<Collectible>(glm::vec3(0.0f, 1.5f, -7.0f),
-                                          glm::vec3(1.0f, 0.84f, 0.0f));
-  c8->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
-  c8->rotationSpeed = 6.0f;
-  objects.push_back(std::move(c8));
-
-  // 9. South central area
-  auto c9 = std::make_unique<Collectible>(glm::vec3(-17.0f, 1.5f, 17.0f),
-                                          glm::vec3(1.0f, 0.84f, 0.0f));
-  c9->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
-  c9->rotationSpeed = 6.0f;
-  objects.push_back(std::move(c9));
-
-  // 10. Near exit (but not too close)
-  auto c10 = std::make_unique<Collectible>(glm::vec3(17.0f, 1.5f, 17.0f),
-                                           glm::vec3(1.0f, 0.84f, 0.0f));
-  c10->transform.scale = glm::vec3(0.8f, 0.8f, 0.1f);
-  c10->rotationSpeed = 6.0f;
-  objects.push_back(std::move(c10));
+  for (const auto &pos : positions) {
+    auto coin = std::make_unique<Collectible>(pos, glm::vec3(1.0f, 0.84f, 0.0f));
+    
+    // Load the doubloon model
+    coin->loadModel("assets/models/doubloon.glb");
+    
+    // Adjust scale - assuming model is roughly unit size
+    coin->transform.scale = glm::vec3(0.5f); 
+    
+    // Keep original rotation speed
+    coin->rotationSpeed = 6.0f;
+    
+    objects.push_back(std::move(coin));
+  }
 }
 
 void Level1::createForceFieldDoor() {
-  // Create textured stone archway frame - ALWAYS VISIBLE, NON-BLOCKING
-  glm::vec3 frameColor(0.6f, 0.55f, 0.5f); // Warm stone color
-
-  // Door at z=28.0
   float doorZ = 28.0f;
 
-  // Left pillar - textured stone (non-blocking decoration)
-  auto leftPillar =
-      std::make_unique<GameObject>(GameObjectType::COLLECTIBLE); // Non-blocking
-  leftPillar->transform.position = glm::vec3(-2.0f, 2.5f, doorZ);
-  leftPillar->transform.scale = glm::vec3(0.6f, 5.0f, 0.6f);
-  leftPillar->mesh.reset(Mesh::createCube(1.0f));
-  leftPillar->color = frameColor;
-  leftPillar->materialType = 3;  // Stone texture
-  leftPillar->isTrigger = false; // Not collectible
-  leftPillar->isActive = true;
-  leftPillar->updateBoundingBox();
-  objects.push_back(std::move(leftPillar));
+  // Load the Old Stone Arch model
+  auto arch = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
+  arch->loadModel("assets/models/old_stone_arch.glb");
+  // Position at ground level
+  arch->transform.position = glm::vec3(0.0f, 0.0f, doorZ); 
+  
+  // Rotate to stand upright (90 degrees around X axis)
+  arch->transform.rotate(glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+  
+  // Scale - adjusted based on visual feedback
+  arch->transform.scale = glm::vec3(3.5f); 
+  
+  arch->isActive = true;
+  arch->isTrigger = false;
+  arch->updateBoundingBox();
+  objects.push_back(std::move(arch));
 
-  // Right pillar - textured stone (non-blocking decoration)
-  auto rightPillar = std::make_unique<GameObject>(GameObjectType::COLLECTIBLE);
-  rightPillar->transform.position = glm::vec3(2.0f, 2.5f, doorZ);
-  rightPillar->transform.scale = glm::vec3(0.6f, 5.0f, 0.6f);
-  rightPillar->mesh.reset(Mesh::createCube(1.0f));
-  rightPillar->color = frameColor;
-  rightPillar->materialType = 3; // Stone texture
-  rightPillar->isTrigger = false;
-  rightPillar->isActive = true;
-  rightPillar->updateBoundingBox();
-  objects.push_back(std::move(rightPillar));
+  // The BLOCKING force field - Composite shape
+  
+  // 1. Base Rectangle
+  auto doorBase = std::make_unique<GameObject>(GameObjectType::DOOR);
+  float baseHeight = 2.3f; // Slightly taller base
+  float width = 3.0f;      // Wider to fill gaps
+  float thickness = 0.2f;
+  
+  // Position Y is half height + ground offset (0)
+  // Add slight Z offset to avoid Z-fighting with arch
+  doorBase->transform.position = glm::vec3(0.0f, baseHeight / 2.0f, doorZ + 0.05f);
+  doorBase->transform.scale = glm::vec3(width, baseHeight, thickness);
+  doorBase->mesh.reset(Mesh::createCube(1.0f));
+  doorBase->color = glm::vec3(0.2f, 0.6f, 1.0f);
+  doorBase->transparency = 0.8f;
+  doorBase->isActive = true;
+  doorBase->updateBoundingBox();
+  
+  forceFieldDoor = doorBase.get();
+  objects.push_back(std::move(doorBase)); // Draw after walls (arch)
 
-  // Top arch - textured stone (non-blocking decoration)
-  auto topArch = std::make_unique<GameObject>(GameObjectType::COLLECTIBLE);
-  topArch->transform.position = glm::vec3(0.0f, 5.5f, doorZ);
-  topArch->transform.scale = glm::vec3(4.5f, 0.6f, 0.6f);
-  topArch->mesh.reset(Mesh::createCube(1.0f));
-  topArch->color = frameColor;
-  topArch->materialType = 3; // Stone texture
-  topArch->isTrigger = false;
-  topArch->isActive = true;
-  topArch->updateBoundingBox();
-  objects.push_back(std::move(topArch));
-
-  // The BLOCKING force field - this is what fades
-  auto door = std::make_unique<GameObject>(GameObjectType::DOOR);
-  door->transform.position = glm::vec3(0.0f, 2.5f, doorZ);
-  door->transform.scale = glm::vec3(3.5f, 5.0f, 0.1f); // Fills archway
-  door->mesh.reset(Mesh::createCube(1.0f));
-  door->color = glm::vec3(0.2f, 0.6f, 1.0f); // Glowing blue
-  door->transparency = 0.8f;                 // Start opaque for fade effect
-  door->isActive = true;                     // BLOCKS until crystal collected
-  door->updateBoundingBox();
-
-  forceFieldDoor = door.get();
-  walls.push_back(std::move(door)); // In walls so it blocks
+  // 2. Top Arch (Cylinder)
+  auto doorTop = std::make_unique<GameObject>(GameObjectType::DOOR);
+  // Center of cylinder should be at top of base
+  doorTop->transform.position = glm::vec3(0.0f, baseHeight, doorZ + 0.05f);
+  
+  // Rotate 90 degrees around X to face front
+  doorTop->transform.rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+  
+  // Scale: X=width, Y=thickness (becomes Z depth), Z=width (becomes Y height)
+  doorTop->transform.scale = glm::vec3(width, thickness, width);
+  
+  // Create cylinder with radius 0.5, height 1.0 (Unit size)
+  doorTop->mesh.reset(Mesh::createCylinder(0.5f, 1.0f, 32));
+  
+  doorTop->color = glm::vec3(0.2f, 0.6f, 1.0f);
+  doorTop->transparency = 0.8f;
+  doorTop->isActive = true;
+  doorTop->updateBoundingBox();
+  
+  forceFieldArch = doorTop.get();
+  objects.push_back(std::move(doorTop)); // Draw after walls (arch)
 }
 
 void Level1::update(float deltaTime, Player *player,
@@ -485,18 +460,28 @@ void Level1::update(float deltaTime, Player *player,
   }
 
   // Handle force field fade-out animation
-  if (forceFieldFading && forceFieldDoor) {
+  // Handle force field fade-out animation
+  if (forceFieldFading) {
     fadeTimer += deltaTime;
     float fadeDuration = 2.0f; // 2 seconds to fade out
 
     if (fadeTimer < fadeDuration) {
       // Gradually reduce transparency (0.8 to 0.0)
       float fadeProgress = fadeTimer / fadeDuration;
-      forceFieldDoor->transparency = 0.8f * (1.0f - fadeProgress);
+      float newTransparency = 0.8f * (1.0f - fadeProgress);
+      
+      if (forceFieldDoor) forceFieldDoor->transparency = newTransparency;
+      if (forceFieldArch) forceFieldArch->transparency = newTransparency;
     } else {
       // Fade complete - disable force field
-      forceFieldDoor->isActive = false;
-      forceFieldDoor->transparency = 0.0f;
+      if (forceFieldDoor) {
+          forceFieldDoor->isActive = false;
+          forceFieldDoor->transparency = 0.0f;
+      }
+      if (forceFieldArch) {
+          forceFieldArch->isActive = false;
+          forceFieldArch->transparency = 0.0f;
+      }
       forceFieldFading = false;
     }
   }

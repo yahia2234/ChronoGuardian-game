@@ -2,6 +2,7 @@
 #define GAME_OBJECT_H
 
 #include "Mesh.h"
+#include "Model.h"
 #include "Physics.h"
 #include "Texture.h"
 #include "Transform.h"
@@ -18,17 +19,20 @@ enum class GameObjectType {
   GEYSER,
   COLLECTIBLE,
   DOOR,
-  PEDESTAL
+  PEDESTAL,
+  HEALTH_PICKUP
 };
 
 class GameObject {
 public:
   Transform transform;
   std::unique_ptr<Mesh> mesh;
+  std::unique_ptr<Model> model; // Optional external model
   GameObjectType type;
 
   glm::vec3 color;
   float transparency;
+  float emissive;     // 0.0 = normal shading, 1.0 = fully emissive (glowing)
   int materialType; // 0=None, 1=Brick, 2=Checkered, 3=Rock
   Texture *texture; // Optional texture for the object
   bool isActive;
@@ -41,6 +45,8 @@ public:
 
   GameObject(GameObjectType type);
   virtual ~GameObject() = default;
+  
+  void loadModel(const std::string& path);
 
   virtual void update(float deltaTime);
   virtual void draw(Shader *shader);
@@ -106,6 +112,13 @@ public:
 };
 
 // Collectible (Crystal/Gemstone)
+
+
+// ... (existing includes)
+
+// ... (existing classes)
+
+// Collectible (Crystal/Gemstone)
 class Collectible : public GameObject {
 public:
   float rotationSpeed;
@@ -115,8 +128,26 @@ public:
   float collectAnimation;
   glm::vec3 initialScale;
   float shrinkSpeed;
+  
+  // std::unique_ptr<Model> model; // Optional external model - moved to GameObject
 
   Collectible(const glm::vec3 &position, const glm::vec3 &color);
+  // void loadModel(const std::string& path); // Moved to GameObject
+  void update(float deltaTime) override;
+  void draw(Shader *shader) override;
+  void collect();
+};
+
+// Health Pickup (Heart power-up)
+class HealthPickup : public GameObject {
+public:
+  float rotationSpeed;
+  float floatOffset;
+  float floatSpeed;
+  bool isCollected;
+  glm::vec3 basePosition;
+
+  HealthPickup(const glm::vec3 &position);
   void update(float deltaTime) override;
   void draw(Shader *shader) override;
   void collect();

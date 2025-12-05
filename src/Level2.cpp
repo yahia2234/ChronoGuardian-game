@@ -15,6 +15,13 @@ void Level2::init() {
   createCollectible();
   createPedestal();
   setupLighting();
+  
+  // Create health pickups in Level 2 (2 pickups in different areas)
+  auto healthPickup1 = std::make_unique<HealthPickup>(glm::vec3(-15.0f, 1.5f, 10.0f));
+  objects.push_back(std::move(healthPickup1));
+  
+  auto healthPickup2 = std::make_unique<HealthPickup>(glm::vec3(18.0f, 1.5f, -12.0f));
+  objects.push_back(std::move(healthPickup2));
 }
 
 void Level2::createCavern() {
@@ -110,6 +117,11 @@ void Level2::createCollectible() {
       glm::vec3(-20.0f, 2.0f, -20.0f), // Far northwest corner
       glm::vec3(0.9f, 0.2f, 0.2f)      // Red
   );
+  
+  // Load new model
+  gemstone->loadModel("assets/models/crystal_pendant_updated_2022.glb");
+  gemstone->transform.scale = glm::vec3(0.5f); // Uniform scale for model
+  
   gemCollectible = gemstone.get();               // Store reference for cutscene
   gemOriginalPos = gemstone->transform.position; // Store original position
   objects.push_back(std::move(gemstone));
@@ -129,9 +141,13 @@ void Level2::createPedestal() {
   // Ancient stone pedestal - Moved further back
   auto ped = std::make_unique<GameObject>(GameObjectType::PEDESTAL);
   ped->transform.position = glm::vec3(0.0f, 0.5f, 15.0f);
-  ped->transform.scale = glm::vec3(1.0f, 1.0f, 1.0f);
-  ped->mesh.reset(Mesh::createCylinder(0.5f, 1.0f, 16));
-  ped->color = glm::vec3(0.4f, 0.4f, 0.35f); // Stone grey
+  
+  // Load new model
+  ped->loadModel("assets/models/ancient_greek_column_remains.glb");
+  // Scale it so it's bigger in the vertical length (0.2, 0.6, 0.2)
+  ped->transform.scale = glm::vec3(0.2f, 0.6f, 0.2f); 
+  
+  ped->color = glm::vec3(0.4f, 0.4f, 0.35f); // Stone grey (tint for model if supported)
   ped->updateBoundingBox();
   ped->isTrigger = true;
 
@@ -159,26 +175,56 @@ void Level2::setupLighting() {
     // Create visual torch model
     auto torchModel = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
     torchModel->transform.position = pos;
-    torchModel->transform.scale =
-        glm::vec3(0.075f, 0.3f, 0.075f); // Reduced by 0.75
-    torchModel->mesh.reset(
-        Mesh::createCylinder(0.0375f, 0.3f, 8));     // Reduced by 0.75
-    torchModel->color = glm::vec3(1.0f, 0.5f, 0.2f); // Glowing orange
-    torchModel->materialType = 0;                    // No texture, just color
+    
+    // Load new model
+    torchModel->loadModel("assets/models/medieval_torch.glb");
+    torchModel->transform.scale = glm::vec3(0.15f); // Much smaller scale
+    
+    // Rotate to stick out of wall and tilt slightly up
+    // Also offset position slightly to not be buried in wall
+    glm::vec3 adjustedPos = pos;
+    float offset = 0.2f; // Distance from wall center
+    float tiltAngle = glm::radians(-15.0f); // Tilt up slightly
+
+    // Adjusted rotations to align flat side with wall (rotated 90 degrees from previous)
+    if (pos.z < -27.0f) { // North wall
+        adjustedPos.z += offset;
+        torchModel->transform.position = adjustedPos;
+        torchModel->transform.rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)); 
+        torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
+    } else if (pos.z > 27.0f) { // South wall
+        adjustedPos.z -= offset;
+        torchModel->transform.position = adjustedPos;
+        torchModel->transform.rotate(glm::radians(-90.0f), glm::vec3(0, 1, 0));
+        torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
+    } else if (pos.x < -27.0f) { // West wall
+        adjustedPos.x += offset;
+        torchModel->transform.position = adjustedPos;
+        torchModel->transform.rotate(glm::radians(0.0f), glm::vec3(0, 1, 0));
+        torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
+    } else if (pos.x > 27.0f) { // East wall
+        adjustedPos.x -= offset;
+        torchModel->transform.position = adjustedPos;
+        torchModel->transform.rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
+        torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
+    }
+    
+    torchModel->color = glm::vec3(1.0f, 0.5f, 0.2f); // Glowing orange tint
     torchModel->updateBoundingBox();
     objects.push_back(std::move(torchModel));
 
     // Create light
     Light torch;
-    torch.position = pos;
-    torch.color = glm::vec3(1.0f, 0.6f, 0.3f); // Warm orange
-    torch.intensity = 5.0f;                    // Reduced further
-    torch.flickerSpeed = 5.0f + (rand() % 100) / 100.0f;
-    torch.flickerAmount = 0.3f;
+    torch.position = adjustedPos + glm::vec3(0.0f, 0.3f, 0.0f); // Light slightly above torch
+    torch.color = glm::vec3(1.0f, 0.5f, 0.2f); // Warm orange
+    torch.baseIntensity = 1.5f;                // Base intensity
+    torch.intensity = torch.baseIntensity;
+    torch.flickerSpeed = 1.0f + (rand() % 100) / 100.0f; // Much slower flicker (1.0 - 2.0)
+    torch.flickerAmount = 0.8f; // Large flicker range
     lights.push_back(torch);
   }
 
-  ambientLight = glm::vec3(0.25f); // Dimmer ambient light
+  ambientLight = glm::vec3(0.15f); // Darker ambient light for cave atmosphere
 }
 
 void Level2::update(float deltaTime, Player *player,
@@ -218,6 +264,9 @@ void Level2::update(float deltaTime, Player *player,
             if (heightDiff < 2.0f) {
               // Hit detected!
               stalactiteHits++;
+              
+              // Take heart damage
+              player->takeDamage();
 
               // Play impact sound
               AudioManager::getInstance().playSound(SoundEffect::OBSTACLE_HIT,
@@ -290,6 +339,11 @@ void Level2::update(float deltaTime, Player *player,
           );
 
           player->transform.position += totalPush * deltaTime;
+          
+          // Take heart damage once per geyser contact (using flash as cooldown)
+          if (player->damageFlashIntensity < 0.1f) {
+            player->takeDamage();
+          }
         }
 
         // Emit steam particles
@@ -328,7 +382,7 @@ void Level2::update(float deltaTime, Player *player,
           collectible->transform.position =
               pedestal->transform.position + glm::vec3(0.0f, 1.5f, 0.0f);
           collectible->transform.scale =
-              glm::vec3(1.2f, 1.2f, 0.2f); // Make it visible
+              glm::vec3(0.5f); // Uniform scale for model
         }
       }
     }

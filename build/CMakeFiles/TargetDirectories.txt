@@ -1,3 +1,0 @@
-/Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/build/CMakeFiles/ChronoGuardian.dir
-/Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/build/CMakeFiles/edit_cache.dir
-/Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/build/CMakeFiles/rebuild_cache.dir

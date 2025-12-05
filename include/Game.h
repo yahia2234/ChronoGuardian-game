@@ -11,7 +11,7 @@
 #include <memory>
 #include <string>
 
-enum class GameState { MENU, LEVEL1, LEVEL2, WIN, GAME_OVER };
+enum class GameState { START_SCREEN, MENU, LEVEL1, LEVEL2, WIN, GAME_OVER };
 
 class Game {
 public:
@@ -36,10 +36,20 @@ private:
 
   std::unique_ptr<Shader> mainShader;
   std::unique_ptr<Shader> particleShader;
+  std::unique_ptr<Shader> startScreenShader;
+  std::unique_ptr<Shader> gameOverShader;
+  std::unique_ptr<Shader> winScreenShader;
   std::unique_ptr<Camera> camera;
   std::unique_ptr<Player> player;
   std::unique_ptr<Level> currentLevel;
   std::unique_ptr<ParticleSystem> particles;
+
+  // Start screen / Game over / Win screen (share VAO/VBO)
+  GLuint startScreenVAO;
+  GLuint startScreenVBO;
+  float startScreenTime;
+  float gameOverTime;
+  float winScreenTime;
 
   GameState gameState;
   int currentLevelIndex;
@@ -55,8 +65,18 @@ private:
   void loadLevel(int levelIndex);
   void restartLevel();
   void nextLevel();
+  
+  void initStartScreen();
+  void renderStartScreen();
+  void renderGameOver();
+  void renderWinScreen();
+  void renderHearts(); // Render heart UI
+  bool anyKeyPressed();
 
   glm::vec3 getMovementInput();
+  
+  // Heart model for UI
+  std::unique_ptr<Model> heartModel;
 };
 
 #endif

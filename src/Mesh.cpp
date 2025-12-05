@@ -218,6 +218,44 @@ Mesh *Mesh::createCylinder(float radius, float height, int sectors) {
     indices.push_back(k2 + 1);
   }
 
+  // Top Cap
+  int topCenterIndex = vertices.size();
+  vertices.push_back({{0, halfHeight, 0}, {0, 1, 0}, {0.5f, 0.5f}}); // Top Center
+
+  int topStartIndex = vertices.size();
+  for (int i = 0; i <= sectors; ++i) {
+    float sectorAngle = i * sectorStep;
+    float x = radius * cosf(sectorAngle);
+    float z = radius * sinf(sectorAngle);
+    // Top cap vertices need Up normal
+    vertices.push_back({{x, halfHeight, z}, {0, 1, 0}, {0.5f + 0.5f * cosf(sectorAngle), 0.5f + 0.5f * sinf(sectorAngle)}});
+  }
+
+  for (int i = 0; i < sectors; ++i) {
+    indices.push_back(topCenterIndex);
+    indices.push_back(topStartIndex + i);
+    indices.push_back(topStartIndex + i + 1);
+  }
+
+  // Bottom Cap
+  int bottomCenterIndex = vertices.size();
+  vertices.push_back({{0, -halfHeight, 0}, {0, -1, 0}, {0.5f, 0.5f}}); // Bottom Center
+
+  int bottomStartIndex = vertices.size();
+  for (int i = 0; i <= sectors; ++i) {
+    float sectorAngle = i * sectorStep;
+    float x = radius * cosf(sectorAngle);
+    float z = radius * sinf(sectorAngle);
+    // Bottom cap vertices need Down normal
+    vertices.push_back({{x, -halfHeight, z}, {0, -1, 0}, {0.5f + 0.5f * cosf(sectorAngle), 0.5f + 0.5f * sinf(sectorAngle)}});
+  }
+
+  for (int i = 0; i < sectors; ++i) {
+    indices.push_back(bottomCenterIndex);
+    indices.push_back(bottomStartIndex + i + 1);
+    indices.push_back(bottomStartIndex + i);
+  }
+
   return new Mesh(vertices, indices);
 }
 
@@ -291,5 +329,45 @@ Mesh *Mesh::createCone(float radius, float height, int sectors) {
     indices.push_back(baseStartIndex + i);
   }
 
+  return new Mesh(vertices, indices);
+}
+
+Mesh* Mesh::createHeart(float size) {
+  std::vector<Vertex> vertices;
+  std::vector<unsigned int> indices;
+  
+  // Create a 2D heart shape using parametric equations
+  // Heart curve: x = 16*sin(t)^3, y = 13*cos(t) - 5*cos(2t) - 2*cos(3t) - cos(4t)
+  int segments = 32;
+  float scale = size / 16.0f; // Normalize to size
+  
+  // Center vertex
+  vertices.push_back({{0, 0, 0}, {0, 0, 1}, {0.5f, 0.5f}});
+  
+  // Generate heart outline vertices
+  for (int i = 0; i <= segments; ++i) {
+    float t = (float)i / segments * 2.0f * M_PI;
+    
+    float sinT = sinf(t);
+    float cosT = cosf(t);
+    
+    // Heart parametric equations
+    float x = 16.0f * sinT * sinT * sinT;
+    float y = 13.0f * cosT - 5.0f * cosf(2*t) - 2.0f * cosf(3*t) - cosf(4*t);
+    
+    Vertex v;
+    v.position = glm::vec3(x * scale, y * scale, 0);
+    v.normal = glm::vec3(0, 0, 1);
+    v.texCoord = glm::vec2((x + 16) / 32.0f, (y + 17) / 30.0f);
+    vertices.push_back(v);
+  }
+  
+  // Create triangles from center to edge
+  for (int i = 0; i < segments; ++i) {
+    indices.push_back(0); // center
+    indices.push_back(i + 1);
+    indices.push_back(i + 2);
+  }
+  
   return new Mesh(vertices, indices);
 }

@@ -55,6 +55,32 @@ public:
   glm::vec3 getPosition() const { return transform.position; }
   void setPosition(const glm::vec3 &pos) { transform.position = pos; }
   void setCameraYaw(float yaw) { cameraYaw = yaw; }
+  void reset(const glm::vec3 &startPos) {
+    transform.position = startPos;
+    velocity = glm::vec3(0.0f);
+    isFlashing = false;
+    flashTimer = 0.0f;
+    currentBobOffset = 0.0f;
+    walkBobOffset = 0.0f;
+    controlsEnabled = true;
+    damageFlashIntensity = 0.0f;
+  }
+  
+  void resetHealth() {
+    hearts = maxHearts;
+  }
+
+  // Damage flash effect
+  float damageFlashIntensity;
+  void triggerDamageFlash() { damageFlashIntensity = 1.0f; }
+  
+  // Health system
+  int hearts;
+  int maxHearts;
+  bool takeDamage(); // Returns true if player died
+  void addHeart();
+  bool isDead() const { return hearts <= 0; }
+  int getHearts() const { return hearts; }
 
 private:
   void updateFragments(float deltaTime, float movementMagnitude);
