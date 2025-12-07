@@ -189,7 +189,7 @@ void Level2::createGeysers() {
     objects.push_back(std::move(geyser));
     
     // Add a complete tight circle of rocks around each vent using rock model
-    int numRocks = 20 + (rand() % 5); // 20-24 rocks for complete tight circle
+    int numRocks = 14 + (rand() % 3); // 14-16 rocks for complete circle
     for (int r = 0; r < numRocks; r++) {
       // Evenly spaced around the circle
       float angle = (float)r / numRocks * 2.0f * 3.14159f;
@@ -199,14 +199,14 @@ void Level2::createGeysers() {
       float rockZ = pos.z + sin(angle) * distance;
       
       // Rock scale
-      float rockScale = 0.15f + (rand() % 10) / 100.0f; // 0.15-0.25 scale
+      float rockScale = 0.25f + (rand() % 15) / 100.0f; // 0.25-0.40 scale (larger rocks)
       
       auto rock = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
       rock->transform.position = glm::vec3(rockX, 0.0f, rockZ);
       rock->transform.scale = glm::vec3(rockScale);
       // Random rotation for variety
       rock->transform.rotate((rand() % 360) * 3.14159f / 180.0f, glm::vec3(0, 1, 0));
-      rock->loadModel("assets/models/random_rock.glb");
+      rock->loadCachedModel("assets/models/random_rock.glb");
       rock->color = glm::vec3(0.55f, 0.48f, 0.40f); // Light brown-gray
       rock->materialType = 4; // Cave rock texture
       rock->updateBoundingBox();
@@ -229,7 +229,7 @@ void Level2::createSkeletons() {
     skeleton->transform.position = pos;
     skeleton->transform.scale = glm::vec3(0.1f); // Small skeleton size
     skeleton->transform.rotate(glm::radians(rotation), glm::vec3(0, 1, 0));
-    skeleton->loadModel("assets/models/human_skeleton_download_free.glb");
+    skeleton->loadCachedModel("assets/models/human_skeleton_download_free.glb");
     skeleton->color = glm::vec3(0.9f, 0.85f, 0.75f); // Bone white color
     skeleton->isActive = true;
     skeleton->updateBoundingBox();
@@ -303,7 +303,7 @@ void Level2::setupLighting() {
     torchModel->transform.position = pos;
     
     // Load new model
-    torchModel->loadModel("assets/models/medieval_torch.glb");
+    torchModel->loadCachedModel("assets/models/medieval_torch.glb");
     torchModel->transform.scale = glm::vec3(0.15f); // Much smaller scale
     
     // Rotate to stick out of wall and tilt slightly up

@@ -27,7 +27,8 @@ class GameObject {
 public:
   Transform transform;
   std::unique_ptr<Mesh> mesh;
-  std::unique_ptr<Model> model; // Optional external model
+  std::unique_ptr<Model> model; // Optional external model (owned)
+  std::shared_ptr<Model> sharedModel; // Optional cached/shared model
   GameObjectType type;
 
   glm::vec3 color;
@@ -47,6 +48,7 @@ public:
   virtual ~GameObject() = default;
   
   void loadModel(const std::string& path);
+  void loadCachedModel(const std::string& path); // Use cached model for efficiency
 
   virtual void update(float deltaTime);
   virtual void draw(Shader *shader);

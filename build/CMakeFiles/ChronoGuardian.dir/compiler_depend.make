@@ -3386,6 +3386,7 @@ CMakeFiles/ChronoGuardian.dir/src/GameObject.cpp.o: /Users/yahia/Desktop/graphic
   /Users/yahia/Desktop/graphics\ project/include/GameObject.h \
   /Users/yahia/Desktop/graphics\ project/include/Mesh.h \
   /Users/yahia/Desktop/graphics\ project/include/Model.h \
+  /Users/yahia/Desktop/graphics\ project/include/ModelCache.h \
   /Users/yahia/Desktop/graphics\ project/include/Physics.h \
   /Users/yahia/Desktop/graphics\ project/include/Shader.h \
   /Users/yahia/Desktop/graphics\ project/include/Texture.h \
@@ -15165,6 +15166,8 @@ CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: /Users/yahia/Desktop/graphics\ pro
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/compose.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stdio.h:
+
+/Users/yahia/Desktop/graphics\ project/include/ModelCache.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stdint.h:
 

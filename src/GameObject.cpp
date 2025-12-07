@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "AudioManager.h"
+#include "ModelCache.h"
 #include "Shader.h"
 #include <cmath>
 
@@ -17,12 +18,20 @@ void GameObject::loadModel(const std::string& path) {
   }
 }
 
+void GameObject::loadCachedModel(const std::string& path) {
+  // Use the ModelCache singleton for efficient model reuse
+  sharedModel = ModelCache::getInstance().getModel(path);
+  if (!sharedModel) {
+    std::cout << "Failed to load cached model: " << path << std::endl;
+  }
+}
+
 void GameObject::draw(Shader *shader) {
   if (!isActive)
     return;
     
-  // If we have neither mesh nor model, nothing to draw
-  if (!mesh && !model)
+  // If we have neither mesh nor model (owned or shared), nothing to draw
+  if (!mesh && !model && !sharedModel)
     return;
 
   glm::mat4 modelMat = transform.getModelMatrix();
@@ -47,9 +56,14 @@ void GameObject::draw(Shader *shader) {
 
   shader->setFloat("shininess", 32.0f);
   
+  // Draw model (owned or shared) or mesh
   if (model) {
       glDisable(GL_CULL_FACE); // Many models need this
       model->draw(shader);
+      glEnable(GL_CULL_FACE);
+  } else if (sharedModel) {
+      glDisable(GL_CULL_FACE);
+      sharedModel->draw(shader);
       glEnable(GL_CULL_FACE);
   } else if (mesh) {
       mesh->draw();
