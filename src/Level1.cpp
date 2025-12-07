@@ -2,9 +2,9 @@
 #include <iostream>
 
 Level1::Level1()
-    : forceFieldDoor(nullptr), forceFieldArch(nullptr), energyCrystal(nullptr), coinsCollected(0),
-      crystalCollected(false), forceFieldFading(false), fadeTimer(0.0f),
-      crumblingTileTexture(nullptr) {
+    : forceFieldDoor(nullptr), forceFieldArch(nullptr), energyCrystal(nullptr),
+      coinsCollected(0), crystalCollected(false), forceFieldFading(false),
+      fadeTimer(0.0f), crumblingTileTexture(nullptr) {
   levelComplete = false;
   // Spawn in corner opposite to door (Door is at z=28)
   // Level is 90x90, so corners are at +/- 30
@@ -31,19 +31,21 @@ void Level1::init() {
       glm::vec3(0.0f, 2.0f, 15.0f), // Central location near exit
       glm::vec3(0.2f, 0.6f, 1.0f)   // Blue color
   );
-  
+
   // Load the enchanted crystal model
   crystal->loadModel("assets/models/enchanted_crystal.glb");
-  
-  crystal->transform.scale = glm::vec3(0.17f);              // Much smaller size (3x smaller)
-  crystal->rotationSpeed = 2.0f;                           // Gentle rotation
-  crystal->isActive = false;                               // Hidden initially
+
+  crystal->transform.scale = glm::vec3(0.17f); // Much smaller size (3x smaller)
+  crystal->rotationSpeed = 2.0f;               // Gentle rotation
+  crystal->isActive = false;                   // Hidden initially
   crystal->isTrigger = true;
+  crystal->soundType = SoundEffect::GEM_COLLECT;
   energyCrystal = crystal.get();
   objects.push_back(std::move(crystal));
 
   // Create health pickup in Level 1 (near center of map)
-  auto healthPickup = std::make_unique<HealthPickup>(glm::vec3(15.0f, 1.5f, -15.0f));
+  auto healthPickup =
+      std::make_unique<HealthPickup>(glm::vec3(15.0f, 1.5f, -15.0f));
   objects.push_back(std::move(healthPickup));
 
   // Setup lights - 8 evenly distributed static lights
@@ -51,8 +53,8 @@ void Level1::init() {
 
   // Create 8 lights in a grid pattern (2x4) across the 90x90 room
   // Room spans from -45 to +45 in both x and z
-  float lightHeight = 12.0f;              // High up for good coverage
-  float lightIntensity = 4.0f;            // Bright intensity for well-lit scene
+  float lightHeight = 12.0f;   // High up for good coverage
+  float lightIntensity = 4.0f; // Bright intensity for well-lit scene
   glm::vec3 lightColor(1.0f, 0.95f, 0.8f); // Warm white light
 
   // Grid positions: 2 rows (x), 4 columns (z)
@@ -329,17 +331,21 @@ void Level1::createCollectible() {
   };
 
   for (const auto &pos : positions) {
-    auto coin = std::make_unique<Collectible>(pos, glm::vec3(1.0f, 0.84f, 0.0f));
-    
+    auto coin =
+        std::make_unique<Collectible>(pos, glm::vec3(1.0f, 0.84f, 0.0f));
+
     // Load the doubloon model
     coin->loadModel("assets/models/doubloon.glb");
-    
+
     // Adjust scale - assuming model is roughly unit size
-    coin->transform.scale = glm::vec3(0.5f); 
-    
+    coin->transform.scale = glm::vec3(0.5f);
+
     // Keep original rotation speed
     coin->rotationSpeed = 6.0f;
-    
+
+    // Set sound to COIN_COLLECT
+    coin->soundType = SoundEffect::COIN_COLLECT;
+
     objects.push_back(std::move(coin));
   }
 }
@@ -351,37 +357,38 @@ void Level1::createForceFieldDoor() {
   auto arch = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
   arch->loadModel("assets/models/old_stone_arch.glb");
   // Position at ground level
-  arch->transform.position = glm::vec3(0.0f, 0.0f, doorZ); 
-  
+  arch->transform.position = glm::vec3(0.0f, 0.0f, doorZ);
+
   // Rotate to stand upright (90 degrees around X axis)
   arch->transform.rotate(glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-  
+
   // Scale - adjusted based on visual feedback
-  arch->transform.scale = glm::vec3(3.5f); 
-  
+  arch->transform.scale = glm::vec3(3.5f);
+
   arch->isActive = true;
   arch->isTrigger = false;
   arch->updateBoundingBox();
   objects.push_back(std::move(arch));
 
   // The BLOCKING force field - Composite shape
-  
+
   // 1. Base Rectangle
   auto doorBase = std::make_unique<GameObject>(GameObjectType::DOOR);
   float baseHeight = 2.3f; // Slightly taller base
   float width = 3.0f;      // Wider to fill gaps
   float thickness = 0.2f;
-  
+
   // Position Y is half height + ground offset (0)
   // Add slight Z offset to avoid Z-fighting with arch
-  doorBase->transform.position = glm::vec3(0.0f, baseHeight / 2.0f, doorZ + 0.05f);
+  doorBase->transform.position =
+      glm::vec3(0.0f, baseHeight / 2.0f, doorZ + 0.05f);
   doorBase->transform.scale = glm::vec3(width, baseHeight, thickness);
   doorBase->mesh.reset(Mesh::createCube(1.0f));
   doorBase->color = glm::vec3(0.2f, 0.6f, 1.0f);
   doorBase->transparency = 0.8f;
   doorBase->isActive = true;
   doorBase->updateBoundingBox();
-  
+
   forceFieldDoor = doorBase.get();
   objects.push_back(std::move(doorBase)); // Draw after walls (arch)
 
@@ -389,21 +396,21 @@ void Level1::createForceFieldDoor() {
   auto doorTop = std::make_unique<GameObject>(GameObjectType::DOOR);
   // Center of cylinder should be at top of base
   doorTop->transform.position = glm::vec3(0.0f, baseHeight, doorZ + 0.05f);
-  
+
   // Rotate 90 degrees around X to face front
   doorTop->transform.rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-  
+
   // Scale: X=width, Y=thickness (becomes Z depth), Z=width (becomes Y height)
   doorTop->transform.scale = glm::vec3(width, thickness, width);
-  
+
   // Create cylinder with radius 0.5, height 1.0 (Unit size)
   doorTop->mesh.reset(Mesh::createCylinder(0.5f, 1.0f, 32));
-  
+
   doorTop->color = glm::vec3(0.2f, 0.6f, 1.0f);
   doorTop->transparency = 0.8f;
   doorTop->isActive = true;
   doorTop->updateBoundingBox();
-  
+
   forceFieldArch = doorTop.get();
   objects.push_back(std::move(doorTop)); // Draw after walls (arch)
 }
@@ -431,6 +438,9 @@ void Level1::update(float deltaTime, Player *player,
             if (forceFieldDoor) {
               forceFieldFading = true;
               fadeTimer = 0.0f;
+              // Play door open sound
+              AudioManager::getInstance().playSound(SoundEffect::DOOR_OPEN,
+                                                    1.0f);
             }
 
             // Blue particle explosion
@@ -469,18 +479,20 @@ void Level1::update(float deltaTime, Player *player,
       // Gradually reduce transparency (0.8 to 0.0)
       float fadeProgress = fadeTimer / fadeDuration;
       float newTransparency = 0.8f * (1.0f - fadeProgress);
-      
-      if (forceFieldDoor) forceFieldDoor->transparency = newTransparency;
-      if (forceFieldArch) forceFieldArch->transparency = newTransparency;
+
+      if (forceFieldDoor)
+        forceFieldDoor->transparency = newTransparency;
+      if (forceFieldArch)
+        forceFieldArch->transparency = newTransparency;
     } else {
       // Fade complete - disable force field
       if (forceFieldDoor) {
-          forceFieldDoor->isActive = false;
-          forceFieldDoor->transparency = 0.0f;
+        forceFieldDoor->isActive = false;
+        forceFieldDoor->transparency = 0.0f;
       }
       if (forceFieldArch) {
-          forceFieldArch->isActive = false;
-          forceFieldArch->transparency = 0.0f;
+        forceFieldArch->isActive = false;
+        forceFieldArch->transparency = 0.0f;
       }
       forceFieldFading = false;
     }

@@ -1,6 +1,7 @@
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
+#include "AudioManager.h"
 #include "Mesh.h"
 #include "Model.h"
 #include "Physics.h"
@@ -27,13 +28,13 @@ class GameObject {
 public:
   Transform transform;
   std::unique_ptr<Mesh> mesh;
-  std::unique_ptr<Model> model; // Optional external model (owned)
+  std::unique_ptr<Model> model;       // Optional external model (owned)
   std::shared_ptr<Model> sharedModel; // Optional cached/shared model
   GameObjectType type;
 
   glm::vec3 color;
   float transparency;
-  float emissive;     // 0.0 = normal shading, 1.0 = fully emissive (glowing)
+  float emissive;   // 0.0 = normal shading, 1.0 = fully emissive (glowing)
   int materialType; // 0=None, 1=Brick, 2=Checkered, 3=Rock
   Texture *texture; // Optional texture for the object
   bool isActive;
@@ -46,9 +47,10 @@ public:
 
   GameObject(GameObjectType type);
   virtual ~GameObject() = default;
-  
-  void loadModel(const std::string& path);
-  void loadCachedModel(const std::string& path); // Use cached model for efficiency
+
+  void loadModel(const std::string &path);
+  void
+  loadCachedModel(const std::string &path); // Use cached model for efficiency
 
   virtual void update(float deltaTime);
   virtual void draw(Shader *shader);
@@ -115,7 +117,6 @@ public:
 
 // Collectible (Crystal/Gemstone)
 
-
 // ... (existing includes)
 
 // ... (existing classes)
@@ -130,8 +131,10 @@ public:
   float collectAnimation;
   glm::vec3 initialScale;
   float shrinkSpeed;
-  
-  // std::unique_ptr<Model> model; // Optional external model - moved to GameObject
+  SoundEffect soundType; // Specific sound for this collectible (COIN vs GEM)
+
+  // std::unique_ptr<Model> model; // Optional external model - moved to
+  // GameObject
 
   Collectible(const glm::vec3 &position, const glm::vec3 &color);
   // void loadModel(const std::string& path); // Moved to GameObject

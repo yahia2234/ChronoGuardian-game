@@ -65,15 +65,16 @@ public:
     controlsEnabled = true;
     damageFlashIntensity = 0.0f;
   }
-  
-  void resetHealth() {
-    hearts = maxHearts;
-  }
+
+  void resetHealth() { hearts = maxHearts; }
 
   // Damage flash effect
   float damageFlashIntensity;
   void triggerDamageFlash() { damageFlashIntensity = 1.0f; }
-  
+
+  // Cooldown for collision sound
+  float collisionCooldown;
+
   // Health system
   int hearts;
   int maxHearts;

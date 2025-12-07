@@ -1003,11 +1003,16 @@ CMakeFiles/ChronoGuardian.dir/src/Game.cpp.o: \
   /opt/homebrew/include/glm/gtc/../matrix.hpp \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/GameObject.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/AudioManager.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/al.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/availability.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/alc.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Mesh.h \
   /opt/homebrew/include/GL/glew.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/glu.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/availability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Model.h \
   /opt/homebrew/include/assimp/Importer.hpp \
@@ -1141,11 +1146,6 @@ CMakeFiles/ChronoGuardian.dir/src/Game.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/sstream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \
   /opt/homebrew/include/GLFW/glfw3.h \
-  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/AudioManager.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/al.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/alc.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Input.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level1.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level2.h

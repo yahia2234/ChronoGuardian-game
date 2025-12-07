@@ -5083,6 +5083,8 @@ CMakeFiles/ChronoGuardian.dir/src/Input.cpp.o: /Users/omar/Desktop/GUC/Chron0/Ch
   /opt/homebrew/include/glm/vector_relational.hpp
 
 CMakeFiles/ChronoGuardian.dir/src/Level.cpp.o: /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/src/Level.cpp \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/al.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/alc.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/glu.h \
@@ -5533,6 +5535,7 @@ CMakeFiles/ChronoGuardian.dir/src/Level.cpp.o: /Users/omar/Desktop/GUC/Chron0/Ch
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/poll_with_backoff.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/support.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/support/pthread.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tuple/find_index.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tuple/ignore.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tuple/make_tuple_types.h \
@@ -5725,6 +5728,7 @@ CMakeFiles/ChronoGuardian.dir/src/Level.cpp.o: /Users/omar/Desktop/GUC/Chron0/Ch
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/locale \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/locale.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex \
@@ -5910,6 +5914,7 @@ CMakeFiles/ChronoGuardian.dir/src/Level.cpp.o: /Users/omar/Desktop/GUC/Chron0/Ch
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdarg.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdint.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/AudioManager.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/GameObject.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Mesh.h \
@@ -6223,6 +6228,8 @@ CMakeFiles/ChronoGuardian.dir/src/Level.cpp.o: /Users/omar/Desktop/GUC/Chron0/Ch
   /opt/homebrew/include/glm/vector_relational.hpp
 
 CMakeFiles/ChronoGuardian.dir/src/Level1.cpp.o: /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/src/Level1.cpp \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/al.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/alc.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/glu.h \
@@ -6656,6 +6663,7 @@ CMakeFiles/ChronoGuardian.dir/src/Level1.cpp.o: /Users/omar/Desktop/GUC/Chron0/C
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/poll_with_backoff.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/support.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/support/pthread.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tuple/find_index.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tuple/ignore.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tuple/make_tuple_types.h \
@@ -6845,6 +6853,7 @@ CMakeFiles/ChronoGuardian.dir/src/Level1.cpp.o: /Users/omar/Desktop/GUC/Chron0/C
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/locale \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/locale.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex \
@@ -7029,6 +7038,7 @@ CMakeFiles/ChronoGuardian.dir/src/Level1.cpp.o: /Users/omar/Desktop/GUC/Chron0/C
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdarg.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdint.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/AudioManager.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/GameObject.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Level1.h \
@@ -15394,6 +15404,8 @@ CMakeFiles/ChronoGuardian.dir/src/Texture.cpp.o: /Users/omar/Desktop/GUC/Chron0/
   /opt/homebrew/include/GL/glew.h
 
 CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/src/main.cpp \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/al.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenAL.framework/Headers/alc.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/gl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers/glu.h \
@@ -15844,6 +15856,7 @@ CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: /Users/omar/Desktop/GUC/Chron0/Chr
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/poll_with_backoff.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/support.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__thread/support/pthread.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tuple/find_index.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tuple/ignore.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__tuple/make_tuple_types.h \
@@ -16036,6 +16049,7 @@ CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: /Users/omar/Desktop/GUC/Chron0/Chr
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/locale \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/locale.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/map \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/math.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/memory \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/mutex \
@@ -16221,6 +16235,7 @@ CMakeFiles/ChronoGuardian.dir/src/main.cpp.o: /Users/omar/Desktop/GUC/Chron0/Chr
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdarg.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdint.h \
+  /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/AudioManager.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Camera.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/Game.h \
   /Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include/GameObject.h \

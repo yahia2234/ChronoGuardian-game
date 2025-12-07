@@ -11,7 +11,7 @@ Player::Player()
       velocity(0.0f), isFlashing(false), flashTimer(0.0f),
       fragmentRotationSpeed(1.0f), currentBobOffset(0.0f), walkBobOffset(0.0f),
       cameraYaw(0.0f), controlsEnabled(true), damageFlashIntensity(0.0f),
-      hearts(4), maxHearts(4) {
+      collisionCooldown(0.0f), hearts(4), maxHearts(4) {
 
   // Create core mesh (ornate sphere - Ancient Gold)
   coreMesh.reset(Mesh::createSphere(0.5f, 36, 18));
@@ -59,7 +59,8 @@ void Player::update(float deltaTime, const glm::vec3 &moveInput) {
   // Update damage flash
   if (damageFlashIntensity > 0.0f) {
     damageFlashIntensity -= deltaTime * 2.0f; // Fade out over 0.5 seconds
-    if (damageFlashIntensity < 0.0f) damageFlashIntensity = 0.0f;
+    if (damageFlashIntensity < 0.0f)
+      damageFlashIntensity = 0.0f;
   }
 
   // Apply gravity
@@ -77,6 +78,11 @@ void Player::update(float deltaTime, const glm::vec3 &moveInput) {
     transform.position.y = groundLevel;
     velocity.y = 0.0f;
   }
+
+  // NOTE: Generic wall collision sound is difficult without proper physics
+  // engine contact points. The 'onWallCollision' method handles logic when
+  // physics collision is detected. We will ensure 'onWallCollision' plays the
+  // generic thud sound.
 
   // Horizontal Movement (Smooth Gliding)
   glm::vec3 targetVelocity = glm::vec3(0.0f);
@@ -155,6 +161,11 @@ void Player::update(float deltaTime, const glm::vec3 &moveInput) {
       AudioManager::getInstance().playSound(SoundEffect::MOVEMENT, 0.3f);
       movementSoundTimer = 0.0f;
     }
+  }
+
+  // Update collision sound cooldown
+  if (collisionCooldown > 0.0f) {
+    collisionCooldown -= deltaTime;
   }
 }
 
@@ -277,17 +288,43 @@ void Player::onWallCollision(const glm::vec3 &normal,
     transform.position += bounceDir * 0.5f; // Bounce back
   }
 
-  // Emit spark particles
+  // Emit scattering particle effect (Dust/Debris)
   if (particles) {
-    particles->emit(transform.position + normal * 0.6f, normal * 3.0f,
-                    glm::vec4(1.0f, 0.8f, 0.2f, 1.0f), 5.0f, 0.5f, 10);
+    // Creating a scatter effect - cone of particles reflecting off the wall
+    int particleCount = 20;
+    for (int i = 0; i < particleCount; i++) {
+      // Random spread direction
+      glm::vec3 randomDir((rand() % 100 - 50) / 50.0f,
+                          (rand() % 100 - 50) / 50.0f,
+                          (rand() % 100 - 50) / 50.0f);
+
+      // Reflect mostly along the normal, but with wide spread
+      glm::vec3 velocity = normal + randomDir * 0.8f;
+      velocity = glm::normalize(velocity) *
+                 (2.0f + (rand() % 100) / 20.0f); // Random speed 2-7
+
+      // Brown/Grey dust color with variation
+      float gray = 0.4f + (rand() % 100) / 200.0f;
+      glm::vec4 color(gray, gray, gray * 0.9f, 1.0f);
+
+      // Add some "spark" particles occasionally
+      if (i % 4 == 0) {
+        color = glm::vec4(1.0f, 0.8f, 0.2f, 1.0f); // Gold spark
+      }
+
+      particles->emit(transform.position + normal * 0.5f, velocity, color,
+                      3.0f + (rand() % 100) / 50.0f,  // Size 3-5
+                      0.5f + (rand() % 100) / 100.0f, // Lifetime 0.5-1.5s
+                      1);
+    }
   }
 
-  // Play collision sound
-  static float collisionCooldown = 0.0f;
+  // Play collision sound - Reduced volume to 0.3x per user request
   if (collisionCooldown <= 0.0f) {
-    AudioManager::getInstance().playSound(SoundEffect::WALL_COLLISION, 0.6f);
-    collisionCooldown = 0.2f;
+    // 0.3f relative to usual volume
+    AudioManager::getInstance().playSound(SoundEffect::WALL_COLLISION, 0.3f);
+    collisionCooldown =
+        0.5f; // Increased delay to prevent spamming on continuous contact
   }
 }
 
@@ -299,7 +336,7 @@ void Player::onObstacleHit(const glm::vec3 &knockbackDir,
   // Flash red (existing flash)
   isFlashing = true;
   flashTimer = 0.3f;
-  
+
   // Take damage (lose a heart)
   takeDamage();
 
@@ -309,8 +346,8 @@ void Player::onObstacleHit(const glm::vec3 &knockbackDir,
                     glm::vec4(1.0f, 0.3f, 0.3f, 1.0f), 8.0f, 0.7f, 20);
   }
 
-  // Play obstacle hit sound
-  AudioManager::getInstance().playSound(SoundEffect::OBSTACLE_HIT, 0.8f);
+  // Play obstacle hit sound - Increased volume by 4x
+  AudioManager::getInstance().playSound(SoundEffect::OBSTACLE_HIT, 3.2f);
 }
 
 bool Player::takeDamage() {

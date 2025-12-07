@@ -9,11 +9,10 @@
 Game *Game::instance = nullptr;
 
 Game::Game()
-    : window(nullptr), screenWidth(1280), screenHeight(720),
-      startScreenVAO(0), startScreenVBO(0), startScreenTime(0.0f),
-      gameOverTime(0.0f), winScreenTime(0.0f),
-      gameState(GameState::START_SCREEN), currentLevelIndex(0), deltaTime(0.0f),
-      lastFrame(0.0f), running(true) {
+    : window(nullptr), screenWidth(1280), screenHeight(720), startScreenVAO(0),
+      startScreenVBO(0), startScreenTime(0.0f), gameOverTime(0.0f),
+      winScreenTime(0.0f), gameState(GameState::START_SCREEN),
+      currentLevelIndex(0), deltaTime(0.0f), lastFrame(0.0f), running(true) {
   instance = this;
 }
 
@@ -71,12 +70,12 @@ bool Game::init() {
       std::make_unique<Shader>("shaders/vertex.glsl", "shaders/fragment.glsl");
   particleShader = std::make_unique<Shader>("shaders/particle_vertex.glsl",
                                             "shaders/particle_fragment.glsl");
-  startScreenShader = std::make_unique<Shader>("shaders/start_screen_vertex.glsl",
-                                                "shaders/start_screen_fragment.glsl");
+  startScreenShader = std::make_unique<Shader>(
+      "shaders/start_screen_vertex.glsl", "shaders/start_screen_fragment.glsl");
   gameOverShader = std::make_unique<Shader>("shaders/game_over_vertex.glsl",
-                                             "shaders/game_over_fragment.glsl");
-  winScreenShader = std::make_unique<Shader>("shaders/win_screen_vertex.glsl",
-                                              "shaders/win_screen_fragment.glsl");
+                                            "shaders/game_over_fragment.glsl");
+  winScreenShader = std::make_unique<Shader>(
+      "shaders/win_screen_vertex.glsl", "shaders/win_screen_fragment.glsl");
 
   // Create camera
   camera = std::make_unique<Camera>();
@@ -89,7 +88,7 @@ bool Game::init() {
 
   // Initialize start screen
   initStartScreen();
-  
+
   // Load heart model for UI
   heartModel = std::make_unique<Model>("assets/models/aztec_stone_heart.glb");
 
@@ -137,20 +136,21 @@ void Game::processInput() {
   // Handle start screen - any key starts the game
   if (gameState == GameState::START_SCREEN) {
     if (anyKeyPressed()) {
-      loadLevel(0);  // Start the game
+      loadLevel(0); // Start the game
     }
-    return;  // Don't process other input on start screen
+    return; // Don't process other input on start screen
   }
 
   // Handle game over screen - any key restarts after a short delay
   if (gameState == GameState::GAME_OVER) {
     gameOverTime += deltaTime;
-    if (gameOverTime > 1.0f && anyKeyPressed()) { // 1 second delay before accepting input
+    if (gameOverTime > 1.0f &&
+        anyKeyPressed()) { // 1 second delay before accepting input
       // Reset the entire game
-      player->resetHealth();  // Reset hearts to full
-      loadLevel(0);  // Restart from Level 1
+      player->resetHealth(); // Reset hearts to full
+      loadLevel(0);          // Restart from Level 1
     }
-    return;  // Don't process other input on game over screen
+    return; // Don't process other input on game over screen
   }
 
   // Handle win screen - any key goes back to start screen
@@ -158,11 +158,12 @@ void Game::processInput() {
     if (anyKeyPressed()) {
       // Reset the entire game state
       currentLevel.reset();  // Clear the current level
-      currentLevelIndex = 0;  // Reset to beginning
+      currentLevelIndex = 0; // Reset to beginning
       gameState = GameState::START_SCREEN;
-      startScreenTime = 0.0f;  // Reset start screen timer
+      AudioManager::getInstance().stopAllSounds(); // Stop win jingle
+      startScreenTime = 0.0f;                      // Reset start screen timer
     }
-    return;  // Don't process other input on win screen
+    return; // Don't process other input on win screen
   }
 
   if (input.isKeyJustPressed(KEY_R)) {
@@ -245,7 +246,7 @@ void Game::update() {
 
       // Check if should reset to Level 1 (e.g., 3 stalactite hits in Level 2)
       if (currentLevel->shouldResetToLevel1) {
-        AudioManager::getInstance().playSound(SoundEffect::TILE_CRACK, 0.7f);
+        AudioManager::getInstance().playSound(SoundEffect::TILE_CRACK, 0.4f);
         loadLevel(0); // Reset to Level 1
         return;
       }
@@ -253,9 +254,13 @@ void Game::update() {
       // Check if level should restart (e.g., player on disappeared tile)
       // Now shows game over screen instead of immediate restart
       if (currentLevel->shouldRestart) {
-        gameState = GameState::GAME_OVER;
-        gameOverTime = 0.0f;  // Reset game over timer
-        AudioManager::getInstance().playSound(SoundEffect::TILE_CRACK, 0.7f);
+        if (gameState != GameState::GAME_OVER) {
+          gameState = GameState::GAME_OVER;
+          gameOverTime = 0.0f; // Reset game over timer
+          AudioManager::getInstance().stopAllSounds();
+          // 1.5x louder Game Over sound
+          AudioManager::getInstance().playSound(SoundEffect::GAME_OVER, 1.5f);
+        }
         return;
       }
 
@@ -269,17 +274,21 @@ void Game::update() {
     particles->update(deltaTime);
 
     // Check if player fell off - trigger game over
-    if (player->getPosition().y < -5.0f) {
+    if (player->getPosition().y < -5.0f && gameState != GameState::GAME_OVER) {
       gameState = GameState::GAME_OVER;
-      gameOverTime = 0.0f;  // Reset game over timer
-      AudioManager::getInstance().playSound(SoundEffect::TILE_CRACK, 0.7f);
+      gameOverTime = 0.0f; // Reset game over timer
+      AudioManager::getInstance().stopAllSounds();
+      // 1.5x louder Game Over sound
+      AudioManager::getInstance().playSound(SoundEffect::GAME_OVER, 1.5f);
     }
-    
+
     // Check if player is dead (no hearts left)
-    if (player->isDead()) {
+    if (player->isDead() && gameState != GameState::GAME_OVER) {
       gameState = GameState::GAME_OVER;
       gameOverTime = 0.0f;
-      AudioManager::getInstance().playSound(SoundEffect::TILE_CRACK, 0.7f);
+      AudioManager::getInstance().stopAllSounds();
+      // 1.5x louder Game Over sound
+      AudioManager::getInstance().playSound(SoundEffect::GAME_OVER, 1.5f);
     }
   }
 
@@ -334,7 +343,8 @@ void Game::render() {
     mainShader->setMat4("view", view);
     mainShader->setVec3("viewPos", camera->position);
     mainShader->setFloat("time", glfwGetTime());
-    mainShader->setFloat("transparency", 1.0f); // Ensure normal objects are fully opaque
+    mainShader->setFloat("transparency",
+                         1.0f); // Ensure normal objects are fully opaque
 
     // Set lighting
     if (currentLevel) {
@@ -344,7 +354,8 @@ void Game::render() {
     // Draw level
     if (currentLevel) {
       currentLevel->draw(mainShader.get());
-      currentLevel->drawLightFixtureModels(mainShader.get());  // Draw the fractured orb models
+      currentLevel->drawLightFixtureModels(
+          mainShader.get()); // Draw the fractured orb models
     }
 
     // Draw player (only if in Third Person mode)
@@ -358,89 +369,109 @@ void Game::render() {
     particleShader->setMat4("view", view);
     particles->draw(view, projection);
 
-    // Draw damage flash overlay (CoD style - thin edges with blood splatter lines)
+    // Draw damage flash overlay (CoD style - thin edges with blood splatter
+    // lines)
     if (player->damageFlashIntensity > 0.0f) {
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glDisable(GL_DEPTH_TEST); // Draw on top of everything
+      glEnable(GL_BLEND);
+      glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+      glDisable(GL_DEPTH_TEST); // Draw on top of everything
 
-        mainShader->use();
-        glm::mat4 identity = glm::mat4(1.0f);
-        mainShader->setMat4("projection", identity);
-        mainShader->setMat4("view", identity);
-        mainShader->setVec3("objectColor", glm::vec3(0.8f, 0.0f, 0.0f)); // Dark red
-        mainShader->setBool("useTexture", false);
-        mainShader->setFloat("emissive", 1.0f); // Make it glow (no lighting calc)
-        mainShader->setVec3("viewPos", glm::vec3(0,0,1)); // Dummy
-        mainShader->setInt("numLights", 0); // No lights for overlay
-        
-        static std::unique_ptr<Mesh> flashQuad = std::unique_ptr<Mesh>(Mesh::createCube(1.0f));
-        
-        float alpha = player->damageFlashIntensity * 0.35f; // More transparent (max 35%)
-        mainShader->setFloat("transparency", alpha);
-        
-        float edgeWidth = 0.08f; // Thinner edges
-        
-        // Left edge (main)
-        mainShader->setMat4("model", glm::translate(identity, glm::vec3(-1.0f + edgeWidth, 0.0f, 0.0f)) * 
-                                     glm::scale(identity, glm::vec3(edgeWidth * 2.0f, 2.0f, 0.01f)));
+      mainShader->use();
+      glm::mat4 identity = glm::mat4(1.0f);
+      mainShader->setMat4("projection", identity);
+      mainShader->setMat4("view", identity);
+      mainShader->setVec3("objectColor",
+                          glm::vec3(0.8f, 0.0f, 0.0f)); // Dark red
+      mainShader->setBool("useTexture", false);
+      mainShader->setFloat("emissive", 1.0f); // Make it glow (no lighting calc)
+      mainShader->setVec3("viewPos", glm::vec3(0, 0, 1)); // Dummy
+      mainShader->setInt("numLights", 0); // No lights for overlay
+
+      static std::unique_ptr<Mesh> flashQuad =
+          std::unique_ptr<Mesh>(Mesh::createCube(1.0f));
+
+      float alpha =
+          player->damageFlashIntensity * 0.35f; // More transparent (max 35%)
+      mainShader->setFloat("transparency", alpha);
+
+      float edgeWidth = 0.08f; // Thinner edges
+
+      // Left edge (main)
+      mainShader->setMat4(
+          "model",
+          glm::translate(identity, glm::vec3(-1.0f + edgeWidth, 0.0f, 0.0f)) *
+              glm::scale(identity, glm::vec3(edgeWidth * 2.0f, 2.0f, 0.01f)));
+      flashQuad->draw();
+
+      // Right edge (main)
+      mainShader->setMat4(
+          "model",
+          glm::translate(identity, glm::vec3(1.0f - edgeWidth, 0.0f, 0.0f)) *
+              glm::scale(identity, glm::vec3(edgeWidth * 2.0f, 2.0f, 0.01f)));
+      flashQuad->draw();
+
+      // Blood splatter lines - diagonal streaks from corners
+      float lineAlpha = alpha * 0.7f; // Slightly more transparent
+      mainShader->setFloat("transparency", lineAlpha);
+
+      // Top-left diagonal lines
+      for (int i = 0; i < 3; i++) {
+        float offset = i * 0.12f;
+        glm::mat4 lineModel = glm::translate(
+            identity, glm::vec3(-0.85f + offset, 0.75f - offset * 0.5f, 0.0f));
+        lineModel =
+            glm::rotate(lineModel, glm::radians(-45.0f), glm::vec3(0, 0, 1));
+        lineModel =
+            glm::scale(lineModel, glm::vec3(0.25f - i * 0.05f, 0.015f, 0.01f));
+        mainShader->setMat4("model", lineModel);
         flashQuad->draw();
-        
-        // Right edge (main)
-        mainShader->setMat4("model", glm::translate(identity, glm::vec3(1.0f - edgeWidth, 0.0f, 0.0f)) * 
-                                     glm::scale(identity, glm::vec3(edgeWidth * 2.0f, 2.0f, 0.01f)));
+      }
+
+      // Top-right diagonal lines
+      for (int i = 0; i < 3; i++) {
+        float offset = i * 0.12f;
+        glm::mat4 lineModel = glm::translate(
+            identity, glm::vec3(0.85f - offset, 0.75f - offset * 0.5f, 0.0f));
+        lineModel =
+            glm::rotate(lineModel, glm::radians(45.0f), glm::vec3(0, 0, 1));
+        lineModel =
+            glm::scale(lineModel, glm::vec3(0.25f - i * 0.05f, 0.015f, 0.01f));
+        mainShader->setMat4("model", lineModel);
         flashQuad->draw();
-        
-        // Blood splatter lines - diagonal streaks from corners
-        float lineAlpha = alpha * 0.7f; // Slightly more transparent
-        mainShader->setFloat("transparency", lineAlpha);
-        
-        // Top-left diagonal lines
-        for (int i = 0; i < 3; i++) {
-            float offset = i * 0.12f;
-            glm::mat4 lineModel = glm::translate(identity, glm::vec3(-0.85f + offset, 0.75f - offset * 0.5f, 0.0f));
-            lineModel = glm::rotate(lineModel, glm::radians(-45.0f), glm::vec3(0, 0, 1));
-            lineModel = glm::scale(lineModel, glm::vec3(0.25f - i * 0.05f, 0.015f, 0.01f));
-            mainShader->setMat4("model", lineModel);
-            flashQuad->draw();
-        }
-        
-        // Top-right diagonal lines  
-        for (int i = 0; i < 3; i++) {
-            float offset = i * 0.12f;
-            glm::mat4 lineModel = glm::translate(identity, glm::vec3(0.85f - offset, 0.75f - offset * 0.5f, 0.0f));
-            lineModel = glm::rotate(lineModel, glm::radians(45.0f), glm::vec3(0, 0, 1));
-            lineModel = glm::scale(lineModel, glm::vec3(0.25f - i * 0.05f, 0.015f, 0.01f));
-            mainShader->setMat4("model", lineModel);
-            flashQuad->draw();
-        }
-        
-        // Bottom-left diagonal lines
-        for (int i = 0; i < 2; i++) {
-            float offset = i * 0.15f;
-            glm::mat4 lineModel = glm::translate(identity, glm::vec3(-0.8f + offset, -0.7f + offset * 0.4f, 0.0f));
-            lineModel = glm::rotate(lineModel, glm::radians(35.0f), glm::vec3(0, 0, 1));
-            lineModel = glm::scale(lineModel, glm::vec3(0.2f - i * 0.04f, 0.012f, 0.01f));
-            mainShader->setMat4("model", lineModel);
-            flashQuad->draw();
-        }
-        
-        // Bottom-right diagonal lines
-        for (int i = 0; i < 2; i++) {
-            float offset = i * 0.15f;
-            glm::mat4 lineModel = glm::translate(identity, glm::vec3(0.8f - offset, -0.7f + offset * 0.4f, 0.0f));
-            lineModel = glm::rotate(lineModel, glm::radians(-35.0f), glm::vec3(0, 0, 1));
-            lineModel = glm::scale(lineModel, glm::vec3(0.2f - i * 0.04f, 0.012f, 0.01f));
-            mainShader->setMat4("model", lineModel);
-            flashQuad->draw();
-        }
-        
-        // Restore state
-        glEnable(GL_DEPTH_TEST);
-        mainShader->setFloat("emissive", 0.0f);
-        mainShader->setFloat("transparency", 1.0f);
+      }
+
+      // Bottom-left diagonal lines
+      for (int i = 0; i < 2; i++) {
+        float offset = i * 0.15f;
+        glm::mat4 lineModel = glm::translate(
+            identity, glm::vec3(-0.8f + offset, -0.7f + offset * 0.4f, 0.0f));
+        lineModel =
+            glm::rotate(lineModel, glm::radians(35.0f), glm::vec3(0, 0, 1));
+        lineModel =
+            glm::scale(lineModel, glm::vec3(0.2f - i * 0.04f, 0.012f, 0.01f));
+        mainShader->setMat4("model", lineModel);
+        flashQuad->draw();
+      }
+
+      // Bottom-right diagonal lines
+      for (int i = 0; i < 2; i++) {
+        float offset = i * 0.15f;
+        glm::mat4 lineModel = glm::translate(
+            identity, glm::vec3(0.8f - offset, -0.7f + offset * 0.4f, 0.0f));
+        lineModel =
+            glm::rotate(lineModel, glm::radians(-35.0f), glm::vec3(0, 0, 1));
+        lineModel =
+            glm::scale(lineModel, glm::vec3(0.2f - i * 0.04f, 0.012f, 0.01f));
+        mainShader->setMat4("model", lineModel);
+        flashQuad->draw();
+      }
+
+      // Restore state
+      glEnable(GL_DEPTH_TEST);
+      mainShader->setFloat("emissive", 0.0f);
+      mainShader->setFloat("transparency", 1.0f);
     }
-    
+
     // Render hearts UI
     renderHearts();
   }
@@ -448,7 +479,7 @@ void Game::render() {
 
 void Game::renderHearts() {
   mainShader->use();
-  
+
   // Set up orthographic-like projection for UI rendering
   glm::mat4 identity = glm::mat4(1.0f);
   mainShader->setMat4("projection", identity);
@@ -457,27 +488,28 @@ void Game::renderHearts() {
   mainShader->setFloat("transparency", 1.0f);
   mainShader->setVec3("viewPos", glm::vec3(0, 0, 1));
   mainShader->setInt("numLights", 0);
-  
+
   glDisable(GL_DEPTH_TEST); // Draw on top
   glDisable(GL_CULL_FACE);  // Hearts are 2D, render both sides
-  
+
   // Create a heart mesh for UI (static)
-  static std::unique_ptr<Mesh> heartMesh = std::unique_ptr<Mesh>(Mesh::createHeart(1.0f));
-  
+  static std::unique_ptr<Mesh> heartMesh =
+      std::unique_ptr<Mesh>(Mesh::createHeart(1.0f));
+
   // Draw hearts in top-right corner - MUCH BIGGER
-  float heartSize = 0.05f;   // MUCH bigger hearts
-  float startX = 0.35f;      // Start position
-  float startY = 0.80f;      // Position from top
-  float spacing = 0.15f;     // Spacing between hearts
-  
+  float heartSize = 0.05f; // MUCH bigger hearts
+  float startX = 0.35f;    // Start position
+  float startY = 0.80f;    // Position from top
+  float spacing = 0.15f;   // Spacing between hearts
+
   // Draw max hearts (4) - grey for lost hearts, red for current hearts
   for (int i = 0; i < player->maxHearts; i++) {
     float xPos = startX + i * spacing;
     float yPos = startY;
-    
+
     glm::mat4 model = glm::translate(identity, glm::vec3(xPos, yPos, 0.0f));
     model = glm::scale(model, glm::vec3(heartSize, heartSize, 1.0f));
-    
+
     if (i < player->getHearts()) {
       // Full heart - bright red with strong glow
       mainShader->setVec3("objectColor", glm::vec3(1.0f, 0.0f, 0.1f));
@@ -487,11 +519,11 @@ void Game::renderHearts() {
       mainShader->setVec3("objectColor", glm::vec3(0.3f, 0.15f, 0.15f));
       mainShader->setFloat("emissive", 0.1f);
     }
-    
+
     mainShader->setMat4("model", model);
     heartMesh->draw();
   }
-  
+
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
   mainShader->setFloat("emissive", 0.0f);
@@ -510,18 +542,21 @@ void Game::loadLevel(int levelIndex) {
     player->resetHealth(); // Reset hearts when entering Level 2
   } else {
     gameState = GameState::WIN;
-    winScreenTime = 0.0f;  // Reset win screen timer
+    winScreenTime = 0.0f; // Reset win screen timer
+    AudioManager::getInstance().stopAllSounds();
+    AudioManager::getInstance().playSound(SoundEffect::WIN_JINGLE, 0.8f,
+                                          true); // Looped win jingle
     return;
   }
 
   currentLevel->init();
-  player->reset(currentLevel->playerStartPosition);  // Fully reset player state
+  player->reset(currentLevel->playerStartPosition); // Fully reset player state
   particles->clear();
 }
 
 void Game::restartLevel() {
   // Play restart sound
-  AudioManager::getInstance().playSound(SoundEffect::TILE_CRACK, 0.7f);
+  AudioManager::getInstance().playSound(SoundEffect::TILE_CRACK, 0.4f);
   loadLevel(currentLevelIndex);
 }
 
@@ -572,100 +607,99 @@ glm::vec3 Game::getMovementInput() {
 
 void Game::initStartScreen() {
   // Create a fullscreen quad for the start screen
-  float quadVertices[] = {
-      // positions   // texCoords
-      -1.0f,  1.0f,  0.0f, 1.0f,
-      -1.0f, -1.0f,  0.0f, 0.0f,
-       1.0f, -1.0f,  1.0f, 0.0f,
+  float quadVertices[] = {// positions   // texCoords
+                          -1.0f, 1.0f, 0.0f, 1.0f,  -1.0f, -1.0f,
+                          0.0f,  0.0f, 1.0f, -1.0f, 1.0f,  0.0f,
 
-      -1.0f,  1.0f,  0.0f, 1.0f,
-       1.0f, -1.0f,  1.0f, 0.0f,
-       1.0f,  1.0f,  1.0f, 1.0f
-  };
+                          -1.0f, 1.0f, 0.0f, 1.0f,  1.0f,  -1.0f,
+                          1.0f,  0.0f, 1.0f, 1.0f,  1.0f,  1.0f};
 
   glGenVertexArrays(1, &startScreenVAO);
   glGenBuffers(1, &startScreenVBO);
-  
+
   glBindVertexArray(startScreenVAO);
   glBindBuffer(GL_ARRAY_BUFFER, startScreenVBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
-  
+  glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices,
+               GL_STATIC_DRAW);
+
   // Position attribute
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *)0);
   // TexCoord attribute
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-  
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float),
+                        (void *)(2 * sizeof(float)));
+
   glBindVertexArray(0);
 }
 
 void Game::renderStartScreen() {
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  
+
   glDisable(GL_DEPTH_TEST);
-  
+
   startScreenShader->use();
   startScreenShader->setFloat("time", startScreenTime);
-  
+
   glBindVertexArray(startScreenVAO);
   glDrawArrays(GL_TRIANGLES, 0, 6);
   glBindVertexArray(0);
-  
+
   glEnable(GL_DEPTH_TEST);
 }
 
 void Game::renderGameOver() {
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  
+
   glDisable(GL_DEPTH_TEST);
-  
+
   gameOverShader->use();
   gameOverShader->setFloat("time", gameOverTime);
-  
+
   // Reuse the same VAO as start screen (fullscreen quad)
   glBindVertexArray(startScreenVAO);
   glDrawArrays(GL_TRIANGLES, 0, 6);
   glBindVertexArray(0);
-  
+
   glEnable(GL_DEPTH_TEST);
 }
 
 void Game::renderWinScreen() {
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  
+
   glDisable(GL_DEPTH_TEST);
-  
+
   winScreenShader->use();
   winScreenShader->setFloat("time", winScreenTime);
-  
+
   // Reuse the same VAO as start screen (fullscreen quad)
   glBindVertexArray(startScreenVAO);
   glDrawArrays(GL_TRIANGLES, 0, 6);
   glBindVertexArray(0);
-  
+
   glEnable(GL_DEPTH_TEST);
 }
 
 bool Game::anyKeyPressed() {
   // Check for any key press (except ESC which quits)
   for (int key = GLFW_KEY_SPACE; key <= GLFW_KEY_LAST; key++) {
-    if (key == GLFW_KEY_ESCAPE) continue;
+    if (key == GLFW_KEY_ESCAPE)
+      continue;
     if (glfwGetKey(window, key) == GLFW_PRESS) {
       return true;
     }
   }
-  
+
   // Also check for mouse button press
   for (int button = 0; button < 3; button++) {
     if (glfwGetMouseButton(window, button) == GLFW_PRESS) {
       return true;
     }
   }
-  
+
   return false;
 }
 
@@ -677,7 +711,7 @@ void Game::cleanup() {
   if (startScreenVBO) {
     glDeleteBuffers(1, &startScreenVBO);
   }
-  
+
   AudioManager::getInstance().cleanup();
   glfwTerminate();
 }

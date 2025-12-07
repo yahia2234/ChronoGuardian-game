@@ -267,6 +267,7 @@ void Level2::createCollectible() {
       glm::vec3(-20.0f, 2.0f, -20.0f), // Far northwest corner
       glm::vec3(0.9f, 0.2f, 0.2f)      // Red
   );
+  gemstone->soundType = SoundEffect::GEM_COLLECT;
 
   // Load new model
   gemstone->loadModel("assets/models/crystal_pendant_updated_2022.glb");

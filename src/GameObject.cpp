@@ -284,6 +284,7 @@ Collectible::Collectible(const glm::vec3 &position, const glm::vec3 &color)
   shrinkSpeed = 3.0f; // Default fast shrink
   isTrigger = true;
   useSphereCollision = true; // CRITICAL: Enable sphere collision detection!
+  soundType = SoundEffect::COLLECTIBLE_PICKUP; // Default sound
 }
 
 void Collectible::update(float deltaTime) {
@@ -359,9 +360,8 @@ void Collectible::collect() {
     collectAnimation = 0.0f;
     initialScale = transform.scale; // Capture current scale to shrink from
 
-    // Play collectible pickup sound
-    AudioManager::getInstance().playSound(SoundEffect::COLLECTIBLE_PICKUP,
-                                          0.9f);
+    // Play specific sound for this collectible
+    AudioManager::getInstance().playSound(soundType, 0.9f);
   }
 }
 
