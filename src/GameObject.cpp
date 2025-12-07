@@ -9,7 +9,7 @@ GameObject::GameObject(GameObjectType t)
       texture(nullptr), isActive(true), isTrigger(false),
       useSphereCollision(false) {}
 
-void GameObject::loadModel(const std::string& path) {
+void GameObject::loadModel(const std::string &path) {
   try {
     model = std::make_unique<Model>(path.c_str());
   } catch (...) {
@@ -18,7 +18,7 @@ void GameObject::loadModel(const std::string& path) {
   }
 }
 
-void GameObject::loadCachedModel(const std::string& path) {
+void GameObject::loadCachedModel(const std::string &path) {
   // Use the ModelCache singleton for efficient model reuse
   sharedModel = ModelCache::getInstance().getModel(path);
   if (!sharedModel) {
@@ -29,7 +29,7 @@ void GameObject::loadCachedModel(const std::string& path) {
 void GameObject::draw(Shader *shader) {
   if (!isActive)
     return;
-    
+
   // If we have neither mesh nor model (owned or shared), nothing to draw
   if (!mesh && !model && !sharedModel)
     return;
@@ -42,7 +42,7 @@ void GameObject::draw(Shader *shader) {
   shader->setMat3("normalMatrix", normalMatrix);
   shader->setVec3("objectColor", color);
   shader->setFloat("transparency", transparency);
-  shader->setFloat("emissive", emissive);  // For glowing objects like lights
+  shader->setFloat("emissive", emissive); // For glowing objects like lights
   shader->setInt("materialType", materialType); // Pass material type
 
   // Use texture if available
@@ -55,18 +55,18 @@ void GameObject::draw(Shader *shader) {
   }
 
   shader->setFloat("shininess", 32.0f);
-  
+
   // Draw model (owned or shared) or mesh
   if (model) {
-      glDisable(GL_CULL_FACE); // Many models need this
-      model->draw(shader);
-      glEnable(GL_CULL_FACE);
+    glDisable(GL_CULL_FACE); // Many models need this
+    model->draw(shader);
+    glEnable(GL_CULL_FACE);
   } else if (sharedModel) {
-      glDisable(GL_CULL_FACE);
-      sharedModel->draw(shader);
-      glEnable(GL_CULL_FACE);
+    glDisable(GL_CULL_FACE);
+    sharedModel->draw(shader);
+    glEnable(GL_CULL_FACE);
   } else if (mesh) {
-      mesh->draw();
+    mesh->draw();
   }
 
   // Unbind texture
@@ -207,8 +207,12 @@ void Stalactite::update(float deltaTime) {
   fallSpeed += 12.0f * deltaTime; // Gravity (slower fall for dramatic effect)
   transform.position.y -= fallSpeed * deltaTime;
 
+  // Reset if it falls below the map (instead of deactivating)
   if (transform.position.y < -10.0f) {
-    isActive = false;
+    isFalling = false;
+    transform.position = originalPosition;
+    fallSpeed = 0.0f;
+    fallTimer = 2.0f + (rand() % 600) / 100.0f; // Random delay for next fall
   }
 
   updateBoundingSphere(0.6f); // Larger hitbox when falling
@@ -317,8 +321,6 @@ void Collectible::update(float deltaTime) {
       1.2f * transform.scale.x); // Much larger hitbox for reliable collection
 }
 
-
-
 void Collectible::draw(Shader *shader) {
   if (!isActive)
     return;
@@ -346,7 +348,7 @@ void Collectible::draw(Shader *shader) {
   } else {
     // Draw procedural mesh
     if (mesh) {
-        mesh->draw();
+      mesh->draw();
     }
   }
 }
@@ -366,14 +368,15 @@ void Collectible::collect() {
 // HealthPickup Implementation
 HealthPickup::HealthPickup(const glm::vec3 &position)
     : GameObject(GameObjectType::HEALTH_PICKUP), rotationSpeed(1.5f),
-      floatOffset(0.0f), floatSpeed(2.5f), isCollected(false), basePosition(position) {
+      floatOffset(0.0f), floatSpeed(2.5f), isCollected(false),
+      basePosition(position) {
   transform.position = position;
-  transform.scale = glm::vec3(0.02f); // Very small - similar to other pickups
+  transform.scale = glm::vec3(0.02f);  // Very small - similar to other pickups
   color = glm::vec3(1.0f, 0.3f, 0.5f); // Pink/magenta for gem
-  
+
   // Load the spinels gem model
   loadModel("assets/models/spinels_gem.glb");
-  
+
   isTrigger = true;
   useSphereCollision = true;
   boundingSphere = Sphere(position, 1.5f); // Pickup radius
@@ -384,35 +387,37 @@ void HealthPickup::update(float deltaTime) {
     isActive = false;
     return;
   }
-  
+
   // Floating up/down animation (bobbing)
   floatOffset += floatSpeed * deltaTime;
-  transform.position.y = basePosition.y + sin(floatOffset) * 0.4f + 0.5f; // Bob up and down
-  
+  transform.position.y =
+      basePosition.y + sin(floatOffset) * 0.4f + 0.5f; // Bob up and down
+
   // Rotation animation
   transform.rotate(rotationSpeed * deltaTime, glm::vec3(0.0f, 1.0f, 0.0f));
-  
+
   // Update bounding sphere position
   boundingSphere.center = transform.position;
 }
 
 void HealthPickup::draw(Shader *shader) {
-  if (!isActive || isCollected) return;
-  
+  if (!isActive || isCollected)
+    return;
+
   shader->setMat4("model", transform.getModelMatrix());
   shader->setVec3("objectColor", color);
-  
+
   // Pulsing glow effect
   float pulse = (sin(floatOffset * 2.0f) + 1.0f) * 0.5f; // 0 to 1
-  float emissive = 0.4f + pulse * 0.6f; // 0.4 to 1.0
+  float emissive = 0.4f + pulse * 0.6f;                  // 0.4 to 1.0
   shader->setFloat("emissive", emissive);
-  
+
   if (model) {
     glDisable(GL_CULL_FACE);
     model->draw(shader);
     glEnable(GL_CULL_FACE);
   }
-  
+
   shader->setFloat("emissive", 0.0f);
 }
 
@@ -420,6 +425,7 @@ void HealthPickup::collect() {
   if (!isCollected) {
     isCollected = true;
     isActive = false;
-    AudioManager::getInstance().playSound(SoundEffect::COLLECTIBLE_PICKUP, 0.9f);
+    AudioManager::getInstance().playSound(SoundEffect::COLLECTIBLE_PICKUP,
+                                          0.9f);
   }
 }

@@ -15,13 +15,16 @@ void Level2::init() {
   createSkeletons(); // Add skeletons in corners
   createCollectible();
   createPedestal();
+  createScatteredRocks();
   setupLighting();
-  
+
   // Create health pickups in Level 2 (2 pickups in different areas)
-  auto healthPickup1 = std::make_unique<HealthPickup>(glm::vec3(-15.0f, 1.5f, 10.0f));
+  auto healthPickup1 =
+      std::make_unique<HealthPickup>(glm::vec3(-15.0f, 1.5f, 10.0f));
   objects.push_back(std::move(healthPickup1));
-  
-  auto healthPickup2 = std::make_unique<HealthPickup>(glm::vec3(18.0f, 1.5f, -12.0f));
+
+  auto healthPickup2 =
+      std::make_unique<HealthPickup>(glm::vec3(18.0f, 1.5f, -12.0f));
   objects.push_back(std::move(healthPickup2));
 }
 
@@ -60,83 +63,89 @@ void Level2::createCavern() {
   walls.back()->materialType = 4; // Cave wall texture
 
   // Cave floor with visible rocky texture - using cube mesh for visibility
-  glm::vec3 caveFloorColor(0.85f, 0.75f, 0.60f); // Very light brown for visibility
-  createWall(glm::vec3(0.0f, -0.5f, 0.0f),  // Centered at Y=-0.5 so top is at Y=0
-             glm::vec3(roomWidth, 1.0f, roomDepth), caveFloorColor);
+  glm::vec3 caveFloorColor(0.85f, 0.75f,
+                           0.60f); // Very light brown for visibility
+  createWall(
+      glm::vec3(0.0f, -0.5f, 0.0f), // Centered at Y=-0.5 so top is at Y=0
+      glm::vec3(roomWidth, 1.0f, roomDepth), caveFloorColor);
   walls.back()->materialType = 4; // Cave texture for ground
-  
+
   // Create a winding muddy path using oriented rectangular segments
   glm::vec3 mudColor(0.50f, 0.38f, 0.28f); // Visible muddy brown
-  
+
   // Define path waypoints that curve around the vents (serpentine path)
   std::vector<glm::vec2> pathPoints = {
-    {0.0f, -28.0f},    // Start at south
-    {-3.0f, -25.0f},   // Smooth transition
-    {-6.0f, -22.0f},   // Curve left around vent at (0, -20)
-    {-8.0f, -18.0f},   // Smooth curve
-    {-10.0f, -15.0f},  // Continue curving  
-    {-8.0f, -11.0f},   // Smooth transition
-    {-5.0f, -8.0f},    // Curve back right around vent at (-8, -8)
-    {0.0f, -5.0f},     // Smooth curve
-    {4.0f, -3.0f},     // Pass between center vents
-    {6.0f, 0.0f},      // Smooth curve
-    {8.0f, 3.0f},      // Curve right around vent at (0, 5)
-    {7.0f, 7.0f},      // Smooth curve
-    {5.0f, 10.0f},     // Continue curving
-    {1.0f, 13.0f},     // Smooth curve
-    {-4.0f, 15.0f},    // Curve left around vent at (8, 8)
-    {-6.0f, 18.0f},    // Smooth curve
-    {-8.0f, 20.0f},    // Continue curving
-    {-5.0f, 24.0f},    // Smooth transition
-    {0.0f, 28.0f}      // End at north
+      {0.0f, -28.0f},   // Start at south
+      {-3.0f, -25.0f},  // Smooth transition
+      {-6.0f, -22.0f},  // Curve left around vent at (0, -20)
+      {-8.0f, -18.0f},  // Smooth curve
+      {-10.0f, -15.0f}, // Continue curving
+      {-8.0f, -11.0f},  // Smooth transition
+      {-5.0f, -8.0f},   // Curve back right around vent at (-8, -8)
+      {0.0f, -5.0f},    // Smooth curve
+      {4.0f, -3.0f},    // Pass between center vents
+      {6.0f, 0.0f},     // Smooth curve
+      {8.0f, 3.0f},     // Curve right around vent at (0, 5)
+      {7.0f, 7.0f},     // Smooth curve
+      {5.0f, 10.0f},    // Continue curving
+      {1.0f, 13.0f},    // Smooth curve
+      {-4.0f, 15.0f},   // Curve left around vent at (8, 8)
+      {-6.0f, 18.0f},   // Smooth curve
+      {-8.0f, 20.0f},   // Continue curving
+      {-5.0f, 24.0f},   // Smooth transition
+      {0.0f, 28.0f}     // End at north
   };
-  
+
   // Create connected rectangular segments between waypoints
   float pathWidth = 4.0f; // Width of the muddy path
-  
+
   for (size_t i = 0; i < pathPoints.size() - 1; i++) {
     glm::vec2 start = pathPoints[i];
     glm::vec2 end = pathPoints[i + 1];
-    
+
     // Calculate segment properties
     glm::vec2 direction = end - start;
     float length = glm::length(direction);
     glm::vec2 midpoint = (start + end) * 0.5f;
-    
+
     // Calculate rotation angle (around Y axis)
     float angle = atan2(direction.x, direction.y);
-    
+
     // Slight color variation for natural look
-    glm::vec3 patchColor = mudColor + glm::vec3((rand() % 8 - 4) / 100.0f, 
-                                                 (rand() % 6 - 3) / 100.0f, 
-                                                 (rand() % 4 - 2) / 100.0f);
-    
+    glm::vec3 patchColor = mudColor + glm::vec3((rand() % 8 - 4) / 100.0f,
+                                                (rand() % 6 - 3) / 100.0f,
+                                                (rand() % 4 - 2) / 100.0f);
+
     // Create oriented rectangular segment
     auto mudSegment = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
     mudSegment->transform.position = glm::vec3(midpoint.x, 0.02f, midpoint.y);
     mudSegment->transform.scale = glm::vec3(pathWidth, 0.08f, length + 0.5f);
-    mudSegment->transform.rotate(angle, glm::vec3(0, 1, 0)); // Rotate to align with path
+    mudSegment->transform.rotate(
+        angle, glm::vec3(0, 1, 0)); // Rotate to align with path
     mudSegment->mesh.reset(Mesh::createCube(1.0f));
     mudSegment->color = patchColor;
     mudSegment->materialType = 5;
     mudSegment->updateBoundingBox();
     walls.push_back(std::move(mudSegment));
   }
-  
+
   // Add circular disc caps at each waypoint to smooth the angle transitions
   for (size_t i = 0; i < pathPoints.size(); i++) {
     glm::vec2 pos = pathPoints[i];
-    
+
     // Slight color variation
     glm::vec3 capColor = mudColor + glm::vec3((rand() % 6 - 3) / 100.0f,
-                                               (rand() % 4 - 2) / 100.0f,
-                                               (rand() % 3 - 1) / 100.0f);
-    
+                                              (rand() % 4 - 2) / 100.0f,
+                                              (rand() % 3 - 1) / 100.0f);
+
     // Create circular cap using cylinder (flat disc)
     auto cap = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
     cap->transform.position = glm::vec3(pos.x, 0.025f, pos.y);
-    cap->transform.scale = glm::vec3(pathWidth * 0.55f, 0.06f, pathWidth * 0.55f); // Slightly larger than path width
-    cap->mesh.reset(Mesh::createCylinder(1.0f, 1.0f, 24)); // 24-segment cylinder for smooth circle
+    cap->transform.scale =
+        glm::vec3(pathWidth * 0.55f, 0.06f,
+                  pathWidth * 0.55f); // Slightly larger than path width
+    cap->mesh.reset(Mesh::createCylinder(
+        1.0f, 1.0f, 24)); // 24-segment cylinder for smooth circle
     cap->color = capColor;
     cap->materialType = 5;
     cap->updateBoundingBox();
@@ -187,28 +196,31 @@ void Level2::createGeysers() {
   for (const auto &pos : geyserPositions) {
     auto geyser = std::make_unique<Geyser>(pos);
     objects.push_back(std::move(geyser));
-    
+
     // Add a complete tight circle of rocks around each vent using rock model
     int numRocks = 14 + (rand() % 3); // 14-16 rocks for complete circle
     for (int r = 0; r < numRocks; r++) {
       // Evenly spaced around the circle
       float angle = (float)r / numRocks * 2.0f * 3.14159f;
-      float distance = 2.2f + (rand() % 30) / 100.0f; // 2.2-2.5 units from center
-      
+      float distance =
+          2.2f + (rand() % 30) / 100.0f; // 2.2-2.5 units from center
+
       float rockX = pos.x + cos(angle) * distance;
       float rockZ = pos.z + sin(angle) * distance;
-      
+
       // Rock scale
-      float rockScale = 0.25f + (rand() % 15) / 100.0f; // 0.25-0.40 scale (larger rocks)
-      
+      float rockScale =
+          0.25f + (rand() % 15) / 100.0f; // 0.25-0.40 scale (larger rocks)
+
       auto rock = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
       rock->transform.position = glm::vec3(rockX, 0.0f, rockZ);
       rock->transform.scale = glm::vec3(rockScale);
       // Random rotation for variety
-      rock->transform.rotate((rand() % 360) * 3.14159f / 180.0f, glm::vec3(0, 1, 0));
+      rock->transform.rotate((rand() % 360) * 3.14159f / 180.0f,
+                             glm::vec3(0, 1, 0));
       rock->loadCachedModel("assets/models/random_rock.glb");
       rock->color = glm::vec3(0.55f, 0.48f, 0.40f); // Light brown-gray
-      rock->materialType = 4; // Cave rock texture
+      rock->materialType = 4;                       // Cave rock texture
       rock->updateBoundingBox();
       objects.push_back(std::move(rock));
     }
@@ -216,23 +228,34 @@ void Level2::createGeysers() {
 }
 
 void Level2::createSkeletons() {
-  // Add skeleton models in each corner of the cave
-  std::vector<std::pair<glm::vec3, float>> cornerPositions = {
-    {{-26.0f, 0.0f, -26.0f}, 45.0f},   // Southwest corner, facing NE
-    {{26.0f, 0.0f, -26.0f}, 135.0f},   // Southeast corner, facing NW
-    {{-26.0f, 0.0f, 26.0f}, -45.0f},   // Northwest corner, facing SE
-    {{26.0f, 0.0f, 26.0f}, -135.0f}    // Northeast corner, facing SW
-  };
-  
-  for (const auto& [pos, rotation] : cornerPositions) {
+  // Add skeleton models in each corner of the cave AND near pedestal
+  std::vector<std::pair<glm::vec3, float>> positions = {
+      {{-26.0f, 0.0f, -26.0f}, 45.0f}, // Southwest corner
+      {{26.0f, 0.0f, -26.0f}, 135.0f}, // Southeast corner
+      {{-26.0f, 0.0f, 26.0f}, -45.0f}, // Northwest corner
+      {{26.0f, 0.0f, 26.0f}, -135.0f}, // Northeast corner
+      // Near pedestal (guarding it)
+      {{2.5f, 0.0f, 13.0f}, -20.0f}, // Right of pedestal
+      {{-2.5f, 0.0f, 13.0f}, 20.0f}, // Left of pedestal
+      // Random scattered skeletons
+      {{12.0f, 0.0f, -5.0f}, 90.0f},
+      {{-12.0f, 0.0f, 5.0f}, -90.0f},
+      {{0.0f, 0.0f, -12.0f}, 180.0f}};
+
+  for (const auto &[pos, rotation] : positions) {
     auto skeleton = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
     skeleton->transform.position = pos;
-    skeleton->transform.scale = glm::vec3(0.1f); // Small skeleton size
+    skeleton->transform.scale = glm::vec3(0.1f); // New requested scale
     skeleton->transform.rotate(glm::radians(rotation), glm::vec3(0, 1, 0));
     skeleton->loadCachedModel("assets/models/human_skeleton_download_free.glb");
     skeleton->color = glm::vec3(0.9f, 0.85f, 0.75f); // Bone white color
     skeleton->isActive = true;
-    skeleton->updateBoundingBox();
+
+    // Adjusted bounding box for new 0.1 scale
+    // Assuming 0.1 scale makes it roughly person-sized or slightly larger
+    skeleton->boundingBox =
+        Physics::createAABBFromTransform(pos, glm::vec3(1.5f, 3.0f, 1.5f));
+
     objects.push_back(std::move(skeleton));
   }
 }
@@ -243,11 +266,11 @@ void Level2::createCollectible() {
       glm::vec3(-20.0f, 2.0f, -20.0f), // Far northwest corner
       glm::vec3(0.9f, 0.2f, 0.2f)      // Red
   );
-  
+
   // Load new model
   gemstone->loadModel("assets/models/crystal_pendant_updated_2022.glb");
   gemstone->transform.scale = glm::vec3(0.5f); // Uniform scale for model
-  
+
   gemCollectible = gemstone.get();               // Store reference for cutscene
   gemOriginalPos = gemstone->transform.position; // Store original position
   objects.push_back(std::move(gemstone));
@@ -267,18 +290,109 @@ void Level2::createPedestal() {
   // Ancient stone pedestal - Moved further back
   auto ped = std::make_unique<GameObject>(GameObjectType::PEDESTAL);
   ped->transform.position = glm::vec3(0.0f, 0.5f, 15.0f);
-  
+
   // Load new model
   ped->loadModel("assets/models/ancient_greek_column_remains.glb");
   // Scale it so it's bigger in the vertical length (0.2, 0.6, 0.2)
-  ped->transform.scale = glm::vec3(0.2f, 0.6f, 0.2f); 
-  
-  ped->color = glm::vec3(0.4f, 0.4f, 0.35f); // Stone grey (tint for model if supported)
+  ped->transform.scale = glm::vec3(0.2f, 0.6f, 0.2f);
+
+  ped->color =
+      glm::vec3(0.4f, 0.4f, 0.35f); // Stone grey (tint for model if supported)
   ped->updateBoundingBox();
   ped->isTrigger = true;
 
   pedestal = ped.get();
   objects.push_back(std::move(ped));
+}
+
+void Level2::createScatteredRocks() {
+  // Geyser positions to avoid (same as in createGeysers)
+  std::vector<glm::vec3> geyserPositions = {
+      // Outer ring
+      glm::vec3(-22.0f, 0.0f, -22.0f), glm::vec3(22.0f, 0.0f, -22.0f),
+      glm::vec3(-22.0f, 0.0f, 22.0f), glm::vec3(22.0f, 0.0f, 22.0f),
+      // Mid ring
+      glm::vec3(-15.0f, 0.0f, -15.0f), glm::vec3(15.0f, 0.0f, -15.0f),
+      glm::vec3(-15.0f, 0.0f, 15.0f), glm::vec3(15.0f, 0.0f, 15.0f),
+      // Cardinal directions
+      glm::vec3(0.0f, 0.0f, -20.0f), glm::vec3(0.0f, 0.0f, 20.0f),
+      glm::vec3(-20.0f, 0.0f, 0.0f), glm::vec3(20.0f, 0.0f, 0.0f),
+      // Inner area
+      glm::vec3(-8.0f, 0.0f, -8.0f), glm::vec3(8.0f, 0.0f, -8.0f),
+      glm::vec3(-8.0f, 0.0f, 8.0f), glm::vec3(8.0f, 0.0f, 8.0f),
+      glm::vec3(0.0f, 0.0f, -5.0f), glm::vec3(0.0f, 0.0f, 5.0f)};
+
+  // Grid-based distribution for even spread
+  int gridSize = 12;
+  float roomSize = 58.0f; // Slightly less than 60
+  float cellSize = roomSize / gridSize;
+
+  for (int x = 0; x < gridSize; x++) {
+    for (int z = 0; z < gridSize; z++) {
+      // Determine number of rocks in this cell (0, 1, or 2)
+      // Higher chance of 1 or 2 rocks
+      int numRocks = rand() % 3;
+      if (numRocks == 0 && (rand() % 4 != 0))
+        numRocks = 1; // Reduce empty cells
+
+      // REDUCE TOTAL ROCKS: Skip 25% of cells that would have had rocks
+      // to achieve 0.75 of the previous amount
+      if (numRocks > 0 && (rand() % 4 == 0)) {
+        numRocks = 0;
+      }
+
+      for (int i = 0; i < numRocks; i++) {
+        float cellCenterX = -roomSize / 2.0f + x * cellSize + cellSize / 2.0f;
+        float cellCenterZ = -roomSize / 2.0f + z * cellSize + cellSize / 2.0f;
+
+        // Random offset within cell
+        float offsetX = (rand() % 100 - 50) / 100.0f * (cellSize * 0.4f);
+        float offsetZ = (rand() % 100 - 50) / 100.0f * (cellSize * 0.4f);
+
+        float posX = cellCenterX + offsetX;
+        float posZ = cellCenterZ + offsetZ;
+
+        // Check distance to vents
+        bool tooClose = false;
+        for (const auto &ventPos : geyserPositions) {
+          float dist = glm::distance(glm::vec2(posX, posZ),
+                                     glm::vec2(ventPos.x, ventPos.z));
+          if (dist < 4.0f) { // Keep clear of vents
+            tooClose = true;
+            break;
+          }
+        }
+
+        if (tooClose)
+          continue;
+
+        // Check distance to start position to ensure player isn't trapped
+        if (glm::distance(glm::vec2(posX, posZ),
+                          glm::vec2(playerStartPosition.x,
+                                    playerStartPosition.z)) < 3.0f) {
+          continue;
+        }
+
+        // Spawn rock
+        auto rock = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
+        rock->transform.position = glm::vec3(posX, 0.0f, posZ);
+        rock->transform.scale = glm::vec3(0.01f); // 0.01x scale
+        rock->transform.rotate((rand() % 360) * 3.14159f / 180.0f,
+                               glm::vec3(0, 1, 0));
+        rock->loadCachedModel("assets/models/rock_shopk_mid.glb");
+
+        // CRITICAL FIX: Manually set bounding box size!
+        // The scale 0.01 makes the auto-computed bounding box tiny (1cm).
+        // The visual model is actually large. We strictly define a smaller unit
+        // box for collision. Reduced by 0.6x from previous (2.5, 2.0, 2.5) ->
+        // (1.5, 1.2, 1.5)
+        rock->boundingBox = Physics::createAABBFromTransform(
+            rock->transform.position, glm::vec3(1.5f, 1.2f, 1.5f));
+
+        walls.push_back(std::move(rock)); // Use walls vector for collision
+      }
+    }
+  }
 }
 
 void Level2::setupLighting() {
@@ -301,52 +415,55 @@ void Level2::setupLighting() {
     // Create visual torch model
     auto torchModel = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
     torchModel->transform.position = pos;
-    
+
     // Load new model
     torchModel->loadCachedModel("assets/models/medieval_torch.glb");
     torchModel->transform.scale = glm::vec3(0.15f); // Much smaller scale
-    
+
     // Rotate to stick out of wall and tilt slightly up
     // Also offset position slightly to not be buried in wall
     glm::vec3 adjustedPos = pos;
-    float offset = 0.2f; // Distance from wall center
+    float offset = 0.2f;                    // Distance from wall center
     float tiltAngle = glm::radians(-15.0f); // Tilt up slightly
 
-    // Adjusted rotations to align flat side with wall (rotated 90 degrees from previous)
+    // Adjusted rotations to align flat side with wall (rotated 90 degrees from
+    // previous)
     if (pos.z < -27.0f) { // North wall
-        adjustedPos.z += offset;
-        torchModel->transform.position = adjustedPos;
-        torchModel->transform.rotate(glm::radians(90.0f), glm::vec3(0, 1, 0)); 
-        torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
-    } else if (pos.z > 27.0f) { // South wall
-        adjustedPos.z -= offset;
-        torchModel->transform.position = adjustedPos;
-        torchModel->transform.rotate(glm::radians(-90.0f), glm::vec3(0, 1, 0));
-        torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
-    } else if (pos.x < -27.0f) { // West wall
-        adjustedPos.x += offset;
-        torchModel->transform.position = adjustedPos;
-        torchModel->transform.rotate(glm::radians(0.0f), glm::vec3(0, 1, 0));
-        torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
-    } else if (pos.x > 27.0f) { // East wall
-        adjustedPos.x -= offset;
-        torchModel->transform.position = adjustedPos;
-        torchModel->transform.rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
-        torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
+      adjustedPos.z += offset;
+      torchModel->transform.position = adjustedPos;
+      torchModel->transform.rotate(glm::radians(90.0f), glm::vec3(0, 1, 0));
+      torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
+    } else if (pos.z > 27.0f) {                                    // South wall
+      adjustedPos.z -= offset;
+      torchModel->transform.position = adjustedPos;
+      torchModel->transform.rotate(glm::radians(-90.0f), glm::vec3(0, 1, 0));
+      torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
+    } else if (pos.x < -27.0f) {                                   // West wall
+      adjustedPos.x += offset;
+      torchModel->transform.position = adjustedPos;
+      torchModel->transform.rotate(glm::radians(0.0f), glm::vec3(0, 1, 0));
+      torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
+    } else if (pos.x > 27.0f) {                                    // East wall
+      adjustedPos.x -= offset;
+      torchModel->transform.position = adjustedPos;
+      torchModel->transform.rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
+      torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
     }
-    
+
     torchModel->color = glm::vec3(1.0f, 0.5f, 0.2f); // Glowing orange tint
     torchModel->updateBoundingBox();
     objects.push_back(std::move(torchModel));
 
     // Create light
     Light torch;
-    torch.position = adjustedPos + glm::vec3(0.0f, 0.3f, 0.0f); // Light slightly above torch
-    torch.color = glm::vec3(1.0f, 0.5f, 0.2f); // Warm orange
-    torch.baseIntensity = 1.5f;                // Base intensity
+    torch.position =
+        adjustedPos + glm::vec3(0.0f, 0.3f, 0.0f); // Light slightly above torch
+    torch.color = glm::vec3(1.0f, 0.5f, 0.2f);     // Warm orange
+    torch.baseIntensity = 1.5f;                    // Base intensity
     torch.intensity = torch.baseIntensity;
-    torch.flickerSpeed = 1.0f + (rand() % 100) / 100.0f; // Much slower flicker (1.0 - 2.0)
-    torch.flickerAmount = 0.8f; // Large flicker range
+    torch.flickerSpeed =
+        1.0f + (rand() % 100) / 100.0f; // Much slower flicker (1.0 - 2.0)
+    torch.flickerAmount = 0.8f;         // Large flicker range
     lights.push_back(torch);
   }
 
@@ -390,7 +507,7 @@ void Level2::update(float deltaTime, Player *player,
             if (heightDiff < 2.0f) {
               // Hit detected!
               stalactiteHits++;
-              
+
               // Take heart damage
               player->takeDamage();
 
@@ -465,7 +582,7 @@ void Level2::update(float deltaTime, Player *player,
           );
 
           player->transform.position += totalPush * deltaTime;
-          
+
           // Take heart damage once per geyser contact (using flash as cooldown)
           if (player->damageFlashIntensity < 0.1f) {
             player->takeDamage();

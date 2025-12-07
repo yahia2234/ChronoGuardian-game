@@ -4,7 +4,9 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/Users/yahia/Desktop/graphics project/include" -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
+CXX_INCLUDES = -I/Users/omar/Desktop/GUC/Chron0/ChronoGuardian-game/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /opt/homebrew/include
 
-CXX_FLAGS = -std=gnu++17 -F/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk/System/Library/Frameworks 
+CXX_FLAGSarm64 = -std=gnu++17 -arch arm64 -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.sdk/System/Library/Frameworks 
+
+CXX_FLAGS = -std=gnu++17 -arch arm64 -F/Library/Developer/CommandLineTools/SDKs/MacOSX15.sdk/System/Library/Frameworks 
 

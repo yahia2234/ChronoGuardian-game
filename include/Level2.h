@@ -17,6 +17,7 @@ private:
   void createSkeletons();
   void createCollectible();
   void createPedestal();
+  void createScatteredRocks();
   void setupLighting();
 
   GameObject *pedestal;
