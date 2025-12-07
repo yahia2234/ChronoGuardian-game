@@ -624,8 +624,15 @@ void Level2::update(float deltaTime, Player *player,
 
   // Check if gem was collected and player reached pedestal
   if (hasCollectible && pedestal && !endingCutscene) {
+    // Create a larger triggering zone (Fixed large size) for easier win
+    // detection The model scale is small (0.2), so using it for bounds creates
+    // a tiny box. We use a fixed 3x3x3 area to ensure the player can easily
+    // trigger it.
+    AABB winTriggerBox = Physics::createAABBFromTransform(
+        pedestal->transform.position, glm::vec3(3.0f, 4.0f, 3.0f));
+
     if (Physics::checkSphereAABBCollision(player->collisionSphere,
-                                          pedestal->boundingBox)) {
+                                          winTriggerBox)) {
       if (!gemPlaced) {
         gemPlaced = true;
         endingCutscene = true;
