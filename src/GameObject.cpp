@@ -216,7 +216,7 @@ Geyser::Geyser(const glm::vec3 &position)
 
   mesh.reset(Mesh::createCylinder(1.5f, 0.15f,
                                   16)); // Much larger radius for bigger hitbox
-  color = glm::vec3(0.25f, 0.2f, 0.2f); // Dark wet rock
+  color = glm::vec3(0.45f, 0.35f, 0.25f); // Brighter visible brown/orange
 
   pushForce = glm::vec3(0.0f, 15.0f, 0.0f);
 

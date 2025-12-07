@@ -103,6 +103,57 @@ void main() {
         } else if (materialType == 3) { // Rock/Cave
             float n = noise(FragPos.xz * 2.0 + FragPos.y);
             finalObjectColor *= (0.5 + 0.5 * n); // More pronounced rock texture
+        } else if (materialType == 4) { // Cave Walls - Enhanced rocky texture
+            // Multi-octave noise for realistic cave walls and floors
+            vec3 pos = FragPos * 0.5;
+            
+            // Use different coordinates for floors vs walls for better texture
+            vec2 texCoord;
+            if (abs(Normal.y) > 0.9) { // Horizontal surface (floor/ceiling)
+                texCoord = pos.xz;
+            } else { // Vertical surface (walls)
+                texCoord = pos.xy + pos.z;
+            }
+            
+            float n1 = noise(texCoord);
+            float n2 = noise(texCoord * 2.0) * 0.5;
+            float n3 = noise(texCoord * 4.0) * 0.25;
+            float combined = n1 + n2 + n3;
+            
+            // Add cracks and crevices
+            float cracks = noise(texCoord * 8.0);
+            if (cracks < 0.3) {
+                combined *= 0.4; // Dark cracks
+            }
+            
+            // Apply variation to base color with more contrast
+            finalObjectColor *= (0.3 + 0.7 * combined);
+            
+            // Add slight color variation for realism
+            float colorVar = noise(texCoord * 0.3);
+            finalObjectColor += vec3(0.08, 0.05, 0.03) * colorVar;
+        } else if (materialType == 5) { // Muddy Ground
+            // Create muddy, wet ground appearance
+            vec2 mudPos = FragPos.xz * 1.5;
+            float n1 = noise(mudPos);
+            float n2 = noise(mudPos * 3.0) * 0.4;
+            float n3 = noise(mudPos * 7.0) * 0.2;
+            float mudNoise = n1 + n2 + n3;
+            
+            // Darker muddy patches
+            float mudPatches = noise(mudPos * 0.8);
+            if (mudPatches < 0.4) {
+                mudNoise *= 0.5; // Very dark mud
+            }
+            
+            // Apply brown/dark tones
+            vec3 mudColor = objectColor * (0.3 + 0.4 * mudNoise);
+            
+            // Add slight wetness shimmer
+            float wetness = noise(mudPos * 5.0 + time * 0.1);
+            mudColor += vec3(0.05, 0.04, 0.03) * wetness * 0.3;
+            
+            finalObjectColor = mudColor;
         }
     }
 

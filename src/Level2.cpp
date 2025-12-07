@@ -12,6 +12,7 @@ void Level2::init() {
   createCavern();
   createStalactites();
   createGeysers();
+  createSkeletons(); // Add skeletons in corners
   createCollectible();
   createPedestal();
   setupLighting();
@@ -36,33 +37,111 @@ void Level2::createCavern() {
   // North wall (irregular rough rock)
   createWall(glm::vec3(0.0f, roomHeight / 2, roomDepth / 2),
              glm::vec3(roomWidth, roomHeight, 1.0f), rockColor);
-  walls.back()->materialType = 3; // Rock texture
+  walls.back()->materialType = 4; // Cave wall texture
 
   // South wall
   createWall(glm::vec3(0.0f, roomHeight / 2, -roomDepth / 2),
              glm::vec3(roomWidth, roomHeight, 1.0f), rockColor);
-  walls.back()->materialType = 3; // Rock texture
+  walls.back()->materialType = 4; // Cave wall texture
 
   // East wall (irregular rough rock)
   createWall(glm::vec3(roomWidth / 2, roomHeight / 2, 0.0f),
              glm::vec3(1.0f, roomHeight, roomDepth), rockColor);
-  walls.back()->materialType = 3; // Rock texture
+  walls.back()->materialType = 4; // Cave wall texture
 
   // West wall
   createWall(glm::vec3(-roomWidth / 2, roomHeight / 2, 0.0f),
              glm::vec3(1.0f, roomHeight, roomDepth), rockColor);
-  walls.back()->materialType = 3; // Rock texture
+  walls.back()->materialType = 4; // Cave wall texture
 
   // Ceiling (rough cave rock)
   createWall(glm::vec3(0.0f, roomHeight, 0.0f),
              glm::vec3(roomWidth, 1.0f, roomDepth), rockColor);
-  walls.back()->materialType = 3; // Rock texture
+  walls.back()->materialType = 4; // Cave wall texture
 
-  // Uneven dirt floor with distinct earthy color
-  glm::vec3 dirtColor(0.35f, 0.28f, 0.18f); // Rich dirt brown
-  createFloor(glm::vec3(0.0f, 0.0f, 0.0f),
-              glm::vec3(roomWidth, 0.1f, roomDepth), dirtColor);
-  walls.back()->materialType = 3; // Rock texture for ground
+  // Cave floor with visible rocky texture - using cube mesh for visibility
+  glm::vec3 caveFloorColor(0.85f, 0.75f, 0.60f); // Very light brown for visibility
+  createWall(glm::vec3(0.0f, -0.5f, 0.0f),  // Centered at Y=-0.5 so top is at Y=0
+             glm::vec3(roomWidth, 1.0f, roomDepth), caveFloorColor);
+  walls.back()->materialType = 4; // Cave texture for ground
+  
+  // Create a winding muddy path using oriented rectangular segments
+  glm::vec3 mudColor(0.50f, 0.38f, 0.28f); // Visible muddy brown
+  
+  // Define path waypoints that curve around the vents (serpentine path)
+  std::vector<glm::vec2> pathPoints = {
+    {0.0f, -28.0f},    // Start at south
+    {-3.0f, -25.0f},   // Smooth transition
+    {-6.0f, -22.0f},   // Curve left around vent at (0, -20)
+    {-8.0f, -18.0f},   // Smooth curve
+    {-10.0f, -15.0f},  // Continue curving  
+    {-8.0f, -11.0f},   // Smooth transition
+    {-5.0f, -8.0f},    // Curve back right around vent at (-8, -8)
+    {0.0f, -5.0f},     // Smooth curve
+    {4.0f, -3.0f},     // Pass between center vents
+    {6.0f, 0.0f},      // Smooth curve
+    {8.0f, 3.0f},      // Curve right around vent at (0, 5)
+    {7.0f, 7.0f},      // Smooth curve
+    {5.0f, 10.0f},     // Continue curving
+    {1.0f, 13.0f},     // Smooth curve
+    {-4.0f, 15.0f},    // Curve left around vent at (8, 8)
+    {-6.0f, 18.0f},    // Smooth curve
+    {-8.0f, 20.0f},    // Continue curving
+    {-5.0f, 24.0f},    // Smooth transition
+    {0.0f, 28.0f}      // End at north
+  };
+  
+  // Create connected rectangular segments between waypoints
+  float pathWidth = 4.0f; // Width of the muddy path
+  
+  for (size_t i = 0; i < pathPoints.size() - 1; i++) {
+    glm::vec2 start = pathPoints[i];
+    glm::vec2 end = pathPoints[i + 1];
+    
+    // Calculate segment properties
+    glm::vec2 direction = end - start;
+    float length = glm::length(direction);
+    glm::vec2 midpoint = (start + end) * 0.5f;
+    
+    // Calculate rotation angle (around Y axis)
+    float angle = atan2(direction.x, direction.y);
+    
+    // Slight color variation for natural look
+    glm::vec3 patchColor = mudColor + glm::vec3((rand() % 8 - 4) / 100.0f, 
+                                                 (rand() % 6 - 3) / 100.0f, 
+                                                 (rand() % 4 - 2) / 100.0f);
+    
+    // Create oriented rectangular segment
+    auto mudSegment = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
+    mudSegment->transform.position = glm::vec3(midpoint.x, 0.02f, midpoint.y);
+    mudSegment->transform.scale = glm::vec3(pathWidth, 0.08f, length + 0.5f);
+    mudSegment->transform.rotate(angle, glm::vec3(0, 1, 0)); // Rotate to align with path
+    mudSegment->mesh.reset(Mesh::createCube(1.0f));
+    mudSegment->color = patchColor;
+    mudSegment->materialType = 5;
+    mudSegment->updateBoundingBox();
+    walls.push_back(std::move(mudSegment));
+  }
+  
+  // Add circular disc caps at each waypoint to smooth the angle transitions
+  for (size_t i = 0; i < pathPoints.size(); i++) {
+    glm::vec2 pos = pathPoints[i];
+    
+    // Slight color variation
+    glm::vec3 capColor = mudColor + glm::vec3((rand() % 6 - 3) / 100.0f,
+                                               (rand() % 4 - 2) / 100.0f,
+                                               (rand() % 3 - 1) / 100.0f);
+    
+    // Create circular cap using cylinder (flat disc)
+    auto cap = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
+    cap->transform.position = glm::vec3(pos.x, 0.025f, pos.y);
+    cap->transform.scale = glm::vec3(pathWidth * 0.55f, 0.06f, pathWidth * 0.55f); // Slightly larger than path width
+    cap->mesh.reset(Mesh::createCylinder(1.0f, 1.0f, 24)); // 24-segment cylinder for smooth circle
+    cap->color = capColor;
+    cap->materialType = 5;
+    cap->updateBoundingBox();
+    walls.push_back(std::move(cap));
+  }
 }
 
 void Level2::createStalactites() {
@@ -108,6 +187,53 @@ void Level2::createGeysers() {
   for (const auto &pos : geyserPositions) {
     auto geyser = std::make_unique<Geyser>(pos);
     objects.push_back(std::move(geyser));
+    
+    // Add a complete tight circle of rocks around each vent using rock model
+    int numRocks = 20 + (rand() % 5); // 20-24 rocks for complete tight circle
+    for (int r = 0; r < numRocks; r++) {
+      // Evenly spaced around the circle
+      float angle = (float)r / numRocks * 2.0f * 3.14159f;
+      float distance = 2.2f + (rand() % 30) / 100.0f; // 2.2-2.5 units from center
+      
+      float rockX = pos.x + cos(angle) * distance;
+      float rockZ = pos.z + sin(angle) * distance;
+      
+      // Rock scale
+      float rockScale = 0.15f + (rand() % 10) / 100.0f; // 0.15-0.25 scale
+      
+      auto rock = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
+      rock->transform.position = glm::vec3(rockX, 0.0f, rockZ);
+      rock->transform.scale = glm::vec3(rockScale);
+      // Random rotation for variety
+      rock->transform.rotate((rand() % 360) * 3.14159f / 180.0f, glm::vec3(0, 1, 0));
+      rock->loadModel("assets/models/random_rock.glb");
+      rock->color = glm::vec3(0.55f, 0.48f, 0.40f); // Light brown-gray
+      rock->materialType = 4; // Cave rock texture
+      rock->updateBoundingBox();
+      objects.push_back(std::move(rock));
+    }
+  }
+}
+
+void Level2::createSkeletons() {
+  // Add skeleton models in each corner of the cave
+  std::vector<std::pair<glm::vec3, float>> cornerPositions = {
+    {{-26.0f, 0.0f, -26.0f}, 45.0f},   // Southwest corner, facing NE
+    {{26.0f, 0.0f, -26.0f}, 135.0f},   // Southeast corner, facing NW
+    {{-26.0f, 0.0f, 26.0f}, -45.0f},   // Northwest corner, facing SE
+    {{26.0f, 0.0f, 26.0f}, -135.0f}    // Northeast corner, facing SW
+  };
+  
+  for (const auto& [pos, rotation] : cornerPositions) {
+    auto skeleton = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
+    skeleton->transform.position = pos;
+    skeleton->transform.scale = glm::vec3(0.1f); // Small skeleton size
+    skeleton->transform.rotate(glm::radians(rotation), glm::vec3(0, 1, 0));
+    skeleton->loadModel("assets/models/human_skeleton_download_free.glb");
+    skeleton->color = glm::vec3(0.9f, 0.85f, 0.75f); // Bone white color
+    skeleton->isActive = true;
+    skeleton->updateBoundingBox();
+    objects.push_back(std::move(skeleton));
   }
 }
 

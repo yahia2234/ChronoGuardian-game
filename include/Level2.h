@@ -14,6 +14,7 @@ private:
   void createCavern();
   void createStalactites();
   void createGeysers();
+  void createSkeletons();
   void createCollectible();
   void createPedestal();
   void setupLighting();

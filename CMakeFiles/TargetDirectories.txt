@@ -1,3 +1,0 @@
-/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/CMakeFiles/ChronoGuardian.dir
-/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/CMakeFiles/edit_cache.dir
-/Users/minahossam/graphis proj/graphisss/ChronoGuardian-game/CMakeFiles/rebuild_cache.dir
