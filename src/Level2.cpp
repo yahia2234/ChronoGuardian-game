@@ -245,14 +245,15 @@ void Level2::createSkeletons() {
   for (const auto &[pos, rotation] : positions) {
     auto skeleton = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
     skeleton->transform.position = pos;
-    skeleton->transform.scale = glm::vec3(0.1f); // New requested scale
+    // Scale 0.1 seems correct provided model is reasonable size.
+    // If invisible, model might be offset. Ensure Y is correct.
+    skeleton->transform.scale = glm::vec3(0.1f);
     skeleton->transform.rotate(glm::radians(rotation), glm::vec3(0, 1, 0));
     skeleton->loadCachedModel("assets/models/human_skeleton_download_free.glb");
     skeleton->color = glm::vec3(0.9f, 0.85f, 0.75f); // Bone white color
     skeleton->isActive = true;
 
     // Adjusted bounding box for new 0.1 scale
-    // Assuming 0.1 scale makes it roughly person-sized or slightly larger
     skeleton->boundingBox =
         Physics::createAABBFromTransform(pos, glm::vec3(1.5f, 3.0f, 1.5f));
 
@@ -414,11 +415,17 @@ void Level2::setupLighting() {
   for (const auto &pos : torchPositions) {
     // Create visual torch model
     auto torchModel = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
-    torchModel->transform.position = pos;
 
-    // Load new model
+    // Create rock holder model (new feature)
+    auto rockHolder = std::make_unique<GameObject>(GameObjectType::STATIC_WALL);
+
+    // Load models
     torchModel->loadCachedModel("assets/models/medieval_torch.glb");
+    rockHolder->loadCachedModel(
+        "assets/models/random_rock.glb"); // Reuse rock model
+
     torchModel->transform.scale = glm::vec3(0.15f); // Much smaller scale
+    rockHolder->transform.scale = glm::vec3(0.2f);  // Requested 0.2x scale
 
     // Rotate to stick out of wall and tilt slightly up
     // Also offset position slightly to not be buried in wall
@@ -426,33 +433,44 @@ void Level2::setupLighting() {
     float offset = 0.2f;                    // Distance from wall center
     float tiltAngle = glm::radians(-15.0f); // Tilt up slightly
 
-    // Adjusted rotations to align flat side with wall (rotated 90 degrees from
-    // previous)
+    // Apply transformations based on wall orientation
     if (pos.z < -27.0f) { // North wall
       adjustedPos.z += offset;
-      torchModel->transform.position = adjustedPos;
       torchModel->transform.rotate(glm::radians(90.0f), glm::vec3(0, 1, 0));
-      torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
-    } else if (pos.z > 27.0f) {                                    // South wall
+      torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0));
+
+      // Rock also rotated
+      rockHolder->transform.rotate(glm::radians(90.0f), glm::vec3(0, 1, 0));
+    } else if (pos.z > 27.0f) { // South wall
       adjustedPos.z -= offset;
-      torchModel->transform.position = adjustedPos;
       torchModel->transform.rotate(glm::radians(-90.0f), glm::vec3(0, 1, 0));
-      torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
-    } else if (pos.x < -27.0f) {                                   // West wall
+      torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0));
+
+      rockHolder->transform.rotate(glm::radians(-90.0f), glm::vec3(0, 1, 0));
+    } else if (pos.x < -27.0f) { // West wall
       adjustedPos.x += offset;
-      torchModel->transform.position = adjustedPos;
       torchModel->transform.rotate(glm::radians(0.0f), glm::vec3(0, 1, 0));
-      torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
-    } else if (pos.x > 27.0f) {                                    // East wall
+      torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0));
+
+      rockHolder->transform.rotate(glm::radians(0.0f), glm::vec3(0, 1, 0));
+    } else if (pos.x > 27.0f) { // East wall
       adjustedPos.x -= offset;
-      torchModel->transform.position = adjustedPos;
       torchModel->transform.rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
-      torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0)); // Tilt up
+      torchModel->transform.rotate(tiltAngle, glm::vec3(1, 0, 0));
+
+      rockHolder->transform.rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
     }
 
+    torchModel->transform.position = adjustedPos;
     torchModel->color = glm::vec3(1.0f, 0.5f, 0.2f); // Glowing orange tint
     torchModel->updateBoundingBox();
     objects.push_back(std::move(torchModel));
+
+    // Position rock slightly below/integrated with torch
+    rockHolder->transform.position = adjustedPos;     // Same base pos
+    rockHolder->color = glm::vec3(0.5f, 0.45f, 0.4f); // Rock color
+    rockHolder->updateBoundingBox();
+    objects.push_back(std::move(rockHolder));
 
     // Create light
     Light torch;
@@ -643,17 +661,22 @@ void Level2::update(float deltaTime, Player *player,
         gemCollectible->transform.position =
             pedestal->transform.position + glm::vec3(shake, 1.5f + bob, shake);
 
-        // Add pulsing red light from the gem
-        float pulseIntensity =
-            10.0f + sin(cutsceneTimer * 8.0f) * 5.0f; // Pulse 5-15
+        // Add pulsing red light from the gem - ENSURING IT IS PRESENT
+        float pulseIntensity = (10.0f + sin(cutsceneTimer * 8.0f) * 5.0f) *
+                               0.5f; // Pulse 5-15, reduced by 0.5x
         Light gemLight;
         gemLight.position = gemCollectible->transform.position;
-        gemLight.color = glm::vec3(1.0f, 0.1f, 0.1f); // Bright red
+        gemLight.color = glm::vec3(1.0f, 0.0f, 0.0f); // Pure Bright red
         gemLight.intensity = pulseIntensity;
         gemLight.flickerSpeed = 0.0f;
         gemLight.flickerAmount = 0.0f;
-        // Update or add light (replace last light if it exists)
-        if (lights.size() > 15) {
+
+        // Update or add light
+        // With expanded light limit (32), we can safely add it if not present
+        // Or if we suspect we added it last frame, we update the last one.
+        // Simple heuristic: if we have more lights than initial setup (12),
+        // update the last one.
+        if (lights.size() > 12) {
           lights.back() = gemLight;
         } else {
           lights.push_back(gemLight);
@@ -672,20 +695,20 @@ void Level2::update(float deltaTime, Player *player,
       }
 
       // Intensifying pulsing light - gets brighter as pedestal rises
-      float baseIntensity = 20.0f + riseProgress * 30.0f; // 20 to 50
-      float pulse = sin(cutsceneTimer * 10.0f) * 10.0f;   // Faster pulse
-      float totalIntensity = baseIntensity + pulse;
+      float baseIntensity = 20.0f + riseProgress * 30.0f;    // 20 to 50
+      float pulse = sin(cutsceneTimer * 10.0f) * 10.0f;      // Faster pulse
+      float totalIntensity = (baseIntensity + pulse) * 0.5f; // Reduced by 0.5x
 
       Light gemLight;
       gemLight.position =
           pedestal->transform.position + glm::vec3(0.0f, 2.0f, 0.0f);
-      gemLight.color = glm::vec3(1.0f, 0.05f, 0.05f); // Very bright red
+      gemLight.color = glm::vec3(1.0f, 0.0f, 0.0f); // Pure Bright red
       gemLight.intensity = totalIntensity;
       gemLight.flickerSpeed = 0.0f;
       gemLight.flickerAmount = 0.0f;
 
       // Update light
-      if (lights.size() > 15) {
+      if (lights.size() > 12) {
         lights.back() = gemLight;
       } else {
         lights.push_back(gemLight);

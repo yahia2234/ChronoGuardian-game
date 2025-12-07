@@ -17,7 +17,7 @@ struct Light {
     float intensity;
 };
 
-uniform Light lights[10];
+uniform Light lights[32];
 uniform int numLights;
 uniform vec3 ambientLight;
 
