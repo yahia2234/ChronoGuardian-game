@@ -17,6 +17,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/ChronoGuardian.dir/src/Level2.cpp.o.d"
   "CMakeFiles/ChronoGuardian.dir/src/Mesh.cpp.o"
   "CMakeFiles/ChronoGuardian.dir/src/Mesh.cpp.o.d"
+  "CMakeFiles/ChronoGuardian.dir/src/Model.cpp.o"
+  "CMakeFiles/ChronoGuardian.dir/src/Model.cpp.o.d"
   "CMakeFiles/ChronoGuardian.dir/src/ParticleSystem.cpp.o"
   "CMakeFiles/ChronoGuardian.dir/src/ParticleSystem.cpp.o.d"
   "CMakeFiles/ChronoGuardian.dir/src/Physics.cpp.o"

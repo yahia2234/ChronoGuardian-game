@@ -48,6 +48,12 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
     ID = glCreateProgram();
     glAttachShader(ID, vertex);
     glAttachShader(ID, fragment);
+    
+    // Bind attribute locations BEFORE linking (required for GLSL 1.20)
+    glBindAttribLocation(ID, 0, "aPos");
+    glBindAttribLocation(ID, 1, "aNormal");
+    glBindAttribLocation(ID, 2, "aTexCoord");
+    
     glLinkProgram(ID);
     checkCompileErrors(ID, "PROGRAM");
 
@@ -85,6 +91,10 @@ void Shader::setVec3(const std::string& name, float x, float y, float z) const {
 
 void Shader::setMat4(const std::string& name, const glm::mat4& mat) const {
     glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+}
+
+void Shader::setMat3(const std::string& name, const glm::mat3& mat) const {
+    glUniformMatrix3fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
 
 void Shader::checkCompileErrors(GLuint shader, const std::string& type) {

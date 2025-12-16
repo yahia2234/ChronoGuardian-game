@@ -1,22 +1,21 @@
 #include "Game.h"
 #include <iostream>
 
-int main() {
-    std::cout << "====================================" << std::endl;
-    std::cout << "    CHRONO GUARDIAN" << std::endl;
-    std::cout << "    3D Puzzle Platformer" << std::endl;
-    std::cout << "====================================" << std::endl;
-    std::cout << std::endl;
+int main(int argc, char **argv) {
+  std::cout << "====================================" << std::endl;
+  std::cout << "    CHRONO GUARDIAN" << std::endl;
+  std::cout << "    3D Puzzle Platformer" << std::endl;
+  std::cout << "====================================" << std::endl;
+  std::cout << std::endl;
 
-    Game game;
+  Game game;
 
-    if (!game.init()) {
-        std::cerr << "Failed to initialize game!" << std::endl;
-        return -1;
-    }
+  if (!game.init()) {
+    std::cerr << "Failed to initialize game!" << std::endl;
+    return -1;
+  }
 
-    game.run();
-    game.cleanup();
+  game.run();
 
-    return 0;
+  return 0;
 }

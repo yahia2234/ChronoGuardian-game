@@ -9,56 +9,64 @@
 #include <AL/alc.h>
 #endif
 
-#include <string>
 #include <map>
+#include <string>
 #include <vector>
 
 enum class SoundEffect {
-    MOVEMENT,
-    WALL_COLLISION,
-    OBSTACLE_HIT,
-    TILE_CRACK,
-    COLLECTIBLE_PICKUP,
-    LEVEL_COMPLETE,
-    AMBIENT_HUM
+  MOVEMENT,
+  WALL_COLLISION,
+  OBSTACLE_HIT,
+  TILE_CRACK,
+  COLLECTIBLE_PICKUP,
+  COIN_COLLECT,
+  GEM_COLLECT,
+  LEVEL_COMPLETE,
+  GAME_OVER,
+  WIN_JINGLE,
+  DOOR_OPEN,
+  AMBIENT_HUM
 };
 
 class AudioManager {
 public:
-    static AudioManager& getInstance() {
-        static AudioManager instance;
-        return instance;
-    }
+  static AudioManager &getInstance() {
+    static AudioManager instance;
+    return instance;
+  }
 
-    bool init();
-    void cleanup();
-    
-    void playSound(SoundEffect effect, float volume = 1.0f, bool loop = false);
-    void stopSound(SoundEffect effect);
-    void stopAllSounds();
-    
-    void setMasterVolume(float volume);
-    void generateProceduralSounds();
+  bool init();
+  void cleanup();
+
+  void playSound(SoundEffect effect, float volume = 1.0f, bool loop = false);
+  void stopSound(SoundEffect effect);
+  void stopAllSounds();
+
+  void setMasterVolume(float volume);
+  void generateProceduralSounds();
 
 private:
-    AudioManager();
-    ~AudioManager();
-    AudioManager(const AudioManager&) = delete;
-    AudioManager& operator=(const AudioManager&) = delete;
+  AudioManager();
+  ~AudioManager();
+  AudioManager(const AudioManager &) = delete;
+  AudioManager &operator=(const AudioManager &) = delete;
 
-    ALCdevice* device;
-    ALCcontext* context;
-    
-    std::map<SoundEffect, ALuint> buffers;
-    std::map<SoundEffect, ALuint> sources;
-    
-    float masterVolume;
-    
-    void generateSineWave(std::vector<short>& buffer, float frequency, float duration, int sampleRate);
-    void generateNoiseWave(std::vector<short>& buffer, float duration, int sampleRate);
-    ALuint createBuffer(const std::vector<short>& data, int sampleRate);
-    ALuint createSource();
+  ALCdevice *device;
+  ALCcontext *context;
+
+  std::map<SoundEffect, ALuint> buffers;
+  std::map<SoundEffect, ALuint> sources;
+
+  float masterVolume;
+
+  void generateSineWave(std::vector<short> &buffer, float frequency,
+                        float duration, int sampleRate);
+  void generateNoiseWave(std::vector<short> &buffer, float duration,
+                         int sampleRate);
+  bool loadWavFile(const std::string &filename, std::vector<short> &buffer,
+                   int &sampleRate);
+  ALuint createBuffer(const std::vector<short> &data, int sampleRate);
+  ALuint createSource();
 };
 
 #endif
-

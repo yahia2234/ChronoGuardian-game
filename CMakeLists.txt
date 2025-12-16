@@ -5,12 +5,16 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find required packages
+# Find required packages
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(GLEW REQUIRED)
 
 # GLM (header-only library)
 find_package(glm REQUIRED)
+
+# Assimp for 3D model loading
+find_package(assimp REQUIRED)
 
 # Source files
 set(SOURCES
@@ -28,6 +32,7 @@ set(SOURCES
     src/Renderer.cpp
     src/Texture.cpp
     src/Mesh.cpp
+    src/Model.cpp
     src/ParticleSystem.cpp
     src/AudioManager.cpp
 )
@@ -47,6 +52,7 @@ set(HEADERS
     include/Renderer.h
     include/Texture.h
     include/Mesh.h
+    include/Model.h
     include/ParticleSystem.h
     include/AudioManager.h
     include/GameObject.h
@@ -69,6 +75,7 @@ target_link_libraries(${PROJECT_NAME}
     glfw
     GLEW::GLEW
     glm::glm
+    assimp::assimp
 )
 
 # Add OpenAL for audio (macOS has it built-in)
